@@ -1,12 +1,8 @@
-import * as React from "react"
+import React from 'react'
 
-function About(props) {
+const About = (props) => {
   return (
-    <>
-        <div className="px-4 py-2">           
-            <h1>Controle de Estoque</h1>
-        </div>
-    </>
+    <div className="pl-16 pt-20">About</div>
   )
 }
 

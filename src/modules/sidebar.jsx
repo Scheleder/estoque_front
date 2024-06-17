@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Link } from "react-router-dom"
 
 import {
     Copyright,
@@ -20,7 +21,7 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-function Sidebar(props) {
+const Sidebar = (props) => {
     return (
         <>
             <div className="flex min-h-screen w-12 flex-col bg-muted/40">
@@ -30,8 +31,9 @@ function Sidebar(props) {
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>
-
-                                        <Home className="hover:text-red-500" />
+                                        <Link to="/">
+                                            <Home className="hover:text-red-500" />
+                                        </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p className="text-red-200">Página Inicial</p>
@@ -43,8 +45,9 @@ function Sidebar(props) {
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>
-
-                                        <Piece className="hover:text-purple-500" />
+                                        <Link to="/items">
+                                            <Piece className="hover:text-purple-500" />
+                                        </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p className="text-purple-100">Itens de Estoque</p>
@@ -56,8 +59,9 @@ function Sidebar(props) {
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>
-
-                                        <Package2 className="hover:text-cyan-400" />
+                                        <Link to="/supply">
+                                            <Package2 className="hover:text-cyan-400" />
+                                        </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p className="text-cyan-100">Entrada de Material</p>
@@ -69,8 +73,9 @@ function Sidebar(props) {
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>
-
-                                        <ShoppingBasket className="hover:text-lime-500" />
+                                        <Link to="/takeout">
+                                            <ShoppingBasket className="hover:text-lime-500" />
+                                        </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p className="text-lime-100">Saída de Material</p>
@@ -82,8 +87,9 @@ function Sidebar(props) {
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>
-
-                                        <Moves className="hover:text-yellow-300" />
+                                        <Link to="/moves">
+                                            <Moves className="hover:text-yellow-300" />
+                                        </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p className="text-yellow-100">Movimentações</p>
@@ -97,7 +103,9 @@ function Sidebar(props) {
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>
-                                        <Settings className="hover:text-orange-600" />
+                                        <Link to="/settings">
+                                            <Settings className="hover:text-orange-600" />
+                                        </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p className="text-orange-200">Configurações</p>
