@@ -6,7 +6,7 @@ const Users = () => {
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
 
-  const getUsers = async () => {
+  const getData = async () => {
     try {
       setIsProcessing(true);
       const response = await api.get('users');
@@ -21,12 +21,12 @@ const Users = () => {
   };
 
   useEffect(() => {
-    getUsers();
+    getData();
   }, []);
 
   return (
     <div className="pl-16 pt-20">
-      <h2>Users</h2>
+      <h2>Usuários</h2>
     
       {isProcessing ? (
         <div className="loading">Carregando Dados...</div>
