@@ -23,32 +23,34 @@ import {
 const Header = (props) => {
   return (
     <>
-      <div className="fixed z-0 w-full h-16 flex gap-4 grid-cols-4 grid-rows-1 justify-between pl-16 px-2 py-2 border-b-zinc-100 border-b-2">
-        <div className="">
-          <Logo />
-        </div>        <div>
-          <h2 className="font-light lg:text-3xl md:text-xl mt-4 text-zinc-400">Gerenciamento de Estoque</h2>
-        </div>
+      <div className="will-change-scroll fixed z-0 w-full h-16 flex gap-4 grid-cols-4 grid-rows-1 justify-between pl-16 px-2 py-2 bg-zinc-50 border-b-zinc-100 border-b-2">
+
+        <div>
+          <h2 className="font-normal lg:text-2xl md:text-xl mt-4 text-sky-600">Gerenciamento de Estoque</h2>
+        </div> 
         <div className="relative">
-          <Search className="absolute left-2.5 top-4 h-4 w-4 text-zinc-600" />
+          <Search className="absolute left-2.5 top-6 h-4 w-4 text-zinc-600" />
           <Input
             type="search"
             placeholder="Procurar..."
-            className="w-full rounded-lg bg-zinc-50 px-8 mt-2 md:w-[200px] lg:w-[320px] text-center text-zinc-600"
+            className="w-full mt-3 rounded-lg bg-white mb-2 px-8 md:w-[150px] lg:w-[200px] text-center text-zinc-600"
           />
         </div>
-        <div>
+        <div className="">
+          <Logo />
+        </div>
+        <div className="justify-end">
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
                 size="icon"
-                className="overflow-hidden rounded-full mt-2 mx-4 justify-end"
+                className="rounded-full mt-2 mx-4 justify-end"
               >
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage src="https://github.com/scheleder.png"/>
+                  <AvatarFallback>JS</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
@@ -61,7 +63,7 @@ const Header = (props) => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link to="/about">
+                <Link to="/users">
                   Ajuda
                 </Link>
               </DropdownMenuItem>

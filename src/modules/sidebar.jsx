@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
 
+
 import {
     Copyright,
     Package,
@@ -20,6 +21,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import WareHouse from "@/assets/warehouse"
 
 const Sidebar = (props) => {
     return (
@@ -27,12 +29,12 @@ const Sidebar = (props) => {
             <div className="flex min-h-screen w-12 flex-col bg-muted/40">
                 <aside className="fixed inset-y-0 left-0 z-10 hidden w-12 flex-col border-r bg-zinc-100 sm:flex">
                     <nav className="flex flex-col items-center gap-4 px-2 py-4">
-                        <div className="mt-4">
+                        <div className="mt-3">
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>
                                         <Link to="/">
-                                            <Home className="hover:text-red-500" />
+                                        <img src="src/assets/warehouse_64.png" alt="WH"  width={32} height={32}/>
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
@@ -41,7 +43,7 @@ const Sidebar = (props) => {
                                 </Tooltip>
                             </TooltipProvider>
                         </div>
-                        <div className="mt-4">
+                        <div className="mt-8">
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>
