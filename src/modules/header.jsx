@@ -26,7 +26,7 @@ const Header = (props) => {
       <div className="will-change-scroll fixed z-0 w-full h-16 flex gap-4 grid-cols-4 grid-rows-1 justify-between pl-16 px-2 py-2 bg-zinc-50 border-b-zinc-100 border-b-2">
 
         <div>
-          <h2 className="font-normal lg:text-2xl md:text-xl mt-4 text-sky-600">Gerenciamento de Estoque</h2>
+          <h2 className="font-normal lg:text-2xl md:text-xl mt-4 text-orange-400">Gerenciamento de Estoque</h2>
         </div> 
         <div className="relative">
           <Search className="absolute left-2.5 top-6 h-4 w-4 text-zinc-600" />
