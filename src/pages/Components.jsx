@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
 
-const Users = () => {
+const Components = () => {
   const [data, setData] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ const Users = () => {
   const getData = async () => {
     try {
       setIsProcessing(true);
-      const response = await api.get('users');
+      const response = await api.get('components');
       setData(response.data);
       console.log(response.data);
     } catch (err) {
@@ -26,19 +26,17 @@ const Users = () => {
 
   return (
     <div className="pl-16 pt-20">
-      <h2>Usuários</h2>
+      <h2>Componentes</h2>
     
       {isProcessing ? (
         <div className="loading">Carregando Dados...</div>
       ) : error ? (
         <div className="error">Erro ao carregar os dados: {error.message}</div>
-      ) : data.length === 0 ? (
-        <div className="zeroItems">Não há items.</div>
-      ) :(
+      ) : (
         <ul className="pl-2">
           {data.map((dt, index) => (
             <li key={index}>
-              {dt.id} <br /> {dt.name} <br /> {dt.email} <br /><br />
+              {dt.id} <br /> {dt.description} <br /> {dt.brand.name} <br />{dt.sku}<br />{dt.category.name}<br /><br />
             </li>
           ))}
         </ul>
@@ -47,4 +45,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Components;
