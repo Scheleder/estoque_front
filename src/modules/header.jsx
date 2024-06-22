@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import Logo from '../assets/logo.jsx'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx"
 import { Search } from "lucide-react"
@@ -19,37 +19,75 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.jsx"
+import Pagetitle from "@/components/pagetitle.jsx"
 
-const Header = (props) => {
+
+const Header = () => {
+  const location = useLocation();
+  //console.log(location)
+  var title = 'Gerenciamento de Estoque';
+  if (location) {
+    switch (true) {
+      case location.pathname === '/':
+        title = 'Gerenciamento de Estoque'
+        break;
+      case location.pathname === '/items':
+        title = 'Itens de Estoque'
+        break;
+      case location.pathname === '/users':
+        title = 'Usuários'
+        break;
+      case location.pathname === '/moves':
+        title = 'Movimentações de Estoque'
+        break;
+      case location.pathname === '/settings':
+        title = 'Configurações'
+        break;
+      case location.pathname === '/brands':
+        title = 'Fabricantes'
+        break;
+      case location.pathname === '/categories':
+        title = 'Categorias'
+        break;
+      case location.pathname === '/units':
+        title = 'Unidades de Medida'
+        break;
+      case location.pathname === '/supply':
+        title = 'Entrada de Material'
+        break;
+      case location.pathname === '/takeout':
+        title = 'Saída de Material'
+        break;
+      case location.pathname.includes('/users/'):
+        title = 'Meu perfil'
+        break;
+      default:
+        title = 'Gerenciamento de Estoque'
+        break;
+    }
+
+  }
+
   return (
     <>
       <div className="will-change-scroll fixed z-0 w-full h-16 flex gap-4 grid-cols-4 grid-rows-1 justify-between pl-16 px-2 py-2 bg-zinc-50 border-b-zinc-100 border-b-2">
 
         <div>
-          <h2 className="font-normal lg:text-2xl md:text-xl mt-4 text-orange-400">Gerenciamento de Estoque</h2>
-        </div> 
-        <div className="relative">
-          <Search className="absolute left-2.5 top-6 h-4 w-4 text-zinc-600" />
-          <Input
-            type="search"
-            placeholder="Procurar..."
-            className="w-full mt-3 rounded-lg bg-white mb-2 px-8 md:w-[150px] lg:w-[200px] text-center text-zinc-600"
-          />
+          <Pagetitle title={title} />
         </div>
-        <div className="">
-          <Logo />
-        </div>
-        <div className="justify-end">
 
-          <DropdownMenu>
+        <div className="flex justify-end">
+          <Logo className="mx-8"/>
+
+          <DropdownMenu className="z-0">
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
                 size="icon"
-                className="rounded-full mt-2 mx-4 justify-end"
+                className="rounded-full mt-2 mx-4"
               >
                 <Avatar>
-                  <AvatarImage src="https://github.com/scheleder.png"/>
+                  <AvatarImage src="https://github.com/scheleder.png" />
                   <AvatarFallback>JS</AvatarFallback>
                 </Avatar>
               </Button>

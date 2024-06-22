@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
-import { Eye } from "lucide-react"
+import { Eye, Search } from "lucide-react"
 import { Link } from 'react-router-dom';
+import { Input } from '@/components/ui/input';
 
 const Items = () => {
   const [data, setData] = useState([]);
@@ -28,7 +29,14 @@ const Items = () => {
 
   return (
     <div className="pl-16 pt-20">
-      <h2>Itens de Estoque</h2>
+      <div className="relative">
+        <Search className="absolute left-2.5 top-3 h-4 w-4 text-zinc-600" />
+        <Input
+          type="search"
+          placeholder="Procurar..."
+          className="w-full mt-3 rounded-lg bg-white mb-2 px-8 md:w-[150px] lg:w-[200px] text-center text-zinc-600"
+        />
+      </div>
 
       {isProcessing ? (
         <div className="loading">Carregando Dados...</div>
@@ -38,20 +46,22 @@ const Items = () => {
 
         <div className="mt-4 relative overflow-x-auto shadow-lg rounded-md">
           <table className="w-full text-xs xs:text-sm text-blue-900">
-            <tr className="text-xs h-6 text-white text-left uppercase bg-blue-900">
-              <th>Endereço de Estoque</th>
-              <th>Item</th>
-              <th>Quantidade</th>
-              <th></th>
-            </tr>
+            <thead>
+              <tr className="text-xs h-6 text-white text-left uppercase bg-blue-900">
+                <th>Endereço de Estoque</th>
+                <th>Item</th>
+                <th>Quantidade</th>
+                <th></th>
+              </tr>
+            </thead>
             <tbody>
               {
                 data.map((dt, index) => (
-                  <tr className='bg-gray-200 hover:bg-gray-300 font-semibold'>
+                  <tr key={index} className='bg-gray-200 hover:bg-gray-300 font-semibold'>
                     <td className='p-1'>{dt.adress}</td>
                     <td className='p-1'>{dt.Component.description}</td>
                     <td className='p-1'>{dt.quantity} {dt.Component.Unity.abrev}</td>
-                    <td className='p-1'><Link to={`/items/${dt.id}`}><Eye className='w-4 h-4 text-green-600' title='Visualizar'/></Link></td>
+                    <td className='p-1'><Link to={`/items/${dt.id}`}><Eye className='w-4 h-4 text-green-600' title='Visualizar' /></Link></td>
                   </tr>
                 ))
               }

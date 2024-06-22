@@ -48,19 +48,21 @@ const Movements = () => {
       ) : (
         <div className="mt-4 relative overflow-x-auto shadow-lg rounded-md">
           <table className="w-full text-xs xs:text-sm text-blue-900">
-            <tr className="text-xs h-6 text-white text-left uppercase bg-blue-900">
-              <th>Data</th>
-              <th>Tipo</th>
-              <th>Destino</th>
-              <th>Quantidade</th>
-              <th>Item SKU</th>
-              <th>Colaborador</th>
-              <th></th>
-            </tr>
+            <thead>
+              <tr className="text-xs h-6 text-white text-left uppercase bg-blue-900">
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Destino</th>
+                <th>Quantidade</th>
+                <th>Item SKU</th>
+                <th>Colaborador</th>
+                <th></th>
+              </tr>
+            </thead>
             <tbody>
               {
                 data.map((dt, index) => (
-                  <tr className='bg-gray-200 hover:bg-gray-300 font-semibold'>
+                  <tr key={index} className='bg-gray-200 hover:bg-gray-300 font-semibold'>
                     <td className='p-1'>{getDate(dt.createdAt)}</td>
                     <td className='p-1'>{dt.type}</td>
                     <td className='p-1'>{dt.destination}</td>

@@ -6,7 +6,7 @@ const Home = (props) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    console.log('aqui')
+    console.log('home')
   }, [count]);
 
   return (

@@ -21,7 +21,7 @@ const brands = [
 const Supply = (props) => {
   return (
     <div className="pl-16 pt-20"><h1>Entrada de Material</h1>
-      <div class="grid md:gap-6">
+      <div className="grid md:gap-6">
         <div className='flex m-2'>
         <label>Componente</label>
         <Select options={components} placeholder="Selecione o componente" />
@@ -30,7 +30,7 @@ const Supply = (props) => {
 
         </div>
       </div>
-      <div class="grid-cols-2 md:gap-6">
+      <div className="grid-cols-2 md:gap-6">
         <div className='flex'>
         <label>Fabricante</label>
         <Select options={brands} placeholder="Selecione o fabricante" />
@@ -44,7 +44,7 @@ const Supply = (props) => {
         <Button>Adicionar nova categoria</Button>
         </div>
       </div>
-      <div class="grid md:grid-cols-2 md:gap-6">
+      <div className="grid md:grid-cols-2 md:gap-6">
         <div className='flex'>
         <label htmlFor="">Endereço de estoque</label>
         <Input placeholder="Endereço de estoque"></Input>
