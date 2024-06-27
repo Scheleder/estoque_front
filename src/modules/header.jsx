@@ -77,7 +77,7 @@ const Header = () => {
         </div>
 
         <div className="flex justify-end">
-          <Logo className="mx-8"/>
+          <Logo className="mx-8" />
 
           <DropdownMenu className="z-0">
             <DropdownMenuTrigger asChild>
@@ -101,7 +101,7 @@ const Header = () => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link to="/users">
+                <Link to="/about">
                   Ajuda
                 </Link>
               </DropdownMenuItem>

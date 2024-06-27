@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
+import ButtonAdd from '@/components/buttonAdd';
 
 const Brands = () => {
   const [data, setData] = useState([]);
@@ -26,21 +28,33 @@ const Brands = () => {
   }, []);
 
   return (
-    <div className="pl-16 pt-20">
+    <>
       {isProcessing ? (
         <Loading />
       ) : error ? (
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : (
-        <ul className="pl-2">
-          {data.map((dt, index) => (
-            <li key={index}>
-              {dt.id} <br /> {dt.name} <br /><br />
-            </li>
-          ))}
-        </ul>
+        <div>
+          <ButtonAdd />
+          <ul className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-4">
+            {data.map((dt, index) => (
+              <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md my-4 bg-indigo-100 p-2'>
+                <div className=''>
+                  <Link to={`/brands/${dt.id}`}>
+                    <img src="src/assets/brand.png" alt="user" width={80} height={80} className='rounded-full border-2 border-white origin-center hover:rotate-45' />
+                  </Link>
+                </div>
+                <div className='col-span-2'>
+                  <div className='h-12 flex items-end'><span className='text-blue-400 font-semibold'>{dt.name}</span></div>
+                  <div className='h-12 flex items-start'><span className='text-white italic'>{dt.website}</span></div>
+                </div>
+                <div className='col-span-3 h-6 text-center'><span className='text-gray-400 text-xs'>312 componentes cadastrados no sistema.</span></div>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

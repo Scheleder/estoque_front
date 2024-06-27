@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
+import { PenBox, Plus } from "lucide-react"
+import ButtonAdd from '@/components/buttonAdd';
 
 const Categories = () => {
   const [data, setData] = useState([]);
@@ -26,22 +29,37 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="pl-16 pt-20">
-    
+    <>
+
       {isProcessing ? (
         <Loading />
       ) : error ? (
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : (
-        <ul className="pl-2">
-          {data.map((dt, index) => (
-            <li key={index}>
-              {dt.id} <br /> {dt.name} <br /><br />
-            </li>
-          ))}
-        </ul>
+        <div className="relative overflow-x-auto shadow-lg rounded-md p-2">
+          <ButtonAdd />
+          <table className="w-full text-xs xs:text-sm text-blue-800">
+            <thead>
+              <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
+                <th>Categoria</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                data.map((dt, index) => (
+                  <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
+                    <td className='p-1'>{dt.name}</td>
+                    <td className='p-1'><Link to={`/categories/${dt.id}`}><PenBox className='w-4 h-4 text-blue-400 hover:text-blue-300' /></Link></td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

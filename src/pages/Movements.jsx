@@ -46,10 +46,10 @@ const Movements = () => {
       ) : error ? (
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : (
-        <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2">
+        <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 bg-gray-200">
           <table className="w-full text-xs xs:text-sm text-blue-900">
             <thead>
-              <tr className="text-xs h-6 text-white text-left uppercase bg-blue-900">
+              <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
                 <th>Data</th>
                 <th>Tipo</th>
                 <th>Destino</th>
@@ -62,7 +62,7 @@ const Movements = () => {
             <tbody>
               {
                 data.map((dt, index) => (
-                  <tr key={index} className='bg-gray-200 hover:bg-gray-300 font-semibold'>
+                  <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
                     <td className='p-1'>{getDate(dt.createdAt)}</td>
                     <td className='p-1'>{dt.type}</td>
                     <td className='p-1'>{dt.destination}</td>
