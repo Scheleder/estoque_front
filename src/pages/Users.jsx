@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
+import Loading from '@/components/loading';
 
 const Users = () => {
   const [data, setData] = useState([]);
@@ -25,25 +26,24 @@ const Users = () => {
   }, []);
 
   return (
-    <div className="pl-16 pt-20">
-      <h2>Usuários</h2>
+    <>
     
       {isProcessing ? (
-        <div className="loading">Carregando Dados...</div>
+        <Loading />
       ) : error ? (
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : data.length === 0 ? (
         <div className="zeroItems">Não há items.</div>
       ) :(
-        <ul className="pl-2">
+        <ul className="p-4">
           {data.map((dt, index) => (
-            <li key={index}>
-              {dt.id} <br /> {dt.name} <br /> {dt.email} <br /><br />
+            <li key={index} className='flex shadow-lg rounded-md my-4 bg-orange-100 p-2'>  
+              <div><img src="https://www.placeholder.com/80" alt="photo" className='rounded-full' /></div><div>{dt.name}</div><div>{dt.name}</div>
             </li>
           ))}
         </ul>
       )}
-    </div>
+    </>
   );
 };
 

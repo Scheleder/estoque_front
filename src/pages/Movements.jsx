@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
-import { Eye } from "lucide-react"
+import Loading from '@/components/loading';
+import { Eye, CloudDownload } from "lucide-react"
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import {
@@ -39,14 +40,13 @@ const Movements = () => {
 
   return (
     <div className="pl-16 pt-20">
-      <h2>Movimentações de Estoque</h2>
 
       {isProcessing ? (
-        <div className="loading">Carregando Dados...</div>
+        <Loading />
       ) : error ? (
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : (
-        <div className="mt-4 relative overflow-x-auto shadow-lg rounded-md">
+        <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2">
           <table className="w-full text-xs xs:text-sm text-blue-900">
             <thead>
               <tr className="text-xs h-6 text-white text-left uppercase bg-blue-900">
@@ -82,7 +82,7 @@ const Movements = () => {
                       </TooltipProvider>
                     </td>
                     <td className='p-1'>{dt.User.name}</td>
-                    <td className='p-1'><Link to={`/moves/${dt.id}`}><Eye className='w-4 h-4 text-green-600' title='Visualizar' /></Link></td>
+                    <td className='p-1'><Link to={`/moves/${dt.id}`}><Eye className='w-4 h-4 text-green-800 hover:text-green-500' /></Link></td>
                   </tr>
                 ))
               }

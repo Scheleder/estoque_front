@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
-import { Eye, Search } from "lucide-react"
+import { Eye, Search, CloudDownload } from "lucide-react"
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
+import Loading from '@/components/loading';
 
 const Items = () => {
   const [data, setData] = useState([]);
@@ -29,22 +30,22 @@ const Items = () => {
 
   return (
     <div className="pl-16 pt-20">
-      <div className="relative">
+      {/* <div className="relative">
         <Search className="absolute left-2.5 top-3 h-4 w-4 text-zinc-600" />
         <Input
           type="search"
           placeholder="Procurar..."
           className="w-full mt-3 rounded-lg bg-white mb-2 px-8 md:w-[150px] lg:w-[200px] text-center text-zinc-600"
         />
-      </div>
+      </div> */}
 
       {isProcessing ? (
-        <div className="loading">Carregando Dados...</div>
+        <Loading />
       ) : error ? (
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : (
 
-        <div className="mt-4 relative overflow-x-auto shadow-lg rounded-md">
+        <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2">
           <table className="w-full text-xs xs:text-sm text-blue-900">
             <thead>
               <tr className="text-xs h-6 text-white text-left uppercase bg-blue-900">
@@ -61,7 +62,7 @@ const Items = () => {
                     <td className='p-1'>{dt.adress}</td>
                     <td className='p-1'>{dt.Component.description}</td>
                     <td className='p-1'>{dt.quantity} {dt.Component.Unity.abrev}</td>
-                    <td className='p-1'><Link to={`/items/${dt.id}`}><Eye className='w-4 h-4 text-green-600' title='Visualizar' /></Link></td>
+                    <td className='p-1'><Link to={`/items/${dt.id}`}><Eye className='w-4 h-4 text-green-800 hover:text-green-500' /></Link></td>
                   </tr>
                 ))
               }

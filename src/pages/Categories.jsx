@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
+import Loading from '@/components/loading';
 
 const Categories = () => {
   const [data, setData] = useState([]);
@@ -26,10 +27,9 @@ const Categories = () => {
 
   return (
     <div className="pl-16 pt-20">
-      <h2>Categorias</h2>
     
       {isProcessing ? (
-        <div className="loading">Carregando Dados...</div>
+        <Loading />
       ) : error ? (
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : (

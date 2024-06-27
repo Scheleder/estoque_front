@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 
 import {
     Copyright,
+    Boxes,
     Package,
     Package2,
     Home,
@@ -11,6 +12,8 @@ import {
     Puzzle,
     Settings,
     AlignHorizontalDistributeCenter as Piece,
+    PackagePlus,
+    PackageMinus,
     ArrowRightLeft as Moves,
     ShoppingBasket,
 } from 'lucide-react'
@@ -38,7 +41,7 @@ const Sidebar = (props) => {
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-red-200">Página Inicial</p>
+                                        <p className="text-lime-300">Página Inicial</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
@@ -48,11 +51,11 @@ const Sidebar = (props) => {
                                 <Tooltip>
                                     <TooltipTrigger>
                                         <Link to="/items">
-                                            <Piece className="hover:text-purple-500" />
+                                            <Boxes className="hover:text-lime-500" />
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-purple-100">Itens de Estoque</p>
+                                        <p className="text-lime-300">Itens de Estoque</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
@@ -62,11 +65,11 @@ const Sidebar = (props) => {
                                 <Tooltip>
                                     <TooltipTrigger>
                                         <Link to="/supply">
-                                            <Package2 className="hover:text-cyan-400" />
+                                            <PackagePlus className="hover:text-lime-500" />
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-cyan-100">Entrada de Material</p>
+                                        <p className="text-lime-300">Entrada de Material</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
@@ -76,11 +79,11 @@ const Sidebar = (props) => {
                                 <Tooltip>
                                     <TooltipTrigger>
                                         <Link to="/takeout">
-                                            <ShoppingBasket className="hover:text-lime-500" />
+                                            <PackageMinus className="hover:text-lime-500" />
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-lime-100">Saída de Material</p>
+                                        <p className="text-lime-300">Saída de Material</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
@@ -90,11 +93,11 @@ const Sidebar = (props) => {
                                 <Tooltip>
                                     <TooltipTrigger>
                                         <Link to="/moves">
-                                            <Moves className="hover:text-yellow-300" />
+                                            <Moves className="hover:text-lime-500" />
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-yellow-100">Movimentações</p>
+                                        <p className="text-lime-300">Movimentações</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
@@ -110,7 +113,7 @@ const Sidebar = (props) => {
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-orange-200">Configurações</p>
+                                        <p className="text-orange-400">Configurações</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>

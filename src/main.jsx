@@ -17,21 +17,6 @@ import MoveDetails from './pages/MoveDetails.jsx'
 import UserDetails from './pages/UserDetails.jsx'
 import Logout from './pages/Logout.jsx'
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Home />
-//   },
-//   {
-//     path: "/about",
-//     element: <About />
-//   },  
-//   {
-//     path: "/settings",
-//     element: <Settings />
-//   },
-// ]);
-
 const routes = createBrowserRouter([
   {
     path: "/",

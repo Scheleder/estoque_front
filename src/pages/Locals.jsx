@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
+import Loading from '@/components/loading';
 
 const Locals = () => {
   const [data, setData] = useState([]);
@@ -29,7 +30,7 @@ const Locals = () => {
       <h2>Locais</h2>
     
       {isProcessing ? (
-        <div className="loading">Carregando Dados...</div>
+        <Loading />
       ) : error ? (
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : (
