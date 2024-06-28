@@ -1,66 +1,95 @@
-import React from 'react'
+import { React, useEffect, useState } from 'react';
+import api from '@/services/config';
 import Select from 'react-select'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-
-const components = [
-  { value: '1', label: 'Um' },
-  { value: '2', label: 'Dois' }
-]
-
-const categories = [
-  { value: '1', label: 'Um' },
-  { value: '2', label: 'Dois' }
-]
-
-const brands = [
-  { value: '1', label: 'Um' },
-  { value: '2', label: 'Dois' }
-]
+import ButtonAdd from '@/components/buttonAdd'
+import Loading from '@/components/loading';
 
 const Supply = (props) => {
+
+  const [components, setComponents] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [isProcessing, setIsProcessing] = useState(true);
+  const [error, setError] = useState(null);
+  const [unity, setUnity] = useState('')
+
+  const getData = async () => {
+    try {
+      setIsProcessing(true);
+      const [response1, response2, response3] = await Promise.all([
+        api.get('components'),
+        api.get('categories'),
+        api.get('brands')
+      ]);
+      setComponents(response1.data.map(item => ({ value: item.id, label: item.description, unity: item.Unity.name })));
+      setCategories(response2.data.map(item => ({ value: item.id, label: item.name })));
+      setBrands(response3.data.map(item => ({ value: item.id, label: item.name })));
+    } catch (err) {
+      setError(err);
+      console.error(err);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const changeUnity = (option) =>{
+    console.log(option)
+    setUnity(option.unity+'s')
+  }
+
   return (
-    <div className="pl-16 pt-20"><h1>Entrada de Material</h1>
-      <div className="grid md:gap-6">
-        <div className='flex m-2'>
-        <label>Componente</label>
-        <Select options={components} placeholder="Selecione o componente" />
-
-        <Button>Adicionar novo componente</Button>
-
+    <>
+      {isProcessing ? (
+        <div className="pl-16 pt-20">
+          <Loading />
         </div>
-      </div>
-      <div className="grid-cols-2 md:gap-6">
-        <div className='flex'>
-        <label>Fabricante</label>
-        <Select options={brands} placeholder="Selecione o fabricante" />
-        <Button>Adicionar novo fabricante</Button>
+      ) : error ? (
+        <div className="error">Erro ao carregar os dados: {error.message}</div>
+      ) : (
+        <div className="pl-16 pt-20">
+          <div className="grid grid-cols-3 mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
+            <div className='col-span-3'>
+              <label>Categoria:</label>
+            </div>
+            <div className='flex col-span-3'>
+              <Select options={categories} placeholder="Selecione a categoria" className='w-full mt-2' />
+              <ButtonAdd />
+            </div>
+            <div className='col-span-3'>
+              <label>Fabricante:</label>
+            </div>
+            <div className='flex col-span-3'>
+              <Select options={brands} placeholder="Selecione o fabricante" className='w-full mt-2' />
+              <ButtonAdd />
+            </div>
+            <div className='col-span-3'>
+              <label>Componente:</label>
+            </div>
+            <div className='flex col-span-3'>
+              <Select options={components} placeholder="Selecione o componente" className='w-full mt-2' onChange={changeUnity} />
+              <ButtonAdd />
+            </div>
+            <div className=''>
+              <label>Endereço de estoque:</label>
+            </div>
+            <div className='relative'>
+              <label>Quantidade:</label><span className='absolute top-8 left-32 text-gray-500 text-sm'>{unity}</span>
+            </div>
+            <div></div>
+            <div className='pr-8'><Input placeholder="Endereço de estoque" className="bg-white text-center"></Input></div>
+            <div className='pr-8'><Input placeholder="0" type="number" min="0" max="999999999" className="bg-white"></Input></div>
+            <div className='px-3'><Button className="w-full">Confirmar</Button></div>
+          </div>
         </div>
-        <div className='flex'>
-
-
-        <label>Categoria</label>
-        <Select options={categories} placeholder="Selecione a categoria" />
-        <Button>Adicionar nova categoria</Button>
-        </div>
-      </div>
-      <div className="grid md:grid-cols-2 md:gap-6">
-        <div className='flex'>
-        <label htmlFor="">Endereço de estoque</label>
-        <Input placeholder="Endereço de estoque"></Input>
-
-        </div>
-        <div className='flex'>
-        <label htmlFor="">Quantidade</label>
-        <Input placeholder="Quantidade"></Input>
-
-        </div>
-      </div>
-
-
-
-    </div>
-  )
-}
+      )}
+    </>
+  );
+};
 
 export default Supply
