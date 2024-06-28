@@ -47,6 +47,9 @@ const Items = () => {
 
         <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 bg-gray-200">
           <table className="w-full text-xs xs:text-sm text-blue-900">
+            <caption class="caption-bottom mt-4 text-gray-400">
+              Total de {data.length} itens.
+            </caption>
             <thead>
               <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
                 <th>Endereço de Estoque</th>

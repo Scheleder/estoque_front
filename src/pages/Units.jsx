@@ -30,7 +30,6 @@ const Units = () => {
 
     return (
         <>
-
             {isProcessing ? (
                 <Loading />
             ) : error ? (
@@ -39,6 +38,9 @@ const Units = () => {
                 <div className="relative overflow-x-auto shadow-lg rounded-md p-2">
                     <ButtonAdd />
                     <table className="w-full text-xs xs:text-sm text-blue-800">
+                        <caption class="caption-bottom mt-4 text-gray-400">
+                            Total de {data.length} itens.
+                        </caption>
                         <thead>
                             <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
                                 <th>Unidade de Medida</th>
