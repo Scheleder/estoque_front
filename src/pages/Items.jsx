@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
-import { Eye, Search, CloudDownload } from "lucide-react"
+import { Eye, Search, CloudDownload, ShoppingBasket, BaggageClaim } from "lucide-react"
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
@@ -65,7 +65,10 @@ const Items = () => {
                     <td className='p-1'>{dt.adress}</td>
                     <td className='p-1'>{dt.Component.description}</td>
                     <td className='p-1'>{dt.quantity} {dt.Component.Unity.abrev}</td>
-                    <td className='p-1'><Link to={`/items/${dt.id}`}><Eye className='w-4 h-4 text-green-800 hover:text-green-500' /></Link></td>
+                    <td className='flex p-1'>
+                      <Link to={`/items/${dt.id}`}><Eye className='w-4 h-4 mr-2 text-green-800 hover:text-green-500' /></Link>
+                      <Link to={`/items/${dt.id}`}><BaggageClaim className='w-4 h-4 text-orange-600 hover:text-orange-300' /></Link>
+                    </td>
                   </tr>
                 ))
               }
