@@ -6,7 +6,8 @@ import Components from './Components';
 import Units from './Units';
 import Loading from '@/components/loading';
 import Users from './Users';
-import { Ruler, Factory, ListCollapse, UsersRound, CloudDownload, AlignHorizontalDistributeCenter as Piece } from 'lucide-react';
+import Locals from './Locals';
+import { Ruler, Factory, ListCollapse, UsersRound, Warehouse, AlignHorizontalDistributeCenter as Piece } from 'lucide-react';
 
 
 const Settings = (props) => {
@@ -48,6 +49,12 @@ const Settings = (props) => {
                         </a>
                     </li>
                     <li className="mx-0.5">
+                        <a onClick={() => changePage('locals')} className={`${(page === 'locals' ? 'border-blue-400 bg-gray-300 text-gray-600' : 'border-transparent bg-gray-200')} inline-flex p-2 text-gray-400 border-b-4 sm:rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full sm:w-32`}>
+                            <Warehouse className={`${(page === 'locals' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
+                            <span>Estoques</span>
+                        </a>
+                    </li>
+                    <li className="mx-0.5">
                         <a onClick={() => changePage('users')} className={`${(page === 'users' ? 'border-blue-400 bg-gray-300 text-gray-600' : 'border-transparent bg-gray-200')} inline-flex p-2 text-gray-400 border-b-4 sm:rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full sm:w-32`}>
                             <UsersRound className={`${(page === 'users' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
                             <span>Usuários</span>
@@ -68,12 +75,15 @@ const Settings = (props) => {
                             : page === 'units' ? (
                                 <Units />
                             )
-                                : page === 'users' ? (
-                                    <Users />
+                                : page === 'locals' ? (
+                                    <Locals />
                                 )
-                                    : (
-                                        <Loading />
+                                    : page === 'users' ? (
+                                        <Users />
                                     )
+                                        : (
+                                            <Loading />
+                                        )
                 }
             </div>
         </div>

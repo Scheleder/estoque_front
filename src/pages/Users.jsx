@@ -42,7 +42,7 @@ const Users = () => {
             <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md my-4 bg-indigo-100 p-2'>
               <div className='col-span-1 h-24'>
                 <Link to={`/users/${dt.id}`}>
-                  <img src="src/assets/user.png" alt="user" width={80} height={80} className='rounded-full border-2 border-white origin-center hover:-rotate-45' />
+                  <img src="src/assets/usuario.png" alt="user" width={80} height={80} className='rounded-full border-2 border-white origin-center hover:-rotate-45' />
                 </Link>
               </div>
               <div className='col-span-2'>

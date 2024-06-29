@@ -5,10 +5,15 @@ import { getDate } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
-import Select from 'react-select'
+import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
-import ButtonAdd from '@/components/buttonAdd'
-import { Send, Save } from 'lucide-react';
+import { Eye, Send, Save } from "lucide-react"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 const UserDetails = (props) => {
   const { id } = useParams();
@@ -73,6 +78,54 @@ const UserDetails = (props) => {
                 <Button className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
               </div>
             </div>
+          </div>
+
+          <div className="mt-4 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
+            <span className='text-gray-600 font-lg'>Movimentações de {user.name}</span>
+            <table className="w-full text-xs xs:text-sm text-blue-900 mt-2">
+              <caption className="caption-bottom mt-4 text-gray-400">
+                Total de registros: {user.Movements.length}
+              </caption>
+              <thead>
+                <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
+                  <th>Data</th>
+                  <th>Tipo</th>
+                  <th>Destino</th>
+                  <th>Quantidade</th>
+                  <th>Item SKU</th>
+                  <th>Colaborador</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  user.Movements.map((dt, index) => (
+                    <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
+                      <td className='p-1'>{getDate(dt.createdAt)}</td>
+                      <td className='p-1'>{dt.type}</td>
+                      <td className='p-1'>{dt.destination}</td>
+                      <td className='p-1'>{dt.quantity} {dt.Item.Component.Unity.abrev}</td>
+                      <td className='p-1'>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <Link to={`/items/${dt.Item.id}`}>
+                                <span>{dt.Item.Component.sku}</span>
+                              </Link>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="text-white">{dt.Item.Component.description}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </td>
+                      <td className='p-1'>{user.name}</td>
+                      <td className='p-1'><Link to={`/moves/${dt.id}`}><Eye className='w-4 h-4 text-green-800 hover:text-green-500' /></Link></td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
           </div>
         </div>
       )}
