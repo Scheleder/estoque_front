@@ -13,6 +13,7 @@ const Brands = () => {
     try {
       setIsProcessing(true);
       const response = await api.get('brands');
+      response.data.sort((a, b) => a.name.localeCompare(b.name));
       setData(response.data);
       console.log(response.data);
     } catch (err) {

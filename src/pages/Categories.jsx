@@ -14,6 +14,7 @@ const Categories = () => {
     try {
       setIsProcessing(true);
       const response = await api.get('categories');
+      response.data.sort((a, b) => a.name.localeCompare(b.name));
       setData(response.data);
       console.log(response.data);
     } catch (err) {

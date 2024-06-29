@@ -16,6 +16,9 @@ import {
     PackageMinus,
     ArrowRightLeft as Moves,
     ShoppingBasket,
+    BaggageClaim,
+    FileStack,
+    ScrollText
 } from 'lucide-react'
 
 import {
@@ -69,7 +72,7 @@ const Sidebar = (props) => {
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-lime-300">Entrada de Material</p>
+                                        <p className="text-lime-300">Ressuprimento</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
@@ -79,11 +82,11 @@ const Sidebar = (props) => {
                                 <Tooltip>
                                     <TooltipTrigger>
                                         <Link to="/takeout">
-                                            <PackageMinus className="hover:text-lime-500" />
+                                            <BaggageClaim className="hover:text-lime-500" />
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-lime-300">Saída de Material</p>
+                                        <p className="text-lime-300">Movimentações</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
@@ -93,11 +96,11 @@ const Sidebar = (props) => {
                                 <Tooltip>
                                     <TooltipTrigger>
                                         <Link to="/moves">
-                                            <Moves className="hover:text-lime-500" />
+                                            <ScrollText className="hover:text-lime-500" />
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-lime-300">Movimentações</p>
+                                        <p className="text-lime-300">Histórico</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>

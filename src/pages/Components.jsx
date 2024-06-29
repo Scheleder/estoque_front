@@ -14,6 +14,7 @@ const Components = () => {
     try {
       setIsProcessing(true);
       const response = await api.get('components');
+      response.data.sort((a, b) => a.description.localeCompare(b.description));
       setData(response.data);
       console.log(response.data);
     } catch (err) {
@@ -39,7 +40,7 @@ const Components = () => {
           <ButtonAdd />
           <table className="w-full text-xs xs:text-sm text-blue-900">
             <caption class="caption-bottom mt-4 text-gray-400">
-              Total de {data.length} itens.
+              Total de registros: {data.length}
             </caption>
             <thead>
               <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">

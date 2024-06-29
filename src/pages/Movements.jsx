@@ -3,17 +3,13 @@ import api from '@/services/config';
 import Loading from '@/components/loading';
 import { Eye, CloudDownload } from "lucide-react"
 import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
+import { getDate } from '@/lib/utils';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-
-const getDate = (dt) => {
-  return format(new Date(dt), 'dd/MM/yyyy - HH:mm');
-}
 
 const Movements = () => {
   const [data, setData] = useState([]);
@@ -49,7 +45,7 @@ const Movements = () => {
         <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 bg-gray-200">
           <table className="w-full text-xs xs:text-sm text-blue-900">
             <caption class="caption-bottom mt-4 text-gray-400">
-              Total de {data.length} itens.
+              Total de registros: {data.length}
             </caption>
             <thead>
               <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">

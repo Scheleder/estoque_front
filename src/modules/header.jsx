@@ -38,7 +38,7 @@ const Header = () => {
         title = 'Usuários'
         break;
       case location.pathname === '/moves':
-        title = 'Movimentações de Estoque'
+        title = 'Histórico'
         break;
       case location.pathname === '/settings':
         title = 'Configurações'
@@ -53,13 +53,16 @@ const Header = () => {
         title = 'Unidades de Medida'
         break;
       case location.pathname === '/supply':
-        title = 'Entrada de Material'
+        title = 'Ressuprimento'
         break;
       case location.pathname === '/takeout':
-        title = 'Saída de Material'
+        title = 'Movimentações'
+        break;
+      case location.pathname.includes('/brands/'):
+        title = 'Detalhes do Fabricante'
         break;
       case location.pathname.includes('/users/'):
-        title = 'Meu perfil'
+        title = 'Detalhes do usuário'
         break;
       default:
         title = 'Gerenciamento de Estoque'

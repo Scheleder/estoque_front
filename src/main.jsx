@@ -4,6 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import {createBrowserRouter, RouterProvider, Navigate} from 'react-router-dom'
 import About from './pages/About.jsx'
+import BrandDetails from './pages/BrandDetails.jsx'
 import Home from './pages/Home.jsx'
 import Settings from './pages/Settings.jsx'
 import Items from './pages/Items.jsx'
@@ -16,6 +17,7 @@ import ItemDetails from './pages/ItemDetails.jsx'
 import MoveDetails from './pages/MoveDetails.jsx'
 import UserDetails from './pages/UserDetails.jsx'
 import Logout from './pages/Logout.jsx'
+
 
 const routes = createBrowserRouter([
   {
@@ -70,6 +72,10 @@ const routes = createBrowserRouter([
         {
           path:"users/:id",
           element: <UserDetails />
+        },
+        {
+          path:"brands/:id",
+          element: <BrandDetails />
         },
         {
           path:"/oldroute",

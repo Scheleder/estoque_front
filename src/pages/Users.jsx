@@ -12,6 +12,7 @@ const Users = () => {
     try {
       setIsProcessing(true);
       const response = await api.get('users');
+      response.data.sort((a, b) => a.name.localeCompare(b.name));
       setData(response.data);
       console.log(response.data);
     } catch (err) {
