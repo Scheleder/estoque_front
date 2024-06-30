@@ -55,7 +55,6 @@ const Movements = () => {
                 <th>Quantidade</th>
                 <th>Item SKU</th>
                 <th>Colaborador</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -81,7 +80,6 @@ const Movements = () => {
                       </TooltipProvider>
                     </td>
                     <td className='p-1'>{dt.User.name}</td>
-                    <td className='p-1'><Link to={`/moves/${dt.id}`}><Eye className='w-4 h-4 text-green-800 hover:text-green-500' /></Link></td>
                   </tr>
                 ))
               }

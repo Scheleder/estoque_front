@@ -1,8 +1,8 @@
 import React from 'react'
 
-const MoveDetails = (props) => {
+const MoveDetails = () => {
   return (
-    <div className="pl-16 pt-20">MoveDetails</div>
+    <div>MoveDetails</div>
   )
 }
 

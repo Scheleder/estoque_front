@@ -64,6 +64,9 @@ const Header = () => {
       case location.pathname.includes('/users/'):
         title = 'Detalhes do usuário'
         break;
+      case location.pathname.includes('/components/'):
+        title = 'Detalhes do componente'
+        break;
       default:
         title = 'Gerenciamento de Estoque'
         break;

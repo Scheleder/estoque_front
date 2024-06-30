@@ -17,6 +17,7 @@ import ItemDetails from './pages/ItemDetails.jsx'
 import MoveDetails from './pages/MoveDetails.jsx'
 import UserDetails from './pages/UserDetails.jsx'
 import Logout from './pages/Logout.jsx'
+import ComponentDetails from './pages/ComponentDetails.jsx'
 
 
 const routes = createBrowserRouter([
@@ -76,6 +77,10 @@ const routes = createBrowserRouter([
         {
           path:"brands/:id",
           element: <BrandDetails />
+        },
+        {
+          path:"components/:id",
+          element: <ComponentDetails />
         },
         {
           path:"/oldroute",

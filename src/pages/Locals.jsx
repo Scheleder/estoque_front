@@ -49,7 +49,7 @@ const Locals = () => {
                   <div className='h-12 flex items-end'><span className='text-blue-400 font-semibold'>{dt.name}</span></div>
                   <div className='h-12 flex items-start'><span className='text-white italic'>{dt.website}</span></div>
                 </div>
-                <div className='col-span-3 h-6 text-center'><span className='text-gray-400 text-xs'>1345 itens no estoque.</span></div>
+                <div className='col-span-3 h-6 text-center'><span className='text-gray-400 text-xs'>Itens no estoque: {dt.Items.length}</span></div>
               </li>
             ))}
           </ul>
