@@ -41,7 +41,7 @@ const Locals = () => {
             {data.map((dt, index) => (
               <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md my-4 bg-indigo-100 p-2'>
                 <div className=''>
-                  <Link to={`/brands/${dt.id}`}>
+                  <Link to={`/locals/${dt.id}`}>
                     <img src="src/assets/armazem.png" alt="user" width={80} height={80} className='rounded-full border-2 border-white origin-center hover:rotate-45' />
                   </Link>
                 </div>

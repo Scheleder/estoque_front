@@ -18,7 +18,9 @@ import MoveDetails from './pages/MoveDetails.jsx'
 import UserDetails from './pages/UserDetails.jsx'
 import Logout from './pages/Logout.jsx'
 import ComponentDetails from './pages/ComponentDetails.jsx'
-
+import LocalDetails from './pages/LocalDetails.jsx'
+import CategoryDetails from './pages/CategoryDetails.jsx'
+import UnityDetails from './pages/UnityDetails.jsx'
 
 const routes = createBrowserRouter([
   {
@@ -81,6 +83,18 @@ const routes = createBrowserRouter([
         {
           path:"components/:id",
           element: <ComponentDetails />
+        },
+        {
+          path:"locals/:id",
+          element: <LocalDetails />
+        },
+        {
+          path:"categories/:id",
+          element: <CategoryDetails />
+        },
+        {
+          path:"units/:id",
+          element: <UnityDetails />
         },
         {
           path:"/oldroute",
