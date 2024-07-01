@@ -2,7 +2,7 @@ import * as React from "react"
 import { Link, useLocation } from "react-router-dom"
 import Logo from '../components/logo.jsx'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx"
-import { Search } from "lucide-react"
+import { Search, ChevronLeft } from "lucide-react"
 import { Input } from "@/components/ui/input.jsx"
 import { Button } from "@/components/ui/button.jsx"
 import {
@@ -85,8 +85,8 @@ const Header = () => {
 
   return (
     <>
-      <div className="will-change-scroll fixed z-0 w-full h-16 flex gap-4 grid-cols-4 grid-rows-1 justify-between pl-16 px-2 py-2 bg-zinc-50 border-b-zinc-100 border-b-2">
-        <div className="flex justify-end">
+      <div className="fixed z-0 w-full h-16 flex gap-4 grid-cols-4 grid-rows-1 justify-between pl-16 px-2 py-2 bg-zinc-50 border-b-zinc-100 border-b-2">
+        <div className="flex align-middle mt-4">
           <Pagetitle title={title} />
         </div>
 
