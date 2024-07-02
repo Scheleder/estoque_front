@@ -39,28 +39,29 @@ const Categories = () => {
       ) : (
         <div className="relative overflow-x-auto shadow-lg rounded-md p-2">
           <ButtonAdd />
-          <table className="w-full text-xs xs:text-sm text-blue-800">
-            <caption class="caption-bottom mt-4 text-gray-400">
-              Total de {data.length} itens.
-            </caption>
-            <thead>
-              <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
-                <th>Categoria</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                data.map((dt, index) => (
-                  <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
-                    <td className='p-1'>{dt.name}</td>
-                    <td className='p-1'><Link to={`/categories/${dt.id}`}><PenBox className='w-4 h-4 text-blue-400 hover:text-blue-300' /></Link></td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-
+          <div className='overflow-x-auto rounded-md shadow-md'>
+            <table className="w-full text-xs xs:text-sm text-blue-800">
+              <caption class="caption-bottom mt-4 text-gray-400">
+                Total de {data.length} itens.
+              </caption> 
+              <thead>
+                <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
+                  <th className='pl-2'>Categoria</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  data.map((dt, index) => (
+                    <tr key={index} className='odd:bg-stone-300 even:bg-stone-200 hover:bg-blue-100 font-semibold'>
+                      <td className='px-2'>{dt.name}</td>
+                      <td className='p-1'><Link to={`/categories/${dt.id}`}><PenBox className='w-4 h-4 text-blue-400 hover:text-blue-300' /></Link></td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </>

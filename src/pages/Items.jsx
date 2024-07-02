@@ -46,13 +46,14 @@ const Items = () => {
       ) : (
 
         <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 bg-gray-200">
+          <div className='overflow-x-auto rounded-md shadow-md'>
           <table className="w-full text-xs xs:text-sm text-blue-900">
             <caption class="caption-bottom mt-4 text-gray-400">
               Total de registros: {data.length}
             </caption>
             <thead>
               <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
-                <th>Endereço de Estoque</th>
+                <th className='pl-2'>Endereço de Estoque</th>
                 <th>Item</th>
                 <th>Quantidade</th>
                 <th></th>
@@ -61,8 +62,8 @@ const Items = () => {
             <tbody>
               {
                 data.map((dt, index) => (
-                  <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
-                    <td className='p-1'>{dt.adress}</td>
+                  <tr key={index} className='odd:bg-stone-300 even:bg-stone-200 hover:bg-blue-100 font-semibold'>
+                    <td className='px-2 py-1'>{dt.adress}</td>
                     <td className='p-1'>{dt.Component.description}</td>
                     <td className='p-1'>{dt.quantity} {dt.Component.Unity.abrev}</td>
                     <td className='flex p-1'>
@@ -74,6 +75,7 @@ const Items = () => {
               }
             </tbody>
           </table>
+          </div>
         </div>
       )
       }

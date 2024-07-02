@@ -38,35 +38,37 @@ const Components = () => {
       ) : (
         <div className="relative overflow-x-auto shadow-lg rounded-md p-2">
           <ButtonAdd />
-          <table className="w-full text-xs xs:text-sm text-blue-900">
-            <caption class="caption-bottom mt-4 text-gray-400">
-              Total de registros: {data.length}
-            </caption>
-            <thead>
-              <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
-                <th>Categoria</th>
-                <th>Fabricante</th>
-                <th>SKU</th>
-                <th>Descrição</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                data.map((dt, index) => (
-                  <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
-                    <td className='p-1'>{dt.Category.name}</td>
-                    <td className='p-1'>{dt.Brand.name}</td>
-                    <td className='p-1'>{dt.sku}</td>
-                    <td className='p-1'>{dt.description}</td>
-                    <td className='p-1'>
-                      <Link to={`/components/${dt.id}`}><Eye className='w-4 h-4 text-green-800 hover:text-green-500' /></Link>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+          <div className='overflow-x-auto rounded-md shadow-md'>
+            <table className="w-full text-xs xs:text-sm text-blue-900">
+              <caption class="caption-bottom mt-4 text-gray-400">
+                Total de registros: {data.length}
+              </caption>
+              <thead>
+                <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
+                  <th className='pl-2'>Categoria</th>
+                  <th>Fabricante</th>
+                  <th>SKU</th>
+                  <th>Descrição</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  data.map((dt, index) => (
+                    <tr key={index} className='odd:bg-stone-300 even:bg-stone-200 hover:bg-blue-100 font-semibold'>
+                      <td className='px-2 py-1'>{dt.Category.name}</td>
+                      <td className='p-1'>{dt.Brand.name}</td>
+                      <td className='p-1'>{dt.sku}</td>
+                      <td className='p-1'>{dt.description}</td>
+                      <td className='p-1'>
+                        <Link to={`/components/${dt.id}`}><Eye className='w-4 h-4 text-green-800 hover:text-green-500' /></Link>
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </>
