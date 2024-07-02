@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 const ButtonAdd = () => {
   return (
-    <div className='float-right m-2'><Button variant="outline" className="bg-lime-400 hover:bg-lime-300 text-white hover:text-white"><Plus />Adicionar</Button></div>
+    <div className='text-right'><Button variant="outline" className="m-2 bg-lime-400 hover:bg-lime-300 text-white hover:text-white"><Plus />Adicionar</Button></div>
   )
 }
 

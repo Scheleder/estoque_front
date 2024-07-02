@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
 import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
-import { Eye, Send, Save } from "lucide-react"
+import { Link as WWW, Send, Save } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -72,9 +72,9 @@ const UserDetails = (props) => {
               <div className='col-span-3 mt-2'>
                 <label>E-mail:</label>
               </div>
-              <div className='flex col-span-3'>
-                <Input placeholder="E-mail" className="bg-white" value={user.email} />
-                <Button onClick={handleContact} className="ml-4 bg-yellow-600 hover:bg-yellow-500"><Send className='w-5 h-5 mr-2' /> Enviar mensagem</Button>
+              <div className='flex col-span-3 relative'>
+              <a href={`mailto:${user.email}`} target="_blank" rel="noopener noreferrer" title="Enviar e-mail" className='absolute text-blue-500 hover:text-blue-400 top-3 left-2 cursor-pointer'><Send className='w-4 h-4' /></a>
+                <Input placeholder="E-mail" className="bg-white pl-8" value={user.email} />
                 <Button className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
               </div>
             </div>

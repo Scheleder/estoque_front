@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import ButtonAdd from '@/components/buttonAdd'
 import Loading from '@/components/loading';
+import { Check, CircleCheck } from 'lucide-react';
 
 const Supply = (props) => {
 
@@ -73,37 +74,38 @@ const Supply = (props) => {
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <div className='grid grid-cols-3 mb-2'>
 
-              <div className='col-span-3'>
+              <div className='relative col-span-3 mt-2'>
                 <label>Categoria:</label>
+                <div className='absolute top-4 right-0 z-10'><ButtonAdd /></div>
               </div>
               <div className='flex col-span-3'>
-                <Select options={categories} placeholder="Selecione a categoria" className='w-full mt-2' styles={styles} />
-                <ButtonAdd />
+                <Select options={categories} placeholder="Selecione a categoria" className='w-full mr-36' styles={styles} />                
               </div>
-              <div className='col-span-3'>
+              <div className='relative flex col-span-3 mt-2'>
                 <label>Fabricante:</label>
+                <div className='absolute top-4 right-0 z-10'><ButtonAdd /></div>
               </div>
               <div className='flex col-span-3'>
-                <Select options={brands} placeholder="Selecione o fabricante" className='w-full mt-2' styles={styles} />
-                <ButtonAdd />
+                <Select options={brands} placeholder="Selecione o fabricante" className='w-full mr-36' styles={styles} />
               </div>
-              <div className='col-span-3'>
+              <div className='relative col-span-3 mt-2'>
                 <label>Componente:</label>
+                <div className='absolute top-4 right-0 z-10'><ButtonAdd /></div>
               </div>
               <div className='flex col-span-3'>
-                <Select options={components} placeholder="Selecione o componente" className='w-full mt-2' styles={styles} onChange={changeUnity} />
-                <ButtonAdd />
+                <Select options={components} placeholder="Selecione o componente" className='w-full mr-36' styles={styles} onChange={changeUnity} />
               </div>
-              <div className=''>
+              <div className='col-span-1 mt-2'>
                 <label>Endereço de estoque:</label>
               </div>
-              <div className='relative'>
-                <label>Quantidade:</label><span className='absolute top-8 left-32 text-gray-500 text-sm'>{unity}</span>
+              <div className='col-span-1 mt-2 relative'>
+                <label>Quantidade:</label>
+                <span className='absolute top-8 left-32 text-gray-500 text-sm'>{unity}</span>
               </div>
               <div></div>
-              <div className='pr-8 mt-2'><Input placeholder="Endereço de estoque" className="bg-white text-center"></Input></div>
-              <div className='pr-8 mt-2'><Input placeholder="0" type="number" min="0" max="999999999" className="bg-white"></Input></div>
-              <div className='px-3 mt-2'><Button className="w-full hover:bg-gray-500">Confirmar</Button></div>
+              <div className='mr-4'><Input placeholder="Endereço de estoque" className="bg-white text-center"></Input></div>
+              <div className='mr-4'><Input placeholder="0" type="number" min="0" max="999999999" className="bg-white"></Input></div>
+              <div className='mr-2'><Button className="w-full hover:bg-gray-500"> <Check className='mr-2'/> Confirmar</Button></div>
             </div>
           </div>
         </div>

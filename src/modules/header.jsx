@@ -62,20 +62,23 @@ const Header = () => {
         title = 'Detalhes do Fabricante'
         break;
       case location.pathname.includes('/users/'):
-        title = 'Detalhes do usuário'
+        title = 'Detalhes do Usuário'
         break;
       case location.pathname.includes('/components/'):
-        title = 'Detalhes do componente'
+        title = 'Detalhes do Componente'
         break;
       case location.pathname.includes('/categories/'):
-        title = 'Detalhes do categoria'
+        title = 'Detalhes do Categoria'
         break;
       case location.pathname.includes('/locals/'):
-        title = 'Detalhes do estoque'
+        title = 'Detalhes do Estoque'
         break;
       case location.pathname.includes('/units/'):
-        title = 'Detalhes da unidade'
+        title = 'Detalhes da Unidade'
         break;
+        case location.pathname.includes('/items/'):
+          title = 'Detalhes do Item'
+          break;
       default:
         title = 'Gerenciamento de Estoque'
         break;

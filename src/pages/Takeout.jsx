@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import ButtonAdd from '@/components/buttonAdd'
 import Loading from '@/components/loading';
+import { Check } from 'lucide-react';
 
 const Takeout = (props) => {
 
@@ -85,17 +86,17 @@ const Takeout = (props) => {
         <div className="pl-16 pt-20">
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <div className='grid grid-cols-3'>
-              <div className='col-span-3 mt-1'>
+              <div className='col-span-3 mt-2'>
                 <label>Tipo de movimentação:</label>
               </div>
               <div className='flex col-span-3'>
-                <Select options={types} defaultValue={defaultType} placeholder="Selecione o tipo de movimentação" className='w-full mt-2' styles={styles} onChange={changeType} />
+                <Select options={types} defaultValue={defaultType} placeholder="Selecione o tipo de movimentação" className='w-full' styles={styles} onChange={changeType} />
               </div>
               <div className='col-span-3 mt-2'>
                 <label>Item:</label>
               </div>
               <div className='flex col-span-3'>
-                <Select options={items} placeholder="Selecione o item" className='w-full mt-2' styles={styles} onChange={changeUnity} />
+                <Select options={items} placeholder="Selecione o item" className='w-full' styles={styles} onChange={changeUnity} />
               </div>
             </div>
             {type.id === 1 ? (
@@ -107,9 +108,9 @@ const Takeout = (props) => {
                   <label>Nova quantidade:</label>
                 </div>
                 <div></div>
-                <div className='pr-8 mt-2'><Input placeholder="Quantidade atual" className="bg-white text-center" value={qtde} readOnly /></div>
-                <div className='pr-8 mt-2'><Input placeholder="Nova quantidade" className="bg-white text-center" /></div>
-                <div className='px-2 mt-2'><Button className="w-full hover:bg-gray-500">Confirmar</Button></div>
+                <div className='mr-4'><Input placeholder="Quantidade atual" className="bg-white text-center" value={qtde} readOnly /></div>
+                <div className='mr-4'><Input placeholder="Nova quantidade" className="bg-white text-center" /></div>
+                <div className='mr-2'><Button className="w-full hover:bg-gray-500"><Check className='mr-2'/>Confirmar</Button></div>
               </div>
             ) : type.id === 2 ? (
               <div className='grid grid-cols-3 mb-2'>
@@ -120,9 +121,9 @@ const Takeout = (props) => {
                   <label>Novo endereço:</label>
                 </div>
                 <div></div>
-                <div className='pr-8 mt-2'><Input placeholder="Endereço atual" className="bg-white text-center" value={adress} readOnly /></div>
-                <div className='pr-8 mt-2'><Input placeholder="Novo endereço" className="bg-white text-center" /></div>
-                <div className='px-2 mt-2'><Button className="w-full hover:bg-gray-500">Confirmar</Button></div>
+                <div className='mr-4'><Input placeholder="Endereço atual" className="bg-white text-center" value={adress} readOnly /></div>
+                <div className='mr-4'><Input placeholder="Novo endereço" className="bg-white text-center" /></div>
+                <div className='mr-2'><Button className="w-full hover:bg-gray-500"><Check className='mr-2'/>Confirmar</Button></div>
               </div>
             ) : type.id === 3 ? (
               <div className='grid grid-cols-3 mb-2'>
@@ -133,28 +134,29 @@ const Takeout = (props) => {
                   <label>Quantidade:</label><span className='absolute top-10 left-32 text-gray-500 text-sm'>{unity}</span>
                 </div>
                 <div></div>
-                <div className='pr-8 mt-2'><Input placeholder="Número da ordem" className="bg-white text-center"></Input></div>
-                <div className='pr-8 mt-2'><Input placeholder="0" type="number" min="0" max={qtde} className="bg-white"></Input></div>
-                <div className='px-2 mt-2'><Button className="w-full hover:bg-gray-500">Confirmar</Button></div>
+                <div className='mr-4'><Input placeholder="Número da ordem" className="bg-white text-center"></Input></div>
+                <div className='mr-4'><Input placeholder="0" type="number" min="0" max={qtde} className="bg-white"></Input></div>
+                <div className='mr-2'><Button className="w-full hover:bg-gray-500"><Check className='mr-2'/>Confirmar</Button></div>
               </div>
             ) : (
               <div className='grid grid-cols-3 mb-2'>
                 <div className='col-span-3 mt-2'>
                   <label>Estoque de destino:</label>
                 </div>
-                <div className='col-span-3 mt-2'>
+                <div className='col-span-3'>
                   <Select options={locals} placeholder="Selecione o estoque de destino" className='w-full' styles={styles} />
                 </div>
                 <div className='mt-2'>
                   <label>Endereço de destino:</label>
                 </div>
                 <div className='relative mt-2'>
-                  <label>Quantidade a transferir:</label><span className='absolute top-10 left-32 text-gray-500 text-sm'>{unity}</span>
+                  <label>Quantidade a transferir:</label>
+                  <span className='absolute top-8 left-32 text-gray-500 text-sm'>{unity}</span>
                 </div>
                 <div></div>
-                <div className='pr-8 mt-2'><Input placeholder="Endereço destino" className="bg-white text-center" /></div>
-                <div className='pr-8 mt-2'><Input placeholder="0" type="number" min="0" max={qtde} className="bg-white"></Input></div>
-                <div className='px-2 mt-2'><Button className="w-full hover:bg-gray-500">Confirmar</Button></div>
+                <div className='mr-4'><Input placeholder="Endereço destino" className="bg-white text-center" /></div>
+                <div className='mr-4'><Input placeholder="0" type="number" min="0" max={qtde} className="bg-white"></Input></div>
+                <div className='mr-2'><Button className="w-full hover:bg-gray-500"><Check className='mr-2'/>Confirmar</Button></div>
               </div>
             )}
           </div>

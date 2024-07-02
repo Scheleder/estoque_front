@@ -4,6 +4,7 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzE2ODU4
 
 const api = axios.create({
   baseURL: 'http://100.29.104.33/',
+  //baseURL: 'http://localhost:3000/',
 });
 
 // Adiciona um interceptor que será executado antes de cada requisição

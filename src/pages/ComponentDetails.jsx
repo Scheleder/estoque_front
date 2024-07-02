@@ -8,6 +8,7 @@ import Loading from '@/components/loading';
 import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
 import Select from 'react-select'
+import ComponentInfo from '@/components/componentInfo';
 
 import { Eye, Send, Save, Earth } from "lucide-react"
 import {
@@ -81,7 +82,7 @@ const ComponentDetails = (props) => {
         <div className="pl-16 pt-20">
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <div className='grid grid-cols-3 mb-2'>
-            <div className='col-span-3 mt-2'>
+              <div className='col-span-3 mt-2'>
                 <label>Categoria:</label>
               </div>
               <div className='flex col-span-3'>
@@ -119,15 +120,13 @@ const ComponentDetails = (props) => {
                 <Input placeholder="Código de barras" className="bg-white ml-2" value={component.barcode} />
               </div>
               <div className='flex col-span-1'>
-                 <Button className="w-full ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
+                <Button className="w-full ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
               </div>
             </div>
           </div>
 
-          <div className="mt-4 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
-            <span className='text-gray-600 font-lg'>Detalhes do componente  {component.description}</span>
+          <ComponentInfo comp={component.description} fab={component.Brand.name} />
 
-          </div>
         </div>
       )}
     </>
