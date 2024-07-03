@@ -12,7 +12,6 @@ import Users from './pages/Users.jsx'
 import Moves from './pages/Movements.jsx'
 import Supply from './pages/Supply.jsx'
 import Takeout from './pages/Takeout.jsx'
-import Error from './pages/Error.jsx'
 import ItemDetails from './pages/ItemDetails.jsx'
 import MoveDetails from './pages/MoveDetails.jsx'
 import UserDetails from './pages/UserDetails.jsx'
@@ -21,12 +20,13 @@ import ComponentDetails from './pages/ComponentDetails.jsx'
 import LocalDetails from './pages/LocalDetails.jsx'
 import CategoryDetails from './pages/CategoryDetails.jsx'
 import UnityDetails from './pages/UnityDetails.jsx'
+import ErrorPage from './pages/ErrorPage.jsx'
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <Error />,
+    errorElement: <ErrorPage error='Página não encontrada' />,
     children:[      
         {
           path: "/",

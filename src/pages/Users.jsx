@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
+import ErrorPage from "./ErrorPage"
 
 const Users = () => {
   const [data, setData] = useState([]);
@@ -33,7 +34,7 @@ const Users = () => {
       {isProcessing ? (
         <Loading />
       ) : error ? (
-        <div className="error">Erro ao carregar os dados: {error.message}</div>
+        <ErrorPage error={error} />
       ) : data.length === 0 ? (
         <div className="zeroItems">Não há items.</div>
       ) : (

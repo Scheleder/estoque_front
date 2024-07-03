@@ -14,6 +14,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import ErrorPage from "./ErrorPage"
 
 const UnityDetails = (props) => {
     const { id } = useParams();
@@ -48,7 +49,7 @@ const UnityDetails = (props) => {
                     <Loading />
                 </div>
             ) : error ? (
-                <div className="error">Erro ao carregar os dados: {error.message}</div>
+                <ErrorPage error={error} />
             ) : (
                 <div className="pl-16 pt-20">
                     <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
@@ -61,10 +62,10 @@ const UnityDetails = (props) => {
                             </div>
                             <div className='col-span-1 mt-2'></div>
                             <div className='col-span-1'>
-                                <Input placeholder="Unidade" className="bg-white" value={unity.name} />
+                                <Input placeholder="Unidade" className="" value={unity.name} />
                             </div>
                             <div className='col-span-1 px-4'>
-                                <Input placeholder="Abreviação" className="bg-white" value={unity.abrev} />
+                                <Input placeholder="Abreviação" className="" value={unity.abrev} />
                             </div>
                             <div className='flex col-span-1'>
                                 <Button className="ml-4 w-full bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>

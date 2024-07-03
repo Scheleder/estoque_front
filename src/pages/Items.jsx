@@ -4,6 +4,7 @@ import { Eye, Search, CloudDownload, ShoppingBasket, BaggageClaim } from "lucide
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
+import ErrorPage from "./ErrorPage"
 
 const Items = () => {
   const [data, setData] = useState([]);
@@ -35,20 +36,20 @@ const Items = () => {
         <Input
           type="search"
           placeholder="Procurar..."
-          className="w-full mt-3 rounded-lg bg-white mb-2 px-8 md:w-[150px] lg:w-[200px] text-center text-zinc-600"
+          className="w-full mt-3 rounded-lg  mb-2 px-8 md:w-[150px] lg:w-[200px] text-center text-zinc-600"
         />
       </div> */}
 
       {isProcessing ? (
         <Loading />
       ) : error ? (
-        <div className="error">Erro ao carregar os dados: {error.message}</div>
+        <ErrorPage error={error} />
       ) : (
 
         <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 bg-gray-200">
           <div className='overflow-x-auto rounded-md shadow-md'>
           <table className="w-full text-xs xs:text-sm text-blue-900">
-            <caption class="caption-bottom mt-4 text-gray-400">
+            <caption className="caption-bottom mt-4 text-gray-400">
               Total de registros: {data.length}
             </caption>
             <thead>

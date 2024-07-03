@@ -53,7 +53,7 @@ const Header = () => {
         title = 'Unidades de Medida'
         break;
       case location.pathname === '/supply':
-        title = 'Ressuprimento'
+        title = 'Adicionar Item de Estoque'
         break;
       case location.pathname === '/takeout':
         title = 'Movimentações'
@@ -93,7 +93,7 @@ const Header = () => {
           <Pagetitle title={title} />
         </div>
 
-        <div className="flex justify-end">
+        <div className="relative flex justify-end">
           <Logo className="mx-8" />
 
           <DropdownMenu className="z-0">

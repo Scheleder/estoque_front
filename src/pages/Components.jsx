@@ -4,6 +4,8 @@ import api from '@/services/config';
 import Loading from '@/components/loading';
 import { PenBox, Eye } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
+import { ComponentAdd } from './ComponentAdd';
+import ErrorPage from "./ErrorPage"
 
 const Components = () => {
   const [data, setData] = useState([]);
@@ -34,13 +36,12 @@ const Components = () => {
       {isProcessing ? (
         <Loading />
       ) : error ? (
-        <div className="error">Erro ao carregar os dados: {error.message}</div>
-      ) : (
+        <ErrorPage error={error} />) : (
         <div className="relative overflow-x-auto shadow-lg rounded-md p-2">
-          <ButtonAdd />
+          <ComponentAdd className="float-right"/>
           <div className='overflow-x-auto rounded-md shadow-md'>
             <table className="w-full text-xs xs:text-sm text-blue-900">
-              <caption class="caption-bottom mt-4 text-gray-400">
+              <caption className="caption-bottom mt-4 text-gray-400">
                 Total de registros: {data.length}
               </caption>
               <thead>

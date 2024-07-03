@@ -41,7 +41,7 @@ const Categories = () => {
           <ButtonAdd />
           <div className='overflow-x-auto rounded-md shadow-md'>
             <table className="w-full text-xs xs:text-sm text-blue-800">
-              <caption class="caption-bottom mt-4 text-gray-400">
+              <caption className="caption-bottom mt-4 text-gray-400">
                 Total de {data.length} itens.
               </caption> 
               <thead>

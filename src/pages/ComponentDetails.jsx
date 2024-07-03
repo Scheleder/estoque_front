@@ -9,6 +9,7 @@ import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
 import Select from 'react-select'
 import ComponentInfo from '@/components/componentInfo';
+import ErrorPage from "./ErrorPage"
 
 import { Eye, Send, Save, Earth } from "lucide-react"
 import {
@@ -77,7 +78,7 @@ const ComponentDetails = (props) => {
           <Loading />
         </div>
       ) : error ? (
-        <div className="error">Erro ao carregar os dados: {error.message}</div>
+        <ErrorPage error={error} />
       ) : (
         <div className="pl-16 pt-20">
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
@@ -101,10 +102,10 @@ const ComponentDetails = (props) => {
                 <label>Data do cadastro:</label>
               </div>
               <div className='flex col-span-2'>
-                <Input placeholder="Nome" className="bg-white" value={component.description} readOnly />
+                <Input placeholder="Nome" className="" value={component.description} readOnly />
               </div>
               <div className='col-span-1 pl-4'>
-                <Input placeholder="Registro" className="bg-white text-center" value={getDate(component.createdAt)} readOnly />
+                <Input placeholder="Registro" className=" text-center" value={getDate(component.createdAt)} readOnly />
               </div>
               <div className='col-span-1 mt-2'>
                 <label>SKU:</label>
@@ -114,10 +115,10 @@ const ComponentDetails = (props) => {
               </div>
               <div className='col-span-1 mt-2'></div>
               <div className='col-span-1'>
-                <Input placeholder="SKU" className="bg-white mr-2" value={component.sku} />
+                <Input placeholder="SKU" className=" mr-2" value={component.sku} />
               </div>
               <div className='col-span-1 pr-2'>
-                <Input placeholder="Código de barras" className="bg-white ml-2" value={component.barcode} />
+                <Input placeholder="Código de barras" className=" ml-2" value={component.barcode} />
               </div>
               <div className='flex col-span-1'>
                 <Button className="w-full ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>

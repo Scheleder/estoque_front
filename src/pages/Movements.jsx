@@ -10,6 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import ErrorPage from "./ErrorPage"
 
 const Movements = () => {
   const [data, setData] = useState([]);
@@ -40,11 +41,11 @@ const Movements = () => {
       {isProcessing ? (
         <Loading />
       ) : error ? (
-        <div className="error">Erro ao carregar os dados: {error.message}</div>
+        <ErrorPage error={error} />
       ) : (
         <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 bg-gray-200">
           <table className="w-full text-xs xs:text-sm text-blue-900">
-            <caption class="caption-bottom mt-4 text-gray-400">
+            <caption className="caption-bottom mt-4 text-gray-400">
               Total de registros: {data.length}
             </caption>
             <thead>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
 import ButtonAdd from '@/components/buttonAdd';
+import ErrorPage from "./ErrorPage"
 
 const Locals = () => {
   const [data, setData] = useState([]);
@@ -33,7 +34,7 @@ const Locals = () => {
       {isProcessing ? (
         <Loading />
       ) : error ? (
-        <div className="error">Erro ao carregar os dados: {error.message}</div>
+        <ErrorPage error={error} />
       ) : (
         <div>
           <ButtonAdd />

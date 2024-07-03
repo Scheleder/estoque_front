@@ -8,7 +8,7 @@ import Loading from '@/components/loading';
 import Users from './Users';
 import Locals from './Locals';
 import { Ruler, Factory, ListCollapse, UsersRound, Warehouse, AlignHorizontalDistributeCenter as Piece } from 'lucide-react';
-
+import ErrorPage from "./ErrorPage"
 
 const Settings = (props) => {
 

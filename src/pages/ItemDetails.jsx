@@ -9,7 +9,7 @@ import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
 import Select from 'react-select'
 import ComponentInfo from '@/components/componentInfo';
-
+import ErrorPage from "./ErrorPage"
 import { Eye, Info, Save, Cpu } from "lucide-react"
 import {
   Tooltip,
@@ -60,7 +60,7 @@ const ItemDetails = (props) => {
           <Loading />
         </div>
       ) : error ? (
-        <div className="error">Erro ao carregar os dados: {error.message}</div>
+        <ErrorPage error={error} />
       ) : (
         <div className="pl-16 pt-20">
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
@@ -70,7 +70,7 @@ const ItemDetails = (props) => {
                 <span onClick={getInfos} title="Informações sobre o componente" className='absolute text-green-500 hover:text-green-400 top-9 left-2 cursor-pointer'><Info className='w-4 h-4' /></span>
               </div>
               <div className='flex col-span-3'>
-                <Input placeholder="Nome" className="bg-white pl-8" value={item.Component.description} readOnly />
+                <Input placeholder="Nome" className=" pl-8" value={item.Component.description} readOnly />
               </div>
               <div className='col-span-1 mt-2'>
                 <label>Endereço de estoque:</label>
@@ -82,13 +82,13 @@ const ItemDetails = (props) => {
                 <label>Estoque mínimo:</label>
               </div>
               <div className='col-span-1'>
-                <Input placeholder="Endereço" className="bg-white text-center" value={item.adress} readOnly />
+                <Input placeholder="Endereço" className=" text-center" value={item.adress} readOnly />
               </div>
               <div className='col-span-1 pl-4'>
-                <Input placeholder="Qauntidade" className="bg-white text-center" value={item.quantity} readOnly />
+                <Input placeholder="Qauntidade" className=" text-center" value={item.quantity} readOnly />
               </div>
               <div className='col-span-1 pl-4'>
-                <Input placeholder="Mínimo" className="bg-white text-center" value={item.minimum} readOnly />
+                <Input placeholder="Mínimo" className=" text-center" value={item.minimum} readOnly />
               </div>
             </div>
           </div>

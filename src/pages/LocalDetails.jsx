@@ -14,6 +14,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import ErrorPage from "./ErrorPage"
 
 const LocalDetails = (props) => {
     const { id } = useParams();
@@ -48,7 +49,7 @@ const LocalDetails = (props) => {
                     <Loading />
                 </div>
             ) : error ? (
-                <div className="error">Erro ao carregar os dados: {error.message}</div>
+                <ErrorPage error={error} />
             ) : (
                 <div className="pl-16 pt-20">
                     <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
@@ -58,7 +59,7 @@ const LocalDetails = (props) => {
                             </div>
                             <div className='col-span-1 mt-2'></div>
                             <div className='col-span-2'>
-                                <Input placeholder="Estoque" className="bg-white mr-4" value={local.name} />
+                                <Input placeholder="Estoque" className=" mr-4" value={local.name} />
                             </div>
                             <div className='flex col-span-1'>
                                 <Button className="ml-4 w-full bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>

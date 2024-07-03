@@ -58,7 +58,7 @@ const CategoryDetails = (props) => {
                             </div>
                             <div className='col-span-1 mt-2'></div>
                             <div className='col-span-2'>
-                                <Input placeholder="Categoria" className="bg-white mr-4" value={category.name} />
+                                <Input placeholder="Categoria" className=" mr-4" value={category.name} />
                             </div>
                             <div className='flex col-span-1'>
                                 <Button className="ml-4 w-full bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>

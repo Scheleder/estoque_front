@@ -14,6 +14,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import ErrorPage from "./ErrorPage"
 
 const UserDetails = (props) => {
   const { id } = useParams();
@@ -52,7 +53,7 @@ const UserDetails = (props) => {
           <Loading />
         </div>
       ) : error ? (
-        <div className="error">Erro ao carregar os dados: {error.message}</div>
+        <ErrorPage error={error} />
       ) : (
         <div className="pl-16 pt-20">
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
@@ -64,17 +65,17 @@ const UserDetails = (props) => {
                 <label className='mt-2'>Data do cadastro:</label>
               </div>
               <div className='flex col-span-2'>
-                <Input placeholder="Nome" className="bg-white mr-4" value={user.name} readOnly />
+                <Input placeholder="Nome" className=" mr-4" value={user.name} readOnly />
               </div>
               <div className='col-span-1'>
-                <Input placeholder="Registro" className="bg-white text-center" value={getDate(user.createdAt)} readOnly />
+                <Input placeholder="Registro" className=" text-center" value={getDate(user.createdAt)} readOnly />
               </div>
               <div className='col-span-3 mt-2'>
                 <label>E-mail:</label>
               </div>
               <div className='flex col-span-3 relative'>
               <a href={`mailto:${user.email}`} target="_blank" rel="noopener noreferrer" title="Enviar e-mail" className='absolute text-blue-500 hover:text-blue-400 top-3 left-2 cursor-pointer'><Send className='w-4 h-4' /></a>
-                <Input placeholder="E-mail" className="bg-white pl-8" value={user.email} />
+                <Input placeholder="E-mail" className=" pl-8" value={user.email} />
                 <Button className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
               </div>
             </div>

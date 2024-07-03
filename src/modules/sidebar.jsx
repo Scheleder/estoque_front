@@ -72,7 +72,7 @@ const Sidebar = (props) => {
                                         </Link>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-lime-300">Ressuprimento</p>
+                                        <p className="text-lime-300">Adicionar Item</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
