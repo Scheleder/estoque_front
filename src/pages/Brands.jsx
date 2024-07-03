@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
 import ButtonAdd from '@/components/buttonAdd';
+import { BrandAdd } from './BrandAdd';
 
 const Brands = () => {
   const [data, setData] = useState([]);
@@ -36,7 +37,7 @@ const Brands = () => {
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : (
         <div>
-          <ButtonAdd />
+          <BrandAdd />
           <ul className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 px-4">
             {data.map((dt, index) => (
               <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md my-4 bg-indigo-100 p-2'>

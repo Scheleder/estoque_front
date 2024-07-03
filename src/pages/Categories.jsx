@@ -4,6 +4,7 @@ import api from '@/services/config';
 import Loading from '@/components/loading';
 import { PenBox, Plus } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
+import { CategoryAdd } from './CategoryAdd';
 
 const Categories = () => {
   const [data, setData] = useState([]);
@@ -38,7 +39,7 @@ const Categories = () => {
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : (
         <div className="relative overflow-x-auto shadow-lg rounded-md p-2">
-          <ButtonAdd />
+          <CategoryAdd />
           <div className='overflow-x-auto rounded-md shadow-md'>
             <table className="w-full text-xs xs:text-sm text-blue-800">
               <caption className="caption-bottom mt-4 text-gray-400">

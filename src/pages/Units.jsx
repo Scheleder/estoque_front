@@ -5,6 +5,7 @@ import Loading from '@/components/loading';
 import { PenBox, Plus } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
 import ErrorPage from "./ErrorPage"
+import { UnityAdd } from './UnityAdd';
 
 const Units = () => {
     const [data, setData] = useState([]);
@@ -38,7 +39,7 @@ const Units = () => {
                 <ErrorPage error={error} />
             ) : (
                 <div className="relative overflow-x-auto shadow-lg rounded-md p-2">
-                    <ButtonAdd />
+                    <UnityAdd />
                     <div className='overflow-x-auto rounded-md shadow-md'>
                         <table className="w-full text-xs xs:text-sm text-blue-800">
                             <caption className="caption-bottom mt-4 text-gray-400">
