@@ -37,15 +37,14 @@ const Components = () => {
         <Loading />
       ) : error ? (
         <ErrorPage error={error} />) : (
-        <div className="relative overflow-x-auto shadow-lg rounded-md p-2">
-          <ComponentAdd className="float-right"/>
+        <div className="relative overflow-x-auto shadow-lg rounded-md p-4 pb-0">
           <div className='overflow-x-auto rounded-md shadow-md'>
             <table className="w-full text-xs xs:text-sm text-blue-900">
               <caption className="caption-bottom mt-4 text-gray-400">
                 Total de registros: {data.length}
               </caption>
               <thead>
-                <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
+                <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
                   <th className='pl-2'>Categoria</th>
                   <th>Fabricante</th>
                   <th>SKU</th>
@@ -70,6 +69,7 @@ const Components = () => {
               </tbody>
             </table>
           </div>
+          <ComponentAdd />
         </div>
       )}
     </>

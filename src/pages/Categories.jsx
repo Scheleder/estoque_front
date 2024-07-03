@@ -38,15 +38,14 @@ const Categories = () => {
       ) : error ? (
         <div className="error">Erro ao carregar os dados: {error.message}</div>
       ) : (
-        <div className="relative overflow-x-auto shadow-lg rounded-md p-2">
-          <CategoryAdd />
+        <div className="relative overflow-x-auto shadow-lg rounded-md p-4 pb-0">
           <div className='overflow-x-auto rounded-md shadow-md'>
             <table className="w-full text-xs xs:text-sm text-blue-800">
               <caption className="caption-bottom mt-4 text-gray-400">
                 Total de {data.length} itens.
-              </caption> 
+              </caption>
               <thead>
-                <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
+                <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
                   <th className='pl-2'>Categoria</th>
                   <th></th>
                 </tr>
@@ -63,6 +62,7 @@ const Categories = () => {
               </tbody>
             </table>
           </div>
+          <CategoryAdd />
         </div>
       )}
     </>

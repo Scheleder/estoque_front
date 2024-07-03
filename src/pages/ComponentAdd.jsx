@@ -71,7 +71,7 @@ export function ComponentAdd() {
     return (
         <>
             {isProcessing ? (
-                <div className='text-right'><Button variant="outline" className="m-2 bg-lime-600 hover:bg-lime-500 text-white hover:text-white"><Loader className='animate-spin' />Adicionar</Button></div>
+                <div className=''><Button variant="outline" className="m-2 bg-lime-600 hover:bg-lime-500 text-white hover:text-white"><Loader className='animate-spin' />Adicionar</Button></div>
             ) : error ? (
                 <ErrorPage error={error} />
             ) : (

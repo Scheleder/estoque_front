@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import ErrorPage from "./ErrorPage"
+import { SendMail } from './SendMail';
 
 const UserDetails = (props) => {
   const { id } = useParams();
@@ -74,7 +75,7 @@ const UserDetails = (props) => {
                 <label>E-mail:</label>
               </div>
               <div className='flex col-span-3 relative'>
-              <a href={`mailto:${user.email}`} target="_blank" rel="noopener noreferrer" title="Enviar e-mail" className='absolute text-blue-500 hover:text-blue-400 top-3 left-2 cursor-pointer'><Send className='w-4 h-4' /></a>
+                <SendMail user={user.name} />
                 <Input placeholder="E-mail" className=" pl-8" value={user.email} />
                 <Button className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
               </div>
@@ -83,48 +84,50 @@ const UserDetails = (props) => {
 
           <div className="mt-4 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <span className='text-gray-600 font-lg'>Movimentações de {user.name}</span>
-            <table className="w-full text-xs xs:text-sm text-blue-900 mt-2">
-              <caption className="caption-bottom mt-4 text-gray-400">
-                Total de registros: {user.Movements.length}
-              </caption>
-              <thead>
-                <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
-                  <th>Data</th>
-                  <th>Tipo</th>
-                  <th>Destino</th>
-                  <th>Quantidade</th>
-                  <th>Item SKU</th>
-                  <th>Colaborador</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  user.Movements.map((dt, index) => (
-                    <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
-                      <td className='p-1'>{getDate(dt.createdAt)}</td>
-                      <td className='p-1'>{dt.type}</td>
-                      <td className='p-1'>{dt.destination}</td>
-                      <td className='p-1'>{dt.quantity} {dt.Item.Component.Unity.abrev}</td>
-                      <td className='p-1'>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger>
-                              <Link to={`/items/${dt.Item.id}`}>
-                                <span>{dt.Item.Component.sku}</span>
-                              </Link>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p className="text-white">{dt.Item.Component.description}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </td>
-                      <td className='p-1'>{user.name}</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
+            <div className='overflow-x-auto rounded-md shadow-md mt-1'>
+              <table className="w-full text-xs xs:text-sm text-blue-900">
+                <caption className="caption-bottom mt-4 text-gray-400">
+                  Total de registros: {user.Movements.length}
+                </caption>
+                <thead>
+                  <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Destino</th>
+                    <th>Quantidade</th>
+                    <th>Item SKU</th>
+                    <th>Colaborador</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    user.Movements.map((dt, index) => (
+                      <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
+                        <td className='p-1'>{getDate(dt.createdAt)}</td>
+                        <td className='p-1'>{dt.type}</td>
+                        <td className='p-1'>{dt.destination}</td>
+                        <td className='p-1'>{dt.quantity} {dt.Item.Component.Unity.abrev}</td>
+                        <td className='p-1'>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <Link to={`/items/${dt.Item.id}`}>
+                                  <span>{dt.Item.Component.sku}</span>
+                                </Link>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p className="text-white">{dt.Item.Component.description}</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </td>
+                        <td className='p-1'>{user.name}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}

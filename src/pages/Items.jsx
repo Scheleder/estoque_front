@@ -53,7 +53,7 @@ const Items = () => {
               Total de registros: {data.length}
             </caption>
             <thead>
-              <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-blue-200">
+              <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
                 <th className='pl-2'>Endereço de Estoque</th>
                 <th>Item</th>
                 <th>Quantidade</th>
