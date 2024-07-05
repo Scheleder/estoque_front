@@ -20,7 +20,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.jsx"
 import Pagetitle from "@/components/pagetitle.jsx"
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 const Header = () => {
   const location = useLocation();
@@ -76,9 +81,9 @@ const Header = () => {
       case location.pathname.includes('/units/'):
         title = 'Detalhes da Unidade'
         break;
-        case location.pathname.includes('/items/'):
-          title = 'Detalhes do Item'
-          break;
+      case location.pathname.includes('/items/'):
+        title = 'Detalhes do Item'
+        break;
       default:
         title = 'Gerenciamento de Estoque'
         break;
@@ -88,8 +93,24 @@ const Header = () => {
 
   return (
     <>
-      <div className="fixed z-0 w-full h-16 flex gap-4 grid-cols-4 grid-rows-1 justify-between pl-16 px-2 py-2 bg-zinc-50 border-b-zinc-100 border-b-2">
-        <div className="flex align-middle mt-4">
+      <div className="fixed z-10 w-full h-16 flex grid-cols-2 grid-rows-1 justify-between px-2 py-2 bg-blue-200">
+
+        <div className="relative flex justify-end mt-2">
+          <div className="">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Link to="/">
+                    <img src="src/assets/warehouse_64.png" alt="WH" width={32} height={32} />
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-lime-300">Página Inicial</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+
           <Pagetitle title={title} />
         </div>
 

@@ -36,7 +36,7 @@ const Categories = () => {
       {isProcessing ? (
         <Loading />
       ) : error ? (
-        <div className="error">Erro ao carregar os dados: {error.message}</div>
+        <ErrorPage error={error} />
       ) : (
         <div className="relative overflow-x-auto shadow-lg rounded-md p-4 pb-0">
           <div className='overflow-x-auto rounded-md shadow-md'>

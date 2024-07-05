@@ -81,21 +81,21 @@ const Supply = (props) => {
 
               <div className='relative col-span-3 mt-2'>
                 <label>Categoria:</label>
-                <div className='absolute top-4 right-0 z-10'><CategoryAdd /></div>
+                <div className='absolute top-4 right-0'><CategoryAdd /></div>
               </div>
               <div className='flex col-span-3'>
                 <Select options={categories} placeholder="Selecione a categoria" className='w-full mr-36' styles={styles} />                
               </div>
               <div className='relative flex col-span-3 mt-2'>
                 <label>Fabricante:</label>
-                <div className='absolute top-4 right-0 z-10'><BrandAdd /></div>
+                <div className='absolute top-4 right-0'><BrandAdd /></div>
               </div>
               <div className='flex col-span-3'>
                 <Select options={brands} placeholder="Selecione o fabricante" className='w-full mr-36' styles={styles} />
               </div>
               <div className='relative col-span-3 mt-2'>
                 <label>Componente:</label>
-                <div className='absolute top-4 right-0 z-10'><ComponentAdd /></div>
+                <div className='absolute top-4 right-0'><ComponentAdd /></div>
               </div>
               <div className='flex col-span-3'>
                 <Select options={components} placeholder="Selecione o componente" className='w-full mr-36' styles={styles} onChange={changeUnity} />

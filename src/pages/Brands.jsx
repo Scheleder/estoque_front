@@ -4,12 +4,13 @@ import api from '@/services/config';
 import Loading from '@/components/loading';
 import ButtonAdd from '@/components/buttonAdd';
 import { BrandAdd } from './BrandAdd';
+import { useToast } from "@/components/ui/use-toast"
 
 const Brands = () => {
   const [data, setData] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
-
+  const { toast } = useToast()
   const getData = async () => {
     try {
       setIsProcessing(true);
@@ -34,7 +35,7 @@ const Brands = () => {
       {isProcessing ? (
         <Loading />
       ) : error ? (
-        <div className="error">Erro ao carregar os dados: {error.message}</div>
+        <ErrorPage error={error} />
       ) : (
         <div>
           <ul className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-4">
@@ -58,6 +59,14 @@ const Brands = () => {
             ))}
           </ul>
           <BrandAdd />
+          <button className="bg-red-500 text-white" onClick={() => {
+        toast({
+          title: "Scheduled: Catch up",
+          description: "Friday, February 10, 2023 at 5:57 PM",
+        })
+      }}>
+        TOAST
+      </button>
         </div>
       )}
     </>

@@ -32,24 +32,10 @@ import WareHouse from "@/assets/warehouse"
 const Sidebar = (props) => {
     return (
         <>
-            <div className="flex min-h-screen w-12 flex-col bg-muted/40">
-                <aside className="fixed inset-y-0 left-0 z-10 hidden w-12 flex-col border-r bg-zinc-100 sm:flex">
+            <div className="flex min-h-screen w-12 flex-col bg-muted/40 opacity-50">
+                <aside className="fixed inset-y-0 left-0 z-100 hidden w-12 flex-col border-r bg-zinc-100 sm:flex">
                     <nav className="flex flex-col items-center gap-4 px-2 py-4">
-                        <div className="mt-3">
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger>
-                                        <Link to="/">
-                                        <img src="src/assets/warehouse_64.png" alt="WH"  width={32} height={32}/>
-                                        </Link>
-                                    </TooltipTrigger>
-                                    <TooltipContent>
-                                        <p className="text-lime-300">Página Inicial</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </div>
-                        <div className="mt-8">
+                        <div className="mt-28">
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>

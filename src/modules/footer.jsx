@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { Copyright } from 'lucide-react'
+import { Toaster } from "@/components/ui/toaster"
 
 
 
@@ -11,6 +12,7 @@ const Footer = (props) => {
                 <Link to="/about">
                     <span className="text-xs">v.0.20240614&nbsp;&nbsp;<Copyright className="w-2 h-2" /></span>
                 </Link>
+                <Toaster />
             </div>
         </>
     )

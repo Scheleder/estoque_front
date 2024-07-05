@@ -91,7 +91,7 @@ const UserDetails = (props) => {
                 </caption>
                 <thead>
                   <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                    <th>Data</th>
+                    <th className='pl-2'>Data</th>
                     <th>Tipo</th>
                     <th>Destino</th>
                     <th>Quantidade</th>
@@ -103,7 +103,7 @@ const UserDetails = (props) => {
                   {
                     user.Movements.map((dt, index) => (
                       <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
-                        <td className='p-1'>{getDate(dt.createdAt)}</td>
+                        <td className='px-2 py-1'>{getDate(dt.createdAt)}</td>
                         <td className='p-1'>{dt.type}</td>
                         <td className='p-1'>{dt.destination}</td>
                         <td className='p-1'>{dt.quantity} {dt.Item.Component.Unity.abrev}</td>
