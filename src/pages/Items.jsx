@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
-import { Eye, Search, CloudDownload, ShoppingBasket, BaggageClaim } from "lucide-react"
+import { Eye, Search, ListFilter, Filter, BaggageClaim, ArrowUpDown } from "lucide-react"
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
 import ErrorPage from "./ErrorPage"
+import FilterList from '@/components/filterList';
 
 const Items = () => {
   const [data, setData] = useState([]);
@@ -54,8 +55,8 @@ const Items = () => {
             </caption>
             <thead>
               <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                <th className='pl-2'>Endereço de Estoque</th>
-                <th>Item</th>
+              <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5' /><span className='ml-6'>Endereço</span><FilterList /></th>
+              <th className='relative'><ArrowUpDown size={12} className='mr-2 absolute mt-0.5' /><span className='ml-4'>Item</span><FilterList /></th>
                 <th>Quantidade</th>
                 <th></th>
               </tr>
