@@ -55,8 +55,8 @@ const Items = () => {
             </caption>
             <thead>
               <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-              <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5' /><span className='ml-6'>Endereço</span><FilterList /></th>
-              <th className='relative'><ArrowUpDown size={12} className='mr-2 absolute mt-0.5' /><span className='ml-4'>Item</span><FilterList /></th>
+              <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-6'>Endereço</span><FilterList /></th>
+              <th className=''><ArrowUpDown size={12} className='mr-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Item</span><FilterList /></th>
                 <th>Quantidade</th>
                 <th></th>
               </tr>

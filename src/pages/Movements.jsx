@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
 import Loading from '@/components/loading';
-import { Eye, CloudDownload } from "lucide-react"
+import { Eye, CloudDownload, ArrowUpDown } from "lucide-react"
 import { Link } from 'react-router-dom';
 import { getDate } from '@/lib/utils';
 import {
@@ -52,12 +52,12 @@ const Movements = () => {
               </caption>
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                  <th className='pl-2'>Data</th>
-                  <th>Tipo</th>
-                  <th>Destino</th>
+                  <th><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-6'>Data</span></th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Tipo</span></th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Destino</span></th>
                   <th>Quantidade</th>
-                  <th>Item SKU</th>
-                  <th>Colaborador</th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Item SKU</span></th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Colaborador</span></th>
                 </tr>
               </thead>
               <tbody>

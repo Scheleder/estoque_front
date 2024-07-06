@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
-import { PenBox, Plus } from "lucide-react"
+import { PenBox, Plus, ArrowUpDown } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
 import ErrorPage from "./ErrorPage"
 import { UnityAdd } from './UnityAdd';
+import FilterList from '@/components/filterList';
 
 const Units = () => {
     const [data, setData] = useState([]);
@@ -46,7 +47,7 @@ const Units = () => {
                             </caption>
                             <thead>
                                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                                    <th className='pl-2'>Unidade de Medida</th>
+                                <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-6'>Unidades de Medida</span><FilterList /></th>
                                     <th>Abreviação</th>
                                     <th></th>
                                 </tr>

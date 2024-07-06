@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
-import { PenBox, Eye } from "lucide-react"
+import { PenBox, Eye, ArrowUpDown } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
 import { ComponentAdd } from './ComponentAdd';
 import ErrorPage from "./ErrorPage"
+import FilterList from '@/components/filterList';
 
 const Components = () => {
   const [data, setData] = useState([]);
@@ -45,10 +46,10 @@ const Components = () => {
               </caption>
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                  <th className='pl-2'>Categoria</th>
-                  <th>Fabricante</th>
-                  <th>Descrição</th>
-                  <th>SKU</th>
+                  <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-6'>Categoria</span><FilterList /></th>
+                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Fabricante</span><FilterList /></th>
+                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Descrição</span><FilterList /></th>
+                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>SKU</span><FilterList /></th>
                   <th></th>
                 </tr>
               </thead>

@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
 import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
-import { Link as WWW, Send, Save } from "lucide-react"
+import FilterList from '@/components/filterList';
+import { Link as WWW, Send, Save, ArrowUpDown } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -84,19 +85,19 @@ const UserDetails = (props) => {
 
           <div className="mt-4 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <span className='text-gray-600 font-lg'>Movimentações de {user.name}</span>
-            <div className='overflow-x-auto rounded-md shadow-md mt-1'>
+            <div className='overflow-x-auto rounded-md shadow-md mt-2'>
               <table className="w-full text-xs xs:text-sm text-blue-900">
                 <caption className="caption-bottom mt-4 text-gray-400">
                   Total de registros: {user.Movements.length}
                 </caption>
                 <thead>
                   <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                    <th className='pl-2'>Data</th>
-                    <th>Tipo</th>
-                    <th>Destino</th>
-                    <th>Quantidade</th>
-                    <th>Item SKU</th>
-                    <th>Colaborador</th>
+                  <th><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-6'>Data</span></th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Tipo</span></th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Destino</span></th>
+                  <th>Quantidade</th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Item SKU</span></th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Colaborador</span></th>
                   </tr>
                 </thead>
                 <tbody>

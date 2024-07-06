@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
-import { PenBox, Plus } from "lucide-react"
+import { PenBox, Plus, ArrowUpDown } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
 import { CategoryAdd } from './CategoryAdd';
+import FilterList from '@/components/filterList';
 
 const Categories = () => {
   const [data, setData] = useState([]);
@@ -46,7 +47,7 @@ const Categories = () => {
               </caption>
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                  <th className='pl-2'>Categoria</th>
+                <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-6'>Categories</span><FilterList /></th>
                   <th></th>
                 </tr>
               </thead>

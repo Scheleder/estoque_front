@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
 import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
-import { Eye, Link as WWW, Save, Earth } from "lucide-react"
+import FilterList from '@/components/filterList';
+import { Eye, Link as WWW, Save, ArrowUpDown } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -82,23 +83,24 @@ const BrandDetails = (props) => {
 
           <div className="mt-4 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <span className='text-gray-600 font-lg'>Componentes do Fabricante {brand.name}</span>
-            <table className="w-full text-xs xs:text-sm text-blue-900 mt-2">
+            <div className='overflow-x-auto rounded-md shadow-md mt-2'>
+            <table className="w-full text-xs xs:text-sm text-blue-900">
               <caption className="caption-bottom mt-4 text-gray-400">
                 Total de registros: {brand.Components.length}
               </caption>
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                  <th>Categoria</th>
-                  <th>SKU</th>
-                  <th>Componente</th>
-                  <th>Cadastrado em</th>
+                <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-6'>Categoria</span><FilterList /></th>
+                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Fabricante</span><FilterList /></th>
+                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Descrição</span><FilterList /></th>
+                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>SKU</span><FilterList /></th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {
                   brand.Components.map((dt, index) => (
-                    <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
+                    <tr key={index} className='odd:bg-stone-300 even:bg-stone-200 hover:bg-blue-100 font-semibold'>
                       <td className='p-1'>{dt.Category.name}</td>
                       <td className='p-1'>{dt.sku}</td>
                       <td className='p-1'>{dt.description}</td>
@@ -111,6 +113,7 @@ const BrandDetails = (props) => {
                 }
               </tbody>
             </table>
+                </div>
           </div>
         </div>
       )}
