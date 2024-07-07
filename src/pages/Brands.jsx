@@ -40,7 +40,7 @@ const Brands = () => {
         <div>
           <ul className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-4">
             {data.map((dt, index) => (
-              <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md my-4 bg-indigo-100 p-2'>
+              <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md bg-indigo-100 p-2'>
                 <div className=''>
                   <Link to={`/brands/${dt.id}`}>
                     <img src="src/assets/brand.png" alt="user" width={80} height={80} className='rounded-full border-2 border-white hover:border-blue-300 origin-center hover:rotate-45' />
@@ -59,14 +59,6 @@ const Brands = () => {
             ))}
           </ul>
           <BrandAdd />
-          <button className="bg-red-500 text-white" onClick={() => {
-        toast({
-          title: "Scheduled: Catch up",
-          description: "Friday, February 10, 2023 at 5:57 PM",
-        })
-      }}>
-        TOAST
-      </button>
         </div>
       )}
     </>

@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
+import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router'
+import api from '@/services/config';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -10,17 +13,21 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import api from '@/services/config';
-import { Button } from "@/components/ui/button"
+
 import ButtonAdd from '@/components/buttonAdd'
 import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button"
 import Select from 'react-select'
-import ErrorPage from "./ErrorPage"
-import Loading from '@/components/loading';
 import { Loader } from 'lucide-react';
 
 export function ComponentAdd() {
 
+    const { toast } = useToast()
+    const navigate = useNavigate()
+
+    const { register, handleSubmit } = useForm();
+    const [data, setData] = useState("");
     const [units, setUnits] = useState([]);
     const [categories, setCategories] = useState([]);
     const [brands, setBrands] = useState([]);
@@ -68,6 +75,39 @@ export function ComponentAdd() {
     }, []);
 
 
+    const mySubmit = async (values) => {
+
+        try {
+            setIsProcessing(true);
+            const response = await api.post('/units', values);
+            console.log(response);
+            if (response.status === 201) {
+                setData(response.data.local);
+                toast({
+                    title: "Sucesso!",
+                    description: response.data.msg,
+                })
+            } else {
+                toast({
+                    title: "Falha!",
+                    description: response.data.msg,
+                })
+            }
+            setTimeout(function () {
+                navigate(0)
+            }, 1500);
+        } catch (err) {
+            setError(err);
+            console.log(err);
+            toast({
+                title: "Erro!",
+                description: err,
+            })
+        } finally {
+            setIsProcessing(false);
+        }
+    }
+
     return (
         <>
             {isProcessing ? (
@@ -83,18 +123,20 @@ export function ComponentAdd() {
                         <AlertDialogHeader>
                             <AlertDialogTitle>Novo Componente</AlertDialogTitle>
                             <AlertDialogDescription>
-                                <Select options={categories} placeholder="Selecione a categoria" className='w-full mt-2' styles={styles} />
-                                <Select options={brands} placeholder="Selecione o fabricante" className='w-full mt-2' styles={styles} />
-                                <Select options={units} placeholder="Selecione a unidade de medida" className='w-full mt-2' styles={styles} />
-                                <Input placeholder="Insira a descrição" className=" mt-2" />
-                                <Input placeholder="Insira o SKU" className=" mt-2" />
-                                <Input placeholder="Insira o código de barras" className=" mt-2" />
+                                <form onSubmit={handleSubmit(mySubmit)}>
+                                    <Select {...register("categoryId", { required: true })} options={categories} placeholder="Selecione a categoria" className='mt-2' styles={styles} />
+                                    <Select {...register("brandId", { required: true })} options={brands} placeholder="Selecione o fabricante" className='mt-2' styles={styles} />
+                                    <Select {...register("unityId", { required: true })} options={units} placeholder="Selecione a unidade de medida" className='mt-2' styles={styles} />
+                                    <Input {...register("description", { required: true })} placeholder="Insira descrição" className="mt-2" />
+                                    <Input {...register("sku", { required: false })} placeholder="Insira o SKU" className="mt-2" />
+                                    <Input {...register("barcode", { required: false })} placeholder="Insira o código de barras" className="mt-2" />
+                                    <AlertDialogFooter className="mt-4">
+                                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                        <AlertDialogAction type="submit" className="bg-blue-700 hover:bg-blue-500">Salvar</AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </form>
                             </AlertDialogDescription>
                         </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                            <AlertDialogAction className="bg-blue-700 hover:bg-blue-500">Salvar</AlertDialogAction>
-                        </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
             )}

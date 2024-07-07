@@ -38,10 +38,10 @@ const Components = () => {
         <Loading />
       ) : error ? (
         <ErrorPage error={error} />) : (
-        <div className="relative overflow-x-auto shadow-lg rounded-md p-4 pb-0">
+        <div className="relative overflow-x-auto shadow-lg rounded-md p-4">
           <div className='overflow-x-auto rounded-md shadow-md'>
             <table className="w-full text-xs xs:text-sm text-blue-900">
-              <caption className="caption-bottom mt-4 text-gray-400">
+              <caption className="caption-bottom text-gray-500 mt-2">
                 Total de registros: {data.length}
               </caption>
               <thead>

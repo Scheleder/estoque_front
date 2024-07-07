@@ -78,21 +78,6 @@ const Supply = (props) => {
         <div className="pl-16 pt-20">
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <div className='grid grid-cols-3 mb-2'>
-
-              <div className='relative col-span-3 mt-2'>
-                <label>Categoria:</label>
-                <div className='absolute top-4 right-0'><CategoryAdd /></div>
-              </div>
-              <div className='flex col-span-3'>
-                <Select options={categories} placeholder="Selecione a categoria" className='w-full mr-36' styles={styles} />                
-              </div>
-              <div className='relative flex col-span-3 mt-2'>
-                <label>Fabricante:</label>
-                <div className='absolute top-4 right-0'><BrandAdd /></div>
-              </div>
-              <div className='flex col-span-3'>
-                <Select options={brands} placeholder="Selecione o fabricante" className='w-full mr-36' styles={styles} />
-              </div>
               <div className='relative col-span-3 mt-2'>
                 <label>Componente:</label>
                 <div className='absolute top-4 right-0'><ComponentAdd /></div>

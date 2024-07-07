@@ -38,9 +38,9 @@ const Locals = () => {
         <ErrorPage error={error} />
       ) : (
         <div>
-          <ul className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-4 pb-0">
+          <ul className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-4">
             {data.map((dt, index) => (
-              <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md my-4 bg-indigo-100 p-2'>
+              <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md bg-indigo-100 p-2'>
                 <div className=''>
                   <Link to={`/locals/${dt.id}`}>
                     <img src="src/assets/armazem.png" alt="user" width={80} height={80} className='rounded-full border-2 border-white origin-center hover:rotate-45' />
