@@ -1,4 +1,6 @@
 import { React, useEffect, useState } from 'react';
+import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from 'react-router';
 import api from '@/services/config';
 import Select from 'react-select'
 import { Button } from '@/components/ui/button'
@@ -10,10 +12,11 @@ import { CategoryAdd } from './CategoryAdd';
 import { BrandAdd } from './BrandAdd';
 import ErrorPage from "./ErrorPage"
 import { ComponentAdd } from './ComponentAdd';
-
+import { useToast } from "@/components/ui/use-toast"
 
 const Supply = (props) => {
-
+  const { control, register, handleSubmit } = useForm();
+  const [data, setData] = useState("");
   const [components, setComponents] = useState([]);
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -21,33 +24,18 @@ const Supply = (props) => {
   const [error, setError] = useState(null);
   const [unity, setUnity] = useState('')
   const styles = { menu: base => ({ ...base, marginTop: 0 }) };
+  const { toast } = useToast()
+  const navigate = useNavigate()
 
   const getData = async () => {
     try {
       setIsProcessing(true);
-      const [response1, response2, response3] = await Promise.all([
-        api.get('components'),
-        api.get('categories'),
-        api.get('brands')
-      ]);
-
-      const sortedComponents = response1.data
-        .map(item => ({ value: item.id, label: item.description, unity: item.Unity.name }))
+      const response = await api.get('components');
+      const sortedComponents = response.data
+        .map(item => ({ value: item.id, label: item.description, unity: item.Unity.abrev }))
         .sort((a, b) => a.label.localeCompare(b.label));
 
       setComponents(sortedComponents);
-
-      const sortedCategories = response2.data
-        .map(item => ({ value: item.id, label: item.name }))
-        .sort((a, b) => a.label.localeCompare(b.label));
-
-      setCategories(sortedCategories);
-
-      const sortedBrands = response3.data
-        .map(item => ({ value: item.id, label: item.name }))
-        .sort((a, b) => a.label.localeCompare(b.label));
-
-      setBrands(sortedBrands);
 
     } catch (err) {
       setError(err);
@@ -61,10 +49,38 @@ const Supply = (props) => {
     getData();
   }, []);
 
-  const changeUnity = (option) => {
-    console.log(option)
-    setUnity(option.unity + 's')
-  }
+  const mySubmit = async (values) => {
+    console.log(values);
+    try {
+      setIsProcessing(true);
+      const response = await api.post('/items', values);
+      console.log(response);
+      if (response.status === 201) {
+        setData(response.data.item);
+        toast({
+          title: "Sucesso!",
+          description: response.data.msg,
+        });
+      } else {
+        toast({
+          title: "Falha!",
+          description: response.data.msg,
+        });
+      }
+      setTimeout(function () {
+        navigate(0);
+      }, 1500);
+    } catch (err) {
+      setError(err);
+      console.log(err);
+      toast({
+        title: "Erro!",
+        description: err,
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
     <>
@@ -77,26 +93,48 @@ const Supply = (props) => {
       ) : (
         <div className="pl-16 pt-20">
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
-            <div className='grid grid-cols-3 mb-2'>
-              <div className='relative col-span-3 mt-2'>
-                <label>Componente:</label>
-                <div className='absolute top-4 right-0'><ComponentAdd /></div>
+            <form onSubmit={handleSubmit(mySubmit)}>
+              <div className='grid grid-cols-4 mb-2'>
+                <div className='relative col-span-4 mt-2'>
+                  <label>Componente:</label>
+                  <div className='absolute top-4 right-0'><ComponentAdd /></div>
+                </div>
+                <div className='flex col-span-4'>
+                  <Controller
+                    name="componentId"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        value={categories.find(option => option.value === field.value)}
+                        options={components}
+                        placeholder="Selecione o componente"
+                        className="w-full mr-36"
+                        styles={styles}
+                        onChange={(selected) => field.onChange(selected.value).then(setUnity(selected.unity))}
+                      />
+                    )}
+                  />
+                </div>
+                <div className='col-span-1 mt-2 relative'>
+                  <label>Quantidade:</label>
+                  <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                </div>
+                <div className='col-span-1 mt-2 relative'>
+                  <label>Quantidade mínima:</label>
+                  <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                </div>
+                <div className='col-span-1 mt-2'>
+                  <label>Endereço:</label>
+                </div>
+                <div></div>
+                <div className='mr-4'><Input {...register("quantity", { required: true })} placeholder="0" type="number" min="0" max="999999999" ></Input></div>
+                <div className='mr-4'><Input {...register("minimum", { required: true })} placeholder="0" type="number" min="0" max="999999999" ></Input></div>
+                <div className='mr-4'><Input {...register("adress", { required: true })} placeholder="Endereço de estoque" className=" text-center"></Input></div>
+                <div className='mr-2'><Button className="w-full hover:bg-gray-500"> <Check className='mr-2' /> Confirmar</Button></div>
               </div>
-              <div className='flex col-span-3'>
-                <Select options={components} placeholder="Selecione o componente" className='w-full mr-36' styles={styles} onChange={changeUnity} />
-              </div>
-              <div className='col-span-1 mt-2'>
-                <label>Endereço de estoque:</label>
-              </div>
-              <div className='col-span-1 mt-2 relative'>
-                <label>Quantidade:</label>
-                <span className='absolute top-8 left-32 text-gray-500 text-sm'>{unity}</span>
-              </div>
-              <div></div>
-              <div className='mr-4'><Input placeholder="Endereço de estoque" className=" text-center"></Input></div>
-              <div className='mr-4'><Input placeholder="0" type="number" min="0" max="999999999" className=""></Input></div>
-              <div className='mr-2'><Button className="w-full hover:bg-gray-500"> <Check className='mr-2'/> Confirmar</Button></div>
-            </div>
+            </form>
           </div>
         </div>
       )}

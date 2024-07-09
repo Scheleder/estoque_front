@@ -70,7 +70,7 @@ const ItemDetails = (props) => {
                 <span onClick={getInfos} title="Informações sobre o componente" className='absolute text-green-500 hover:text-green-400 top-9 left-2 cursor-pointer'><Info className='w-4 h-4' /></span>
               </div>
               <div className='flex col-span-3'>
-                <Input placeholder="Nome" className=" pl-8" value={item.Component.description} readOnly />
+                <Input placeholder="Nome" className=" pl-8" value={item.Component.description + ' - ' + item.Component.Brand.name} readOnly />
               </div>
               <div className='col-span-1 mt-2'>
                 <label>Endereço de estoque:</label>
@@ -97,33 +97,35 @@ const ItemDetails = (props) => {
 
           <div className="mt-4 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <span className='text-gray-600 font-lg'>Movimentações: </span>
-            <table className="w-full mt-2 text-xs xs:text-sm text-blue-900">
-              <caption className="caption-bottom mt-4 text-gray-400">
-                Total de registros: {item.Movements.length}
-              </caption>
-              <thead>
-                <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                  <th>Data</th>
-                  <th>Tipo</th>
-                  <th>Destino</th>
-                  <th>Quantidade</th>
-                  <th>Colaborador</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  item.Movements.map((dt, index) => (
-                    <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
-                      <td className='p-1'>{getDate(dt.createdAt)}</td>
-                      <td className='p-1'>{dt.type}</td>
-                      <td className='p-1'>{dt.destination}</td>
-                      <td className='p-1'>{dt.quantity} </td>
-                      <td className='p-1'>{dt.User.name}</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
+            <div className='overflow-x-auto rounded-md shadow-md m-2'>
+              <table className="w-full selection:text-xs xs:text-sm text-blue-900">
+                <caption className="caption-bottom mt-4 text-gray-400">
+                  Total de registros: {item.Movements.length}
+                </caption>
+                <thead>
+                  <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
+                    <th className='pl-2'>Data</th>
+                    <th>Tipo</th>
+                    <th>Destino</th>
+                    <th>Quantidade</th>
+                    <th>Colaborador</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    item.Movements.map((dt, index) => (
+                      <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
+                        <td className='px-2 py-1'>{getDate(dt.createdAt)}</td>
+                        <td className='p-1'>{dt.type}</td>
+                        <td className='p-1'>{dt.destination}</td>
+                        <td className='p-1'>{dt.quantity} </td>
+                        <td className='p-1'>{dt.User.name}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
