@@ -17,8 +17,8 @@ const types = [
   { id: 1, value: 'Ajuste de estoque', label: 'Ajuste de estoque' },
   { id: 2, value: 'Alterar endereço de estoque', label: 'Alterar endereço de estoque' },
   { id: 3, value: 'Consumo na ordem', label: 'Consumo na ordem' },
-  { id: 4, value: 'Entrada de Material', label: 'Entrada de Material' },
-  { id: 5, value: 'Saída de Material', label: 'Saída de Material' },
+  { id: 4, value: 'Entrada de material', label: 'Entrada de material' },
+  { id: 5, value: 'Saída de material', label: 'Saída de material' },
   { id: 6, value: 'Transferência para outro estoque', label: 'Transferência para outro estoque' },
 ]
 
@@ -81,11 +81,15 @@ const Takeout = () => {
   }, [setValue]);
 
   const changeUnity = (option) => {
+    console.log(option);
     setUnity(option.unity);
     setQtde(option.qtde);
     setAdress(option.adress);
     setValue("itemId", option.value);
-    setValue("destination", option.adress)
+    if(type.id != 3){
+      setValue("destination", option.adress)
+    }
+    setValue("quantity", option.qtde)
   };
 
   const changeType = (option) => {
@@ -94,7 +98,6 @@ const Takeout = () => {
   };
 
   const mySubmit = async (values) => {
-    console.log('Form values:', values.adress);
     try {
       setIsProcessing(true);
       const response = await api.post('/movements', values);
@@ -191,11 +194,11 @@ const Takeout = () => {
                   <div className='grid grid-cols-3 mb-2'>
                     <div className='relative mt-2'>
                       <label>Quantidade atual:</label>
-                      <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
                     </div>
                     <div className='relative mt-2'>
                       <label>Nova quantidade:</label>
-                      <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
                     </div>
                     <div></div>
                     <div className='mr-4'><Input value={qtde} readOnly /></div>
@@ -218,30 +221,34 @@ const Takeout = () => {
                   </div>
                 )}
                 {type.id === 3 && (
-                  <div className='grid grid-cols-3 mb-2'>
+                  <div className='grid grid-cols-4 mb-2'>
                     <div className='relative mt-2'>
-                      <label>Quantidade atual:</label>
-                      <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                      <label>Quantidade em estoque:</label>
+                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
                     </div>
                     <div className='relative mt-2'>
-                      <label>Quantidade usada:</label>
-                      <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                      <label>Quantidade utilizada:</label>
+                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
+                    </div>
+                    <div className='relative mt-2'>
+                      <label>Número da ordem:</label>
                     </div>
                     <div></div>
                     <div className='mr-4'><Input value={qtde} readOnly /></div>
-                    <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0}></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
+                    <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999"></Input></div>
+                    <div className='mr-4'><Input {...register("destination", { required: true })} type="text" className="text-center"></Input></div>
+                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className="mr-2" />Confirmar</Button></div>
                   </div>
                 )}
                 {type.id === 4 && (
                   <div className='grid grid-cols-3 mb-2'>
                     <div className='relative mt-2'>
                       <label>Quantidade atual:</label>
-                      <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
                     </div>
                     <div className='relative mt-2'>
                       <label>Quantidade adicionada:</label>
-                      <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
                     </div>
                     <div></div>
                     <div className='mr-4'><Input value={qtde} readOnly /></div>
@@ -253,11 +260,11 @@ const Takeout = () => {
                   <div className='grid grid-cols-3 mb-2'>
                     <div className='relative mt-2'>
                       <label>Quantidade atual:</label>
-                      <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
                     </div>
                     <div className='relative mt-2'>
                       <label>Quantidade retirada:</label>
-                      <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
                     </div>
                     <div></div>
                     <div className='mr-4'><Input value={qtde} readOnly /></div>
@@ -267,35 +274,38 @@ const Takeout = () => {
                 )}
                 {type.id === 6 && (
                   <div className='grid grid-cols-3 mb-2'>
+                    <div className='col-span-3 mt-2'>
+                      <label>Estoque destino:</label>
+                    </div>
+                    <div className='col-span-3'>
+                    <Controller
+                      name="destination"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          value={locals.find(option => option.value === field.value)}
+                          options={locals}
+                          placeholder="Estoque destino"
+                          className="w-full"
+                          styles={styles}
+                          onChange={(selected) => field.onChange(selected.label)}
+                        />
+                      )}
+                    />
+                  </div>
                     <div className='relative mt-2'>
                       <label>Quantidade atual:</label>
-                      <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
                     </div>
                     <div className='relative mt-2'>
                       <label>Quantidade transferida:</label>
-                      <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
                     </div>
-                    <div className='relative mt-2'>
-                      <label>Estoque destino:</label>
-                    </div>
+                    <div></div>
                     <div className='mr-4'><Input value={qtde} readOnly /></div>
                     <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0}></Input></div>
-                    <div className='mr-4'>
-                      <Controller
-                        name="localId"
-                        control={control}
-                        render={({ field }) => (
-                          <Select
-                            {...field}
-                            options={locals}
-                            placeholder="Estoque destino"
-                            className='w-full'
-                            styles={styles}
-                            onChange={(option) => setValue("localId", option.value)}
-                          />
-                        )}
-                      />
-                    </div>
                     <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
                   </div>
                 )}
