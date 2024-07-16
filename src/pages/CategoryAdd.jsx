@@ -26,7 +26,6 @@ export function CategoryAdd() {
     const [isProcessing, setIsProcessing] = useState(true);
     const [error, setError] = useState(null);
     const { register, handleSubmit } = useForm();
-    const [data, setData] = useState("");
 
     const mySubmit = async (values) => {
 
@@ -35,7 +34,6 @@ export function CategoryAdd() {
             const response = await api.post('/categories', values);
             console.log(response);
             if (response.status === 201) {
-                setData(response.data.category);
                 toast({
                     title: "Sucesso!",
                     description: response.data.msg,
@@ -59,7 +57,6 @@ export function CategoryAdd() {
         } finally {
             setIsProcessing(false);
         }
-
     }
 
     return (
