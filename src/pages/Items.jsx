@@ -11,12 +11,14 @@ const Items = () => {
   const [data, setData] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
+  const [asc, setAsc] = useState(false);
 
   const getData = async () => {
     try {
       setIsProcessing(true);
       const response = await api.get('items');
-      setData(response.data);
+      var sorted = response.data.sort((a, b) => a.Component.description.localeCompare(b.Component.description));
+      setData(sorted);
       console.log(response.data);
     } catch (err) {
       setError(err);
@@ -29,6 +31,26 @@ const Items = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  const orderByItem = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+      ? a.Component.description.localeCompare(b.Component.description)
+      : b.Component.description.localeCompare(a.Component.description)
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
+  const orderByAdress = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+      ? a.adress.localeCompare(b.adress)
+      : b.adress.localeCompare(a.adress)
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
 
   return (
     <div className="pl-16 pt-20">
@@ -55,8 +77,10 @@ const Items = () => {
             </caption>
             <thead>
               <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-              <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-6'>Endereço</span><FilterList /></th>
-              <th className=''><ArrowUpDown size={12} className='mr-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Item</span><FilterList /></th>
+              <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByAdress}/>
+                <span className='ml-6'>Endereço</span><FilterList/></th>
+              <th className=''><ArrowUpDown size={12} className='mr-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByItem}/>
+                <span className='ml-4'>Item</span><FilterList /></th>
                 <th>Quantidade</th>
                 <th></th>
               </tr>
