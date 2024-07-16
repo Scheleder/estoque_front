@@ -48,6 +48,46 @@ const Movements = () => {
     setAsc(!asc);
   };
 
+  const orderByType = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+      ? a.type.localeCompare(b.type)
+      : b.type.localeCompare(a.type);
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
+  const orderByDestination = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+      ? a.destination.localeCompare(b.destination)
+      : b.destination.localeCompare(a.destination);
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
+  const orderBySku = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+      ? a.itemId - b.itemId
+      : b.itemId - a.itemId;
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
+  const orderByUser = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+      ? a.User.name.localeCompare(b.User.name)
+      : b.User.name.localeCompare(a.User.name);
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
   return (
     <div className="pl-16 pt-20">
       {isProcessing ? (
@@ -67,11 +107,15 @@ const Movements = () => {
                     <ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByDate} />
                     <span className='ml-6'>Data</span>
                   </th>
-                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Tipo</span></th>
-                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Destino</span></th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByType}/>
+                    <span className='ml-4'>Tipo</span></th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByDestination}/>
+                    <span className='ml-4'>Destino</span></th>
                   <th>Quantidade</th>
-                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Item SKU</span></th>
-                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Colaborador</span></th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderBySku}/>
+                    <span className='ml-4'>Item SKU</span></th>
+                  <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByUser}/>
+                  <span className='ml-4'>Colaborador</span></th>
                 </tr>
               </thead>
               <tbody>
