@@ -17,12 +17,14 @@ const Movements = () => {
   const [data, setData] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
+  const [asc, setAsc] = useState(true);
 
   const getData = async () => {
     try {
       setIsProcessing(true);
       const response = await api.get('movements');
-      setData(response.data);
+      var sorted = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setData(sorted);
       console.log(response.data);
     } catch (err) {
       setError(err);
@@ -36,9 +38,18 @@ const Movements = () => {
     getData();
   }, []);
 
+  const orderByDate = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+        ? new Date(a.createdAt) - new Date(b.createdAt)
+        : new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
   return (
     <div className="pl-16 pt-20">
-
       {isProcessing ? (
         <Loading />
       ) : error ? (
@@ -52,7 +63,10 @@ const Movements = () => {
               </caption>
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                  <th><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-6'>Data</span></th>
+                  <th>
+                    <ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByDate} />
+                    <span className='ml-6'>Data</span>
+                  </th>
                   <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Tipo</span></th>
                   <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-4'>Destino</span></th>
                   <th>Quantidade</th>
@@ -91,8 +105,7 @@ const Movements = () => {
           </div>
           <ButtonExport />
         </div>
-      )
-      }
+      )}
     </div>
   );
 };
