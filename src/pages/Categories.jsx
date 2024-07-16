@@ -11,6 +11,7 @@ const Categories = () => {
   const [data, setData] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
+  const [asc, setAsc] = useState(false);
 
   const getData = async () => {
     try {
@@ -31,6 +32,16 @@ const Categories = () => {
     getData();
   }, []);
 
+  const orderByName = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+      ? a.name.localeCompare(b.name)
+      : b.name.localeCompare(a.name)
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
   return (
     <>
 
@@ -47,7 +58,8 @@ const Categories = () => {
               </caption>
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' /><span className='ml-6'>Categories</span><FilterList /></th>
+                <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByName}/>
+                <span className='ml-6'>Categories</span><FilterList /></th>
                   <th></th>
                 </tr>
               </thead>
