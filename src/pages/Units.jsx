@@ -2,11 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
-import { PenBox, Plus, ArrowUpDown } from "lucide-react"
+import { PenBox, Plus, ArrowUpDown, EllipsisVertical } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
 import ErrorPage from "./ErrorPage"
 import { UnityAdd } from './UnityAdd';
 import FilterList from '@/components/filterList';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuPortal,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu.jsx"
 
 const Units = () => {
     const [data, setData] = useState([]);
@@ -35,13 +49,13 @@ const Units = () => {
 
     const orderByName = () => {
         const sortedData = [...data].sort((a, b) => {
-          return asc
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
+            return asc
+                ? a.name.localeCompare(b.name)
+                : b.name.localeCompare(a.name);
         });
         setData(sortedData);
         setAsc(!asc);
-      };
+    };
 
     return (
         <>
@@ -51,6 +65,9 @@ const Units = () => {
                 <ErrorPage error={error} />
             ) : (
                 <div className="relative overflow-x-auto shadow-lg rounded-md">
+                    <div className='text-right'>
+                        <UnityAdd />
+                    </div>
                     <div className='overflow-x-auto rounded-md shadow-md m-2'>
                         <table className="w-full text-xs xs:text-sm text-blue-800">
                             <caption className="caption-bottom text-gray-500">
@@ -58,8 +75,8 @@ const Units = () => {
                             </caption>
                             <thead>
                                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                                <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByName}/>
-                                <span className='ml-6'>Unidades de Medida</span><FilterList /></th>
+                                    <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByName} />
+                                        <span className='ml-6'>Unidades de Medida</span><FilterList /></th>
                                     <th>Abreviação</th>
                                     <th></th>
                                 </tr>
@@ -70,14 +87,28 @@ const Units = () => {
                                         <tr key={index} className='odd:bg-stone-300 even:bg-stone-200 hover:bg-blue-100 font-semibold'>
                                             <td className='px-2 py-1'>{dt.name}</td>
                                             <td className='p-1'>{dt.abrev}</td>
-                                            <td className='p-1'><Link to={`/units/${dt.id}`}><PenBox className='w-4 h-4 text-blue-400 hover:text-blue-300' /></Link></td>
+                                            <td className='p-1'>
+                                                <DropdownMenu className="z-0">
+                                                    <DropdownMenuTrigger asChild>
+                                                        <EllipsisVertical className='text-gray-500 cursor-pointer' />
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuItem>
+                                                            <Link to={`/units/${dt.id}`}>
+                                                                <span className="flex"><PenBox className='w-4 h-4 mt-0.5 mr-2 text-gray-400' />
+                                                                    Editar
+                                                                </span>
+                                                            </Link>
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </td>
                                         </tr>
                                     ))
                                 }
                             </tbody>
                         </table>
                     </div>
-                    <UnityAdd />
                 </div>
             )}
         </>

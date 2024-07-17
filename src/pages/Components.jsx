@@ -2,11 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
-import { PenBox, Eye, ArrowUpDown } from "lucide-react"
+import { PenBox, Eye, ArrowUpDown, EllipsisVertical } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
 import { ComponentAdd } from './ComponentAdd';
 import ErrorPage from "./ErrorPage"
 import FilterList from '@/components/filterList';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu.jsx"
 
 const Components = () => {
   const [data, setData] = useState([]);
@@ -36,8 +50,8 @@ const Components = () => {
   const orderByBrand = () => {
     const sortedData = [...data].sort((a, b) => {
       return asc
-      ? a.Brand.name.localeCompare(b.Brand.name)
-      : b.Brand.name.localeCompare(a.Brand.name);
+        ? a.Brand.name.localeCompare(b.Brand.name)
+        : b.Brand.name.localeCompare(a.Brand.name);
     });
     setData(sortedData);
     setAsc(!asc);
@@ -46,8 +60,8 @@ const Components = () => {
   const orderByDescription = () => {
     const sortedData = [...data].sort((a, b) => {
       return asc
-      ? a.description.localeCompare(b.description)
-      : b.description.localeCompare(a.description);
+        ? a.description.localeCompare(b.description)
+        : b.description.localeCompare(a.description);
     });
     setData(sortedData);
     setAsc(!asc);
@@ -56,8 +70,8 @@ const Components = () => {
   const orderBySku = () => {
     const sortedData = [...data].sort((a, b) => {
       return asc
-      ? a.sku.localeCompare(b.sku)
-      : b.sku.localeCompare(a.sku);
+        ? a.sku.localeCompare(b.sku)
+        : b.sku.localeCompare(a.sku);
     });
     setData(sortedData);
     setAsc(!asc);
@@ -66,8 +80,8 @@ const Components = () => {
   const orderByCategory = () => {
     const sortedData = [...data].sort((a, b) => {
       return asc
-      ? a.Category.name.localeCompare(b.Category.name)
-      : b.Category.name.localeCompare(a.Category.name);
+        ? a.Category.name.localeCompare(b.Category.name)
+        : b.Category.name.localeCompare(a.Category.name);
     });
     setData(sortedData);
     setAsc(!asc);
@@ -79,6 +93,9 @@ const Components = () => {
       ) : error ? (
         <ErrorPage error={error} />) : (
         <div className="relative overflow-x-auto shadow-lg rounded-md">
+          <div className='text-right'>
+            <ComponentAdd />
+          </div>
           <div className='overflow-x-auto rounded-md shadow-md m-2'>
             <table className="w-full text-xs xs:text-sm text-blue-900">
               <caption className="caption-bottom text-gray-500 mt-2">
@@ -86,14 +103,18 @@ const Components = () => {
               </caption>
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                  <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByCategory}/>
-                  <span className='ml-6'>Categoria</span><FilterList /></th>
-                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByBrand}/>
-                  <span className='ml-4'>Fabricante</span><FilterList /></th>
-                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByDescription}/>
-                  <span className='ml-4'>Descrição</span><FilterList /></th>
-                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderBySku}/>
-                  <span className='ml-4'>SKU</span><FilterList /></th>
+                  <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByCategory} />
+                    <span className='ml-6'>Categoria</span><FilterList />
+                  </th>
+                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByBrand} />
+                    <span className='ml-4'>Fabricante</span><FilterList />
+                  </th>
+                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByDescription} />
+                    <span className='ml-4'>Descrição</span><FilterList />
+                  </th>
+                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderBySku} />
+                    <span className='ml-4'>SKU</span><FilterList />
+                  </th>
                   <th></th>
                 </tr>
               </thead>
@@ -106,7 +127,20 @@ const Components = () => {
                       <td className='p-1'>{dt.description}</td>
                       <td className='p-1'>{dt.sku}</td>
                       <td className='p-1'>
-                        <Link to={`/components/${dt.id}`}><Eye className='w-4 h-4 text-green-800 hover:text-green-500' /></Link>
+                        <DropdownMenu className="z-0">
+                          <DropdownMenuTrigger asChild>
+                            <EllipsisVertical className='text-gray-500 cursor-pointer' />
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem>
+                              <Link to={`/components/${dt.id}`}>
+                                <span className="flex"><PenBox className='w-4 h-4 mt-0.5 mr-2 text-gray-400' />
+                                  Editar
+                                </span>
+                              </Link>
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </td>
                     </tr>
                   ))
@@ -114,7 +148,6 @@ const Components = () => {
               </tbody>
             </table>
           </div>
-          <ComponentAdd />
         </div>
       )}
     </>

@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input'
 import Select from 'react-select'
 import ComponentInfo from '@/components/componentInfo';
 import ErrorPage from "./ErrorPage"
-import { Eye, Info, Save, Cpu } from "lucide-react"
+import { Eye, Info, Save, ArrowUpDown } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -26,7 +26,8 @@ const ItemDetails = (props) => {
   const [info, setInfo] = useState(false);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
-
+  const [asc, setAsc] = useState(true);
+  const [data, setData] = useState([]);
 
 
   const getData = async () => {
@@ -35,8 +36,9 @@ const ItemDetails = (props) => {
 
       const response = await api.get(`items/${id}`);
       setItem(response.data.item);
+      var sorted = response.data.item.Movements.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setData(sorted);
       console.log(response.data.item);
-
     } catch (err) {
       setError(err);
       console.log(err);
@@ -52,6 +54,56 @@ const ItemDetails = (props) => {
   const getInfos = () => {
     !info ? setInfo(true) : setInfo(false);
   }
+
+  const orderByDate = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+        ? new Date(a.createdAt) - new Date(b.createdAt)
+        : new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
+  const orderByType = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+        ? a.type.localeCompare(b.type)
+        : b.type.localeCompare(a.type);
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
+  const orderByDestination = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+        ? a.destination.localeCompare(b.destination)
+        : b.destination.localeCompare(a.destination);
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
+  const orderBySku = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+        ? a.itemId - b.itemId
+        : b.itemId - a.itemId;
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
+
+  const orderByUser = () => {
+    const sortedData = [...data].sort((a, b) => {
+      return asc
+        ? a.User.name.localeCompare(b.User.name)
+        : b.User.name.localeCompare(a.User.name);
+    });
+    setData(sortedData);
+    setAsc(!asc);
+  };
 
   return (
     <>
@@ -98,22 +150,28 @@ const ItemDetails = (props) => {
           <div className="mt-4 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <span className='text-gray-600 font-lg'>Movimentações: </span>
             <div className='overflow-x-auto rounded-md shadow-md m-2'>
-              <table className="w-full selection:text-xs xs:text-sm text-blue-900">
+              <table className="w-full text-xs xs:text-sm text-blue-900">
                 <caption className="caption-bottom mt-4 text-gray-400">
                   Total de registros: {item.Movements.length}
                 </caption>
                 <thead>
                   <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                    <th className='pl-2'>Data</th>
-                    <th>Tipo</th>
-                    <th>Destino</th>
+                    <th>
+                      <ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByDate} />
+                      <span className='ml-6'>Data</span>
+                    </th>
+                    <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByType} />
+                      <span className='ml-4'>Tipo</span></th>
+                    <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByDestination} />
+                      <span className='ml-4'>Destino</span></th>
                     <th>Quantidade</th>
-                    <th>Colaborador</th>
+                    <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByUser} />
+                      <span className='ml-4'>Colaborador</span></th>
                   </tr>
                 </thead>
                 <tbody>
                   {
-                    item.Movements.map((dt, index) => (
+                    data.map((dt, index) => (
                       <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
                         <td className='px-2 py-1'>{getDate(dt.createdAt)}</td>
                         <td className='p-1'>{dt.type}</td>

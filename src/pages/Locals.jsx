@@ -38,6 +38,9 @@ const Locals = () => {
         <ErrorPage error={error} />
       ) : (
         <div>
+          <div className='text-right'>
+            <LocalAdd />
+          </div>
           <ul className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-4">
             {data.map((dt, index) => (
               <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md bg-indigo-100 p-2'>
@@ -54,7 +57,6 @@ const Locals = () => {
               </li>
             ))}
           </ul>
-          <LocalAdd />
         </div>
       )}
     </>
