@@ -25,13 +25,16 @@ export function ComponentAdd() {
     const { toast } = useToast();
     const navigate = useNavigate();
 
-    const { control, register, handleSubmit } = useForm();
+    const { control, register, handleSubmit, setValue } = useForm();
     const [data, setData] = useState("");
     const [units, setUnits] = useState([]);
     const [categories, setCategories] = useState([]);
     const [brands, setBrands] = useState([]);
     const [isProcessing, setIsProcessing] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedBrand, setSelectedBrand] = useState(null);
+    const [selectedUnity, setSelectedUnity] = useState(null);
     const styles = { menu: base => ({ ...base, marginTop: 0 }) };
 
     const getData = async () => {
@@ -87,6 +90,7 @@ export function ComponentAdd() {
                     title: "Sucesso!",
                     description: response.data.msg,
                 });
+                clearForm();
             } else {
                 toast({
                     title: "Falha!",
@@ -94,7 +98,7 @@ export function ComponentAdd() {
                 });
             }
             setTimeout(function () {
-                navigate(0);
+                navigate(0)
             }, 1500);
         } catch (err) {
             setError(err);
@@ -108,6 +112,15 @@ export function ComponentAdd() {
         }
     };
 
+    const clearForm = () => {
+        setSelectedBrand(null);
+        setSelectedCategory(null);
+        setSelectedUnity(null);
+        setValue("description", '');
+        setValue("barcode", '');
+        setValue("sku", '');
+    }
+
     return (
         <>
             <AlertDialog>
@@ -119,48 +132,63 @@ export function ComponentAdd() {
                         <AlertDialogTitle>Novo Componente</AlertDialogTitle>
                         <AlertDialogDescription>
                             <form onSubmit={handleSubmit(mySubmit)}>
-                                <Controller
-                                    name="categoryId"
-                                    control={control}
-                                    rules={{ required: true }}
-                                    render={({ field }) => (
-                                        <Select
-                                            {...field}
-                                            options={categories}
-                                            placeholder="Selecione a categoria"
-                                            className="mt-2"
-                                            styles={styles}
-                                            onChange={(selected) => field.onChange(selected ? selected.value : null)}
-                                        />
-                                    )}
-                                />
+
                                 <Controller
                                     name="brandId"
                                     control={control}
-                                    rules={{ required: true }}
+                                    rules={{ required: false }}
                                     render={({ field }) => (
                                         <Select
                                             {...field}
                                             options={brands}
+                                            value={selectedBrand}
+                                            className="w-full mt-2"
                                             placeholder="Selecione o fabricante"
-                                            className="mt-2"
                                             styles={styles}
-                                            onChange={(selected) => field.onChange(selected ? selected.value : null)}
+                                            onChange={(selected) => {
+                                                setSelectedBrand(selected);
+                                                field.onChange(selected ? selected.value : null);
+                                            }}
                                         />
                                     )}
                                 />
+
+                                <Controller
+                                    name="categoryId"
+                                    control={control}
+                                    rules={{ required: false }}
+                                    render={({ field }) => (
+                                        <Select
+                                            {...field}
+                                            options={categories}
+                                            value={selectedCategory}
+                                            className="w-full mt-2"
+                                            placeholder="Selecione a categoria"
+                                            styles={styles}
+                                            onChange={(selected) => {
+                                                setSelectedCategory(selected);
+                                                field.onChange(selected ? selected.value : null);
+                                            }}
+                                        />
+                                    )}
+                                />
+
                                 <Controller
                                     name="unityId"
                                     control={control}
-                                    rules={{ required: true }}
+                                    rules={{ required: false }}
                                     render={({ field }) => (
                                         <Select
                                             {...field}
                                             options={units}
+                                            value={selectedUnity}
+                                            className="w-full mt-2"
                                             placeholder="Selecione a unidade de medida"
-                                            className="mt-2"
                                             styles={styles}
-                                            onChange={(selected) => field.onChange(selected ? selected.value : null)}
+                                            onChange={(selected) => {
+                                                setSelectedUnity(selected);
+                                                field.onChange(selected ? selected.value : null);
+                                            }}
                                         />
                                     )}
                                 />
