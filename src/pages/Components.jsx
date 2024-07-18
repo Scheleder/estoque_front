@@ -86,6 +86,7 @@ const Components = () => {
     setData(sortedData);
     setAsc(!asc);
   };
+  
   return (
     <>
       {isProcessing ? (

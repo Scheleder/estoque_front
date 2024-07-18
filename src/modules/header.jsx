@@ -73,13 +73,13 @@ const Header = () => {
         title = 'Detalhes do Componente'
         break;
       case location.pathname.includes('/categories/'):
-        title = 'Detalhes do Categoria'
+        title = 'Editar Categoria'
         break;
       case location.pathname.includes('/locals/'):
-        title = 'Detalhes do Estoque'
+        title = 'Editar Estoque'
         break;
       case location.pathname.includes('/units/'):
-        title = 'Detalhes da Unidade'
+        title = 'Editar Unidade'
         break;
       case location.pathname.includes('/items/'):
         title = 'Detalhes do Item'
@@ -88,7 +88,6 @@ const Header = () => {
         title = 'Gerenciamento de Estoque'
         break;
     }
-
   }
 
   return (

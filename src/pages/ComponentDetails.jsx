@@ -10,7 +10,8 @@ import { Input } from '@/components/ui/input'
 import Select from 'react-select'
 import ComponentInfo from '@/components/componentInfo';
 import ErrorPage from "./ErrorPage"
-
+import { useToast } from "@/components/ui/use-toast"
+import { useForm, Controller } from "react-hook-form";
 import { Eye, Send, Save, Earth } from "lucide-react"
 import {
   Tooltip,
@@ -28,6 +29,9 @@ const ComponentDetails = (props) => {
   const [brands, setBrands] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
+  const { toast } = useToast();
+  const { control, register, handleSubmit } = useForm();
+  const [data, setData] = useState([]);
 
   const getData = async () => {
     try {
@@ -71,6 +75,36 @@ const ComponentDetails = (props) => {
     return navigate(web);
   };
 
+  const mySubmit = async (values) => {
+
+    try {
+      setIsProcessing(true);
+      const response = await api.put(`components/${id}`, values);
+      console.log(response.data.component);
+      if (response.status === 200) {
+        toast({
+          title: "Atualizado!",
+          description: response.data.msg,
+        })
+        getData();
+      } else {
+        toast({
+          title: "Falha!",
+          description: response.data.msg,
+        })
+      }
+    } catch (err) {
+      setError(err);
+      console.log(err);
+      toast({
+        title: "Erro!",
+        description: err,
+      })
+    } finally {
+      setIsProcessing(false);
+    }
+  }
+
   return (
     <>
       {isProcessing ? (
@@ -82,48 +116,78 @@ const ComponentDetails = (props) => {
       ) : (
         <div className="pl-16 pt-20">
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
-            <div className='grid grid-cols-3 mb-2'>
-              <div className='col-span-3 mt-2'>
-                <label>Categoria:</label>
+            <form onSubmit={handleSubmit(mySubmit)}>
+              <div className='grid grid-cols-3 mb-2'>
+                <div className='col-span-3 mt-2'>
+                  <label>Categoria:</label>
+                </div>
+                <div className='flex col-span-3'>
+                <Controller
+                    name="categoryId"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        options={categories}
+                        value={ component.categoryId }
+                        className="w-full"
+                        styles={styles}
+                        onChange={(selected) => field.onChange(selected ? selected.value : null)}
+                      />
+                    )}
+                  />
+                </div>
+                <div className='col-span-3 mt-2'>
+                  <label>Fabricante:</label>
+                </div>
+                <div className='flex col-span-3'>
+                  <Controller
+                    name="brandId"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        options={brands}
+                        value={ component.brandId }
+                        className="w-full"
+                        styles={styles}
+                        onChange={(selected) => field.onChange(selected ? selected.value : null)}
+                      />
+                    )}
+                  />
+                </div>
+                <div className='col-span-2 mt-2'>
+                  <label>Componente:</label>
+                </div>
+                <div className='mt-2 pl-4'>
+                  <label>Data do cadastro:</label>
+                </div>
+                <div className='flex col-span-2'>
+                  <Input {...register("description", { required: true })} className="" defaultValue={component.description} />
+                </div>
+                <div className='col-span-1 pl-4'>
+                  <Input placeholder="Registro" className=" text-center" value={getDate(component.createdAt)} readOnly />
+                </div>
+                <div className='col-span-1 mt-2'>
+                  <label>SKU:</label>
+                </div>
+                <div className='col-span-1 mt-2 pl-2'>
+                  <label>Código de barras:</label>
+                </div>
+                <div className='col-span-1 mt-2'></div>
+                <div className='col-span-1'>
+                  <Input {...register("sku", { required: true })} className=" mr-2" defaultValue={component.sku} />
+                </div>
+                <div className='col-span-1 pr-2'>
+                  <Input {...register("barcode", { required: true })} className=" ml-2" defaultValue={component.barcode} />
+                </div>
+                <div className='flex col-span-1'>
+                  <Button type="submit" className="w-full ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
+                </div>
               </div>
-              <div className='flex col-span-3'>
-                <Select options={categories} placeholder="Categoria" className='w-full' styles={styles} />
-              </div>
-              <div className='col-span-3 mt-2'>
-                <label>Fabricante:</label>
-              </div>
-              <div className='flex col-span-3'>
-                <Select options={brands} placeholder="Fabricante" className='w-full' styles={styles} />
-              </div>
-              <div className='col-span-2 mt-2'>
-                <label>Componente:</label>
-              </div>
-              <div className='mt-2 pl-4'>
-                <label>Data do cadastro:</label>
-              </div>
-              <div className='flex col-span-2'>
-                <Input placeholder="Nome" className="" value={component.description} readOnly />
-              </div>
-              <div className='col-span-1 pl-4'>
-                <Input placeholder="Registro" className=" text-center" value={getDate(component.createdAt)} readOnly />
-              </div>
-              <div className='col-span-1 mt-2'>
-                <label>SKU:</label>
-              </div>
-              <div className='col-span-1 mt-2 pl-2'>
-                <label>Código de barras:</label>
-              </div>
-              <div className='col-span-1 mt-2'></div>
-              <div className='col-span-1'>
-                <Input placeholder="SKU" className=" mr-2" value={component.sku} />
-              </div>
-              <div className='col-span-1 pr-2'>
-                <Input placeholder="Código de barras" className=" ml-2" value={component.barcode} />
-              </div>
-              <div className='flex col-span-1'>
-                <Button className="w-full ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
-              </div>
-            </div>
+            </form>
           </div>
 
           <ComponentInfo comp={component.description} fab={component.Brand.name} />
