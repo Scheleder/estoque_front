@@ -49,9 +49,9 @@ const Users = () => {
               <div className='col-span-2'>
                 <div className='h-8 flex items-end'><span className='text-blue-400 font-semibold'>{dt.name}</span></div>
                     <a href={`mailto:${dt.email}`} target="_blank" rel="noopener noreferrer">
-                      <span className='text-orange-400 hover:text-orange-300 text-xs italic'>{dt.email}</span>
+                      <span className='text-gray-500 hover:text-orange-300 text-xs italic'>{dt.email}</span>
                     </a>
-                    {dt.admin ? <p className='text-lime-500 text-xs font-bold'>Administrador do sistema</p> : ''}
+                    {dt.admin ? <p className='text-yellow-600 text-xs font-bold'>Administrador do sistema</p> : ''}
               </div>
               <div className='col-span-3 h-6 text-center'><span className='text-gray-400 text-xs'>Movimentações de estoque nos ultimos 30 dias: {dt.Movements.length}</span></div>
             </li>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/config';
-import { Eye, Search, Boxes, Filter, BaggageClaim, ArrowUpDown, EllipsisVertical, AlignHorizontalDistributeCenter as Piece } from "lucide-react"
+import { Eye, Search, Boxes, ListFilter, X, RotateCcw, ArrowUpDown, EllipsisVertical, AlignHorizontalDistributeCenter as Piece } from "lucide-react"
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
@@ -23,9 +23,12 @@ import {
 
 const Items = () => {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
   const [asc, setAsc] = useState(false);
+  const [searchAdress, setSearchAdress] = useState('');
+  const [searchItem, setSearchItem] = useState('');
 
   const getData = async () => {
     try {
@@ -33,6 +36,7 @@ const Items = () => {
       const response = await api.get('items');
       var sorted = response.data.sort((a, b) => a.Component.description.localeCompare(b.Component.description));
       setData(sorted);
+      setFilteredData(sorted);
       console.log(response.data);
     } catch (err) {
       setError(err);
@@ -46,25 +50,47 @@ const Items = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    filterItems();
+  }, [searchAdress, searchItem]);
+
   const orderByItem = () => {
-    const sortedData = [...data].sort((a, b) => {
+    const sortedData = [...filteredData].sort((a, b) => {
       return asc
         ? a.Component.description.localeCompare(b.Component.description)
         : b.Component.description.localeCompare(a.Component.description)
     });
-    setData(sortedData);
+    setFilteredData(sortedData);
     setAsc(!asc);
   };
 
   const orderByAdress = () => {
-    const sortedData = [...data].sort((a, b) => {
+    const sortedData = [...filteredData].sort((a, b) => {
       return asc
         ? a.adress.localeCompare(b.adress)
         : b.adress.localeCompare(a.adress)
     });
-    setData(sortedData);
+    setFilteredData(sortedData);
     setAsc(!asc);
   };
+
+  const filterItems = () => {
+    const filteredItems = data.filter(a =>
+      a.Component.description.toLowerCase().includes(searchItem.toLowerCase()) &&
+      a.adress.toLowerCase().includes(searchAdress.toLowerCase())
+    );
+    setFilteredData(filteredItems);
+  };
+
+  const clearSearchItem = () => {
+    setSearchItem('')
+    setFilteredData(data)
+  }
+
+  const clearSearchAdress = () => {
+    setSearchAdress('')
+    setFilteredData(data)
+  }
 
   return (
     <div className="pl-16 pt-20">
@@ -82,26 +108,53 @@ const Items = () => {
       ) : error ? (
         <ErrorPage error={error} />
       ) : (
-
         <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 bg-gray-200">
           <div className='overflow-x-auto rounded-md shadow-md'>
             <table className="w-full text-xs xs:text-sm text-blue-900">
               <caption className="caption-bottom mt-2 text-gray-400">
-                Total de registros: {data.length}
+                Total de registros: {filteredData.length}
               </caption>
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                  <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByAdress} />
-                    <span className='ml-6'>Endereço</span><FilterList /></th>
-                  <th className=''><ArrowUpDown size={12} className='mr-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByItem} />
-                    <span className='ml-4'>Item</span><FilterList /></th>
+                  <th className=''>
+                    <ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByAdress} />
+                    <span className='ml-6'>Endereço</span>
+                    <span className='relative'>
+                      <input
+                        type="text"
+                        value={searchAdress}
+                        onChange={(e) => setSearchAdress(e.target.value)}
+                        className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
+                      />
+                      {searchAdress ? 
+                      <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchAdress}/> :
+                      <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
+                      }
+                    </span>
+                  </th>
+                  <th className=''>
+                    <ArrowUpDown size={12} className='mr-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByItem} />
+                    <span className='ml-4'>Item</span>
+                    <span className='relative'>
+                      <input
+                        type="text"
+                        value={searchItem}
+                        onChange={(e) => setSearchItem(e.target.value)}
+                        className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
+                      />
+                      {searchItem ? 
+                      <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchItem}/> :
+                      <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
+                      }
+                    </span>
+                  </th>
                   <th>Quantidade</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {
-                  data.map((dt, index) => (
+                  filteredData.map((dt, index) => (
                     <tr key={index} className='odd:bg-stone-300 even:bg-stone-200 hover:bg-blue-100 font-semibold'>
                       <td className='px-2 py-1'>{dt.adress}</td>
                       <td className='p-1'>{dt.Component.description}</td>
@@ -137,8 +190,7 @@ const Items = () => {
             </table>
           </div>
         </div>
-      )
-      }
+      )}
     </div>
   );
 };

@@ -8,7 +8,7 @@ import Loading from '@/components/loading';
 import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
 import FilterList from '@/components/filterList';
-import { Link as WWW, Send, Save, ArrowUpDown } from "lucide-react"
+import { Link as WWW, Send, Save, ArrowUpDown, ShieldCheck, UserRound } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -156,7 +156,10 @@ const UserDetails = (props) => {
                 </div>
                 <div className='flex col-span-3 relative'>
                   <SendMail user={user.name} />
-                  <Input {...register("email", { required: true })} className=" pl-8" defaultValue={user.email} />
+                  <Input {...register("email", { required: true })} className=" pl-8 mr-4" defaultValue={user.email} />
+                  {user.admin ? 
+                    <Button className="bg-yellow-600 hover:bg-yellow-500"><ShieldCheck className='w-5 h-5 mr-2'/>Adiministrador</Button> : 
+                    <Button className="bg-gray-500 :hover:bg-gray-400"><UserRound className='w-5 h-5 mr-2'/>Usuário Padrão</Button>}
                   <Button type="submit" className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
                 </div>
               </div>
