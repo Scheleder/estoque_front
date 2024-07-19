@@ -94,15 +94,6 @@ const Items = () => {
 
   return (
     <div className="pl-16 pt-20">
-      {/* <div className="relative">
-        <Search className="absolute left-2.5 top-3 h-4 w-4 text-zinc-600" />
-        <Input
-          type="search"
-          placeholder="Procurar..."
-          className="w-full mt-3 rounded-lg  mb-2 px-8 md:w-[150px] lg:w-[200px] text-center text-zinc-600"
-        />
-      </div> */}
-
       {isProcessing ? (
         <Loading />
       ) : error ? (
@@ -111,8 +102,11 @@ const Items = () => {
         <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 bg-gray-200">
           <div className='overflow-x-auto rounded-md shadow-md'>
             <table className="w-full text-xs xs:text-sm text-blue-900">
-              <caption className="caption-bottom mt-2 text-gray-400">
-                Total de registros: {filteredData.length}
+              <caption className="caption-bottom my-1">
+                {searchAdress || searchItem ?
+                  <span className='text-orange-600'>Total de registros com filtro: {filteredData.length}</span> :
+                  <span className='text-gray-500'>Total de registros: {filteredData.length}</span>
+                }
               </caption>
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
@@ -126,9 +120,9 @@ const Items = () => {
                         onChange={(e) => setSearchAdress(e.target.value)}
                         className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
                       />
-                      {searchAdress ? 
-                      <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchAdress}/> :
-                      <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
+                      {searchAdress ?
+                        <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchAdress} /> :
+                        <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
                       }
                     </span>
                   </th>
@@ -142,9 +136,9 @@ const Items = () => {
                         onChange={(e) => setSearchItem(e.target.value)}
                         className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
                       />
-                      {searchItem ? 
-                      <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchItem}/> :
-                      <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
+                      {searchItem ?
+                        <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchItem} /> :
+                        <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
                       }
                     </span>
                   </th>
@@ -162,7 +156,7 @@ const Items = () => {
                       <td className='flex p-1'>
                         <DropdownMenu className="z-0">
                           <DropdownMenuTrigger asChild>
-                            <EllipsisVertical className='text-gray-500 cursor-pointer'/>
+                            <EllipsisVertical className='text-gray-500 cursor-pointer' />
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
                             <DropdownMenuItem>
