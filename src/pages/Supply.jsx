@@ -132,7 +132,7 @@ const Supply = (props) => {
                 <div className='mr-4'><Input {...register("quantity", { required: true })} placeholder="0" type="number" min="0" max="999999999" ></Input></div>
                 <div className='mr-4'><Input {...register("minimum", { required: true })} placeholder="0" type="number" min="0" max="999999999" ></Input></div>
                 <div className='mr-4'><Input {...register("adress", { required: true })} placeholder="Endereço de estoque" className=" text-center"></Input></div>
-                <div className='mr-2'><Button className="w-full hover:bg-gray-500"> <Check className='mr-2' /> Confirmar</Button></div>
+                <div className='mr-2'><Button className="w-full hover:bg-gray-500"> <Check className='w-5 h-5 mr-2' /> Confirmar</Button></div>
               </div>
             </form>
           </div>

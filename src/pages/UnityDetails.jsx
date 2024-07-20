@@ -102,7 +102,7 @@ const UnityDetails = (props) => {
                                     <Input {...register("abrev", { required: true })} className=" mr-4" defaultValue={unity.abrev} />
                                 </div>
                                 <div className='flex col-span-1'>
-                                    <Button type="submit" className="ml-4 w-full bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
+                                    <Button type="submit" className="ml-4 w-full bg-blue-700 hover:bg-blue-500"><Save className='w-4 h-4 mr-2' /> Salvar alterações</Button>
                                 </div>
                             </div>
                         </form>

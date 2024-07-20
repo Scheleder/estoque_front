@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import api from '@/services/config';
@@ -6,9 +6,10 @@ import Select from 'react-select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
-import { Check } from 'lucide-react';
+import { ArrowRightLeft, Milestone, Shuffle, SquarePlus, SquareMinus, PlaneLanding, PlaneTakeoff, CircleMinus, CirclePlus, Check, FileText, Warehouse, SlidersVertical, Replace, ReplaceAll } from 'lucide-react';
 import ErrorPage from "./ErrorPage";
 import { useToast } from "@/components/ui/use-toast";
+import Scanner from '@/components/scanner';
 
 const userId = localStorage.userId ?? 1;
 const localId = localStorage.localId ?? 1;
@@ -34,7 +35,29 @@ const Takeout = () => {
   const [qtde, setQtde] = useState('');
   const [adress, setAdress] = useState('');
   const [type, setType] = useState(null);
-  const styles = { menu: base => ({ ...base, marginTop: 0 }) };
+  const styles = {
+    menu: base => ({
+      ...base,
+      marginTop: 0,
+      zIndex: 9999
+    }),
+    control: (base) => ({
+      ...base,
+      paddingLeft: '1rem' 
+    }),
+    option: (base) => ({
+      ...base,
+      paddingLeft: '1rem' 
+    }),
+    singleValue: (base) => ({
+      ...base,
+      paddingLeft: '1rem' 
+    }),
+    placeholder: (base) => ({
+      ...base,
+      paddingLeft: '1rem' 
+    }),
+  };
 
   const getData = async () => {
     try {
@@ -76,7 +99,7 @@ const Takeout = () => {
   }, []);
 
   useEffect(() => {
-    setValue("userId", userId); // Setting the userId value using setValue
+    setValue("userId", userId); 
     setValue("localId", localId);
   }, [setValue]);
 
@@ -86,7 +109,7 @@ const Takeout = () => {
     setQtde(option.qtde);
     setAdress(option.adress);
     setValue("itemId", option.value);
-    if(type.id != 3){
+    if (type.id != 3) {
       setValue("destination", option.adress)
     }
     setValue("quantity", option.qtde)
@@ -140,8 +163,40 @@ const Takeout = () => {
         <div className="pl-16 pt-20">
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <div className='grid grid-cols-3'>
-              <div className='col-span-3 mt-2'>
+              <div className='relative col-span-3 mt-2'>
+                <label>Item:</label>
+                <span className='absolute z-10 top-8 left-2' title="Scanner"><Scanner /></span>
+              </div>
+              <div className='col-span-3'>
+                <Controller
+                  name="itemId"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      value={items.find(option => option.value === field.value)}
+                      options={items}
+                      placeholder="Selecione o item"
+                      className="w-full"
+                      styles={styles}
+                      onChange={(selected) => field.onChange(selected.value).then(changeUnity(selected))}
+                    />
+                  )}
+                />
+              </div>
+              {unity && (
+                <>
+              <div className='relative col-span-3 mt-2'>
                 <label>Tipo de movimentação:</label>
+                <span className='absolute z-10 top-8 left-2 text-gray-400'>
+                {type && type.id === 1 && (<><SlidersVertical /></>)}
+                {type && type.id === 2 && (<><Shuffle /></>)}
+                {type && type.id === 3 && (<><FileText /></>)}
+                {type && type.id === 4 && (<><PlaneLanding /></>)}
+                {type && type.id === 5 && (<><PlaneTakeoff /></>)}
+                {type && type.id === 6 && (<><ArrowRightLeft /></>)}
+                </span>
               </div>
               <div className='flex col-span-3'>
                 <Controller
@@ -161,31 +216,8 @@ const Takeout = () => {
                   )}
                 />
               </div>
-              {type && (
-                <>
-                  <div className='col-span-3 mt-2'>
-                    <label>Item:</label>
-                  </div>
-                  <div className='col-span-3'>
-                    <Controller
-                      name="itemId"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field }) => (
-                        <Select
-                          {...field}
-                          value={items.find(option => option.value === field.value)}
-                          options={items}
-                          placeholder="Selecione o item"
-                          className="w-full"
-                          styles={styles}
-                          onChange={(selected) => field.onChange(selected.value).then(changeUnity(selected))}
-                        />
-                      )}
-                    />
-                  </div>
-                </>
-              )}
+              </>
+            )}
             </div>
             {type && (
               <form onSubmit={handleSubmit(mySubmit)}>
@@ -274,27 +306,28 @@ const Takeout = () => {
                 )}
                 {type.id === 6 && (
                   <div className='grid grid-cols-3 mb-2'>
-                    <div className='col-span-3 mt-2'>
+                    <div className='relative col-span-3 mt-2'>
                       <label>Estoque destino:</label>
+                      <span className='absolute z-10 top-8 left-2 text-gray-400' title="Scanner"><Warehouse /></span>
                     </div>
                     <div className='col-span-3'>
-                    <Controller
-                      name="destination"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field }) => (
-                        <Select
-                          {...field}
-                          value={locals.find(option => option.value === field.value)}
-                          options={locals}
-                          placeholder="Estoque destino"
-                          className="w-full"
-                          styles={styles}
-                          onChange={(selected) => field.onChange(selected.label)}
-                        />
-                      )}
-                    />
-                  </div>
+                      <Controller
+                        name="destination"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            value={locals.find(option => option.value === field.value)}
+                            options={locals}
+                            placeholder="Estoque destino"
+                            className="w-full"
+                            styles={styles}
+                            onChange={(selected) => field.onChange(selected.label)}
+                          />
+                        )}
+                      />
+                    </div>
                     <div className='relative mt-2'>
                       <label>Quantidade atual:</label>
                       <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
@@ -311,6 +344,7 @@ const Takeout = () => {
                 )}
               </form>
             )}
+
           </div>
         </div>
       )}

@@ -158,9 +158,9 @@ const UserDetails = (props) => {
                   <SendMail user={user.name} />
                   <Input {...register("email", { required: true })} className=" pl-8 mr-4" defaultValue={user.email} />
                   {user.admin ? 
-                    <Button className="bg-yellow-600 hover:bg-yellow-500"><ShieldCheck className='w-5 h-5 mr-2'/>Adiministrador</Button> : 
-                    <Button className="bg-gray-500 :hover:bg-gray-400"><UserRound className='w-5 h-5 mr-2'/>Usuário Padrão</Button>}
-                  <Button type="submit" className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-5 h-5 mr-2' /> Salvar alterações</Button>
+                    <Button className="bg-yellow-600 hover:bg-yellow-500"><ShieldCheck className='w-4 h-4 mr-2'/>Adiministrador</Button> : 
+                    <Button className="bg-gray-500 :hover:bg-gray-400"><UserRound className='w-4 h-4 mr-2'/>Usuário Padrão</Button>}
+                  <Button type="submit" className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-4 h-4 mr-2' /> Salvar alterações</Button>
                 </div>
               </div>
             </form>
