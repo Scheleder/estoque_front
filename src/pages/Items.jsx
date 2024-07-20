@@ -119,6 +119,7 @@ const Items = () => {
                         value={searchAdress}
                         onChange={(e) => setSearchAdress(e.target.value)}
                         className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
+                        placeholder='Filtrar...'
                       />
                       {searchAdress ?
                         <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchAdress} /> :
@@ -135,6 +136,7 @@ const Items = () => {
                         value={searchItem}
                         onChange={(e) => setSearchItem(e.target.value)}
                         className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
+                        placeholder='Filtrar...'
                       />
                       {searchItem ?
                         <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchItem} /> :

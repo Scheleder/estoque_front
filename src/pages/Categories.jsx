@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
-import { PenBox, Plus, ArrowUpDown, EllipsisVertical } from "lucide-react"
+import { PenBox, Plus, ArrowUpDown, EllipsisVertical, ListFilter, X, RotateCcw } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
 import { CategoryAdd } from './CategoryAdd';
 import FilterList from '@/components/filterList';
@@ -26,13 +26,16 @@ const Categories = () => {
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
   const [asc, setAsc] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchItem, setSearchItem] = useState('');
 
   const getData = async () => {
     try {
       setIsProcessing(true);
       const response = await api.get('categories');
-      response.data.sort((a, b) => a.name.localeCompare(b.name));
-      setData(response.data);
+      var sorted = response.data.sort((a, b) => a.name.localeCompare(b.name));
+      setData(sorted);
+      setFilteredData(sorted);
       console.log(response.data);
     } catch (err) {
       setError(err);
@@ -46,15 +49,31 @@ const Categories = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    filterItems();
+  }, [searchItem]);
+
   const orderByName = () => {
-    const sortedData = [...data].sort((a, b) => {
+    const sortedData = [...filteredData].sort((a, b) => {
       return asc
         ? a.name.localeCompare(b.name)
         : b.name.localeCompare(a.name)
     });
-    setData(sortedData);
+    setFilteredData(sortedData);
     setAsc(!asc);
   };
+
+  const filterItems = () => {
+    const filteredItems = data.filter(a =>
+      a.name.toLowerCase().includes(searchItem.toLowerCase())
+    );
+    setFilteredData(filteredItems);
+  };
+
+  const clearSearchItem = () => {
+    setSearchItem('')
+    setFilteredData(data)
+  }
 
   return (
     <>
@@ -70,19 +89,36 @@ const Categories = () => {
           </div>
           <div className='overflow-x-auto rounded-md shadow-md m-2'>
             <table className="w-full text-xs xs:text-sm text-blue-800">
-              <caption className="caption-bottom mt-2 text-gray-500">
-                Total de registros: {data.length}
+              <caption className="caption-bottom my-1">
+                {searchItem ?
+                  <span className='text-orange-600'>Total de registros com filtro: {filteredData.length}</span> :
+                  <span className='text-gray-500'>Total de registros: {filteredData.length}</span>
+                }
               </caption>
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
                   <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByName} />
-                    <span className='ml-6'>Categories</span><FilterList /></th>
+                    <span className='ml-6'>Categories</span>
+                    <span className='relative'>
+                      <input
+                        type="text"
+                        value={searchItem}
+                        onChange={(e) => setSearchItem(e.target.value)}
+                        className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
+                        placeholder='Filtrar...'
+                      />
+                      {searchItem ?
+                        <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchItem} /> :
+                        <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
+                      }
+                    </span>
+                  </th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {
-                  data.map((dt, index) => (
+                  filteredData.map((dt, index) => (
                     <tr key={index} className='odd:bg-stone-300 even:bg-stone-200 hover:bg-blue-100 font-semibold'>
                       <td className='px-2'>{dt.name}</td>
                       <td className='p-1'>

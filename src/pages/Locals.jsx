@@ -5,18 +5,22 @@ import Loading from '@/components/loading';
 import ButtonAdd from '@/components/buttonAdd';
 import ErrorPage from "./ErrorPage"
 import { LocalAdd } from './LocalAdd';
+import { Filter, ListFilter, X, RotateCcw } from 'lucide-react';
 
 const Locals = () => {
   const [data, setData] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchItem, setSearchItem] = useState('');
 
   const getData = async () => {
     try {
       setIsProcessing(true);
       const response = await api.get('locals');
-      response.data.sort((a, b) => a.name.localeCompare(b.name));
-      setData(response.data);
+      var sorted = response.data.sort((a, b) => a.name.localeCompare(b.name));
+      setData(sorted);
+      setFilteredData(sorted)
       console.log(response.data);
     } catch (err) {
       setError(err);
@@ -30,6 +34,22 @@ const Locals = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    filterItems();
+  }, [searchItem]);
+
+  const filterItems = () => {
+    const filteredItems = data.filter(a =>
+        a.name.toLowerCase().includes(searchItem.toLowerCase())
+    );
+    setFilteredData(filteredItems);
+};
+
+const clearSearchItem = () => {
+    setSearchItem('')
+    setFilteredData(data)
+}
+
   return (
     <>
       {isProcessing ? (
@@ -38,11 +58,28 @@ const Locals = () => {
         <ErrorPage error={error} />
       ) : (
         <div>
-          <div className='text-right'>
-            <LocalAdd />
+          <div className='grid grid-cols-2'>
+            <div className='text-left items-center'>
+              <span className='relative'>
+                <input
+                  type="text"
+                  value={searchItem}
+                  onChange={(e) => setSearchItem(e.target.value)}
+                  className='w-40 h-6 pl-2 m-4 rounded-sm text-xs bg-gray-100 text-orange-600 border border-gray-300'
+                  placeholder='Filtrar...'
+                />
+                {searchItem ?
+                  <RotateCcw size={16} className='absolute left-36 top-1 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchItem} /> :
+                  <ListFilter size={16} className='absolute left-36 top-1 text-gray-600' />
+                }
+              </span>
+            </div>
+            <div className='text-right'>
+              <LocalAdd />
+            </div>
           </div>
           <ul className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-4">
-            {data.map((dt, index) => (
+            {filteredData.map((dt, index) => (
               <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md bg-indigo-100 p-2'>
                 <div className=''>
                   <Link to={`/locals/${dt.id}`}>
