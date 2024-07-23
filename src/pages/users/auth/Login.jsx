@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export const Login = () => {
+  
   return (
     <div className="w-full h-full grid grid-cols-2 p-24">
       <div className="flex items-center justify-center py-12 bg-gray-100 overflow-x-auto rounded-lg shadow-md m-2">

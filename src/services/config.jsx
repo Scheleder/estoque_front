@@ -1,15 +1,15 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router';
+import React, { useEffect } from 'react';
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzE2ODU4MjYyfQ.ZkFHaoiYCTX52O2OL9UYJNRX8M0-izD7OtULQEr6rx4';
+const token = localStorage.getItem('token') || null;
 
 const api = axios.create({
-  baseURL: 'http://100.29.104.33/',
-  //baseURL: 'http://localhost:3000/',
+  baseURL: 'http://100.29.104.33/'
 });
 
-// Adiciona um interceptor que será executado antes de cada requisição
 api.interceptors.request.use(
-    config => {
+  config => {    
       config.headers.Authorization = `Bearer ${token}`;
       config.headers.Accept = '*/*';
       return config;
@@ -19,4 +19,25 @@ api.interceptors.request.use(
     }
   );
 
-  export default api
+// Hook customizado para adicionar o redirecionamento
+const useApiInterceptor = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const responseInterceptor = api.interceptors.response.use(
+      response => response,
+      error => {
+        if (error.response.status === 400 || error.response.status === 401) {
+          navigate('/login');
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    return () => {
+      api.interceptors.response.eject(responseInterceptor);
+    };
+  }, [navigate]);
+};
+
+export { api, useApiInterceptor };

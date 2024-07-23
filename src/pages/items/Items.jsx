@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '@/services/config';
+import { api }  from '@/services/config';
 import { Eye, Search, Boxes, ListFilter, X, RotateCcw, ArrowUpDown, EllipsisVertical, AlignHorizontalDistributeCenter as Piece } from "lucide-react"
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';

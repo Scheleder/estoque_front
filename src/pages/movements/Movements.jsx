@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '@/services/config';
+import { api }  from '@/services/config';
 import Loading from '@/components/loading';
 import { Eye, CloudDownload, ArrowUpDown, Filter } from "lucide-react"
 import { Link } from 'react-router-dom';

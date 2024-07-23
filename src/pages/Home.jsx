@@ -36,7 +36,7 @@ import { Separator } from "@/components//ui/separator"
 import { React, useEffect, useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import api from '@/services/config';
+import { api }  from '@/services/config';
 import Select from 'react-select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -86,6 +86,8 @@ const Home = (props) => {
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
 
+  //localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzE2ODU4MjYyfQ.ZkFHaoiYCTX52O2OL9UYJNRX8M0-izD7OtULQEr6rx4')
+    localStorage.setItem('token', null);
 
   const getData = async () => {
     try {
