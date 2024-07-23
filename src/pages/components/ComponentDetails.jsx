@@ -9,7 +9,7 @@ import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
 import Select from 'react-select'
 import ComponentInfo from '@/components/componentInfo';
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "../utils/ErrorPage"
 import { useToast } from "@/components/ui/use-toast"
 import { useForm, Controller } from "react-hook-form";
 import { Eye, Send, Save, Earth } from "lucide-react"

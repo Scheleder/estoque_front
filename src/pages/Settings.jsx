@@ -1,14 +1,14 @@
 import React from 'react'
 import { useState } from 'react';
-import Brands from './Brands';
-import Categories from './Categories';
-import Components from './Components';
-import Units from './Units';
+import Brands from './brands/Brands';
+import Categories from './categories/Categories';
+import Components from './components/Components';
+import Units from './units/Units';
 import Loading from '@/components/loading';
-import Users from './Users';
-import Locals from './Locals';
+import Users from './users/Users';
+import Locals from './locals/Locals';
 import { Ruler, Factory, ListCollapse, UsersRound, Warehouse, AlignHorizontalDistributeCenter as Piece } from 'lucide-react';
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "./utils/ErrorPage"
 
 const Settings = (props) => {
 

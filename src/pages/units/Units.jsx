@@ -4,7 +4,7 @@ import api from '@/services/config';
 import Loading from '@/components/loading';
 import { PenBox, Plus, ArrowUpDown, EllipsisVertical, ListFilter, X, RotateCcw } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "../utils/ErrorPage"
 import { UnityAdd } from './UnityAdd';
 import FilterList from '@/components/filterList';
 import {

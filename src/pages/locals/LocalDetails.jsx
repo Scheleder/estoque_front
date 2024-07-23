@@ -14,25 +14,26 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "../utils/ErrorPage"
 import { useToast } from "@/components/ui/use-toast"
 import { useForm } from "react-hook-form";
 
-const UnityDetails = (props) => {
+
+const LocalDetails = (props) => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [unity, setUnity] = useState([]);
+    const [local, setLocal] = useState([]);
     const [isProcessing, setIsProcessing] = useState(true);
     const [error, setError] = useState(null);
-    const { register, handleSubmit } = useForm();
     const { toast } = useToast();
+    const { register, handleSubmit } = useForm();
 
     const getData = async () => {
         try {
             setIsProcessing(true);
-            const response = await api.get(`units/${id}`);
-            setUnity(response.data.unity);
-            console.log(response.data.unity);
+            const response = await api.get(`locals/${id}`);
+            setLocal(response.data.local);
+            console.log(response.data.local);
         } catch (err) {
             setError(err);
             console.log(err);
@@ -49,9 +50,9 @@ const UnityDetails = (props) => {
 
         try {
             setIsProcessing(true);
-            const response = await api.put(`units/${id}`, values);
-            setUnity(response.data.unity);
-            console.log(response.data.unity);
+            const response = await api.put(`locals/${id}`, values);
+            setLocal(response.data.local);
+            console.log(response.data.local);
             if (response.status === 200) {
                 toast({
                     title: "Atualizado!",
@@ -88,18 +89,12 @@ const UnityDetails = (props) => {
                     <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
                         <form onSubmit={handleSubmit(mySubmit)}>
                             <div className='grid grid-cols-3 mb-2'>
-                                <div className='col-span-1 mt-2'>
-                                    <label>Unidade de medida:</label>
-                                </div>
-                                <div className='col-span-1 mt-2 pl-4'>
-                                    <label>Abreviação:</label>
+                                <div className='col-span-2 mt-2'>
+                                    <label>Estoque:</label>
                                 </div>
                                 <div className='col-span-1 mt-2'></div>
-                                <div className='col-span-1'>
-                                    <Input {...register("name", { required: true })} className=" mr-4" defaultValue={unity.name} />
-                                </div>
-                                <div className='col-span-1 px-4'>
-                                    <Input {...register("abrev", { required: true })} className=" mr-4" defaultValue={unity.abrev} />
+                                <div className='col-span-2'>
+                                    <Input {...register("name", { required: true })} className=" mr-4" defaultValue={local.name} />
                                 </div>
                                 <div className='flex col-span-1'>
                                     <Button type="submit" className="ml-4 w-full bg-blue-700 hover:bg-blue-500"><Save className='w-4 h-4 mr-2' /> Salvar alterações</Button>
@@ -113,4 +108,4 @@ const UnityDetails = (props) => {
     )
 }
 
-export default UnityDetails
+export default LocalDetails

@@ -32,7 +32,7 @@ import WareHouse from "@/assets/warehouse"
 const Sidebar = (props) => {
     return (
         <>
-            <div className="flex min-h-screen w-12 flex-col bg-muted/40 opacity-50">
+            <div className="flex min-h-screen w-12 flex-col bg-muted/40 opacity-60">
                 <aside className="fixed inset-y-0 left-0 z-100 hidden w-12 flex-col border-r bg-zinc-100 sm:flex">
                     <nav className="flex flex-col items-center gap-4 px-2 py-4">
                         <div className="mt-28">

@@ -8,15 +8,15 @@ import Loading from '@/components/loading';
 import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
 import FilterList from '@/components/filterList';
-import { Link as WWW, Send, Save, ArrowUpDown, ShieldCheck, UserRound } from "lucide-react"
+import { Link as WWW, Send, Save, ArrowUpDown, ShieldCheck, UserRound, KeyRound } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import ErrorPage from "./ErrorPage"
-import { SendMail } from './SendMail';
+import ErrorPage from "../utils/ErrorPage"
+import { SendMail } from '../utils/SendMail';
 import { useToast } from "@/components/ui/use-toast"
 import { useForm } from "react-hook-form";
 
@@ -52,7 +52,7 @@ const UserDetails = (props) => {
   }, []);
 
   const mySubmit = async (values) => {
-
+    console.log(values)
     try {
       setIsProcessing(true);
       const response = await api.put(`users/${id}`, values);
@@ -94,8 +94,8 @@ const UserDetails = (props) => {
   const orderByType = () => {
     const sortedData = [...data].sort((a, b) => {
       return asc
-      ? a.type.localeCompare(b.type)
-      : b.type.localeCompare(a.type);
+        ? a.type.localeCompare(b.type)
+        : b.type.localeCompare(a.type);
     });
     setData(sortedData);
     setAsc(!asc);
@@ -104,8 +104,8 @@ const UserDetails = (props) => {
   const orderByDestination = () => {
     const sortedData = [...data].sort((a, b) => {
       return asc
-      ? a.destination.localeCompare(b.destination)
-      : b.destination.localeCompare(a.destination);
+        ? a.destination.localeCompare(b.destination)
+        : b.destination.localeCompare(a.destination);
     });
     setData(sortedData);
     setAsc(!asc);
@@ -114,8 +114,8 @@ const UserDetails = (props) => {
   const orderBySku = () => {
     const sortedData = [...data].sort((a, b) => {
       return asc
-      ? a.itemId - b.itemId
-      : b.itemId - a.itemId;
+        ? a.itemId - b.itemId
+        : b.itemId - a.itemId;
     });
     setData(sortedData);
     setAsc(!asc);
@@ -157,9 +157,11 @@ const UserDetails = (props) => {
                 <div className='flex col-span-3 relative'>
                   <SendMail user={user.name} />
                   <Input {...register("email", { required: true })} className=" pl-8 mr-4" defaultValue={user.email} />
-                  {user.admin ? 
-                    <Button className="bg-yellow-600 hover:bg-yellow-500"><ShieldCheck className='w-4 h-4 mr-2'/>Adiministrador</Button> : 
-                    <Button className="bg-gray-500 :hover:bg-gray-400"><UserRound className='w-4 h-4 mr-2'/>Usuário Padrão</Button>}
+                  {user.admin ?
+                    <Button className="bg-yellow-600 hover:bg-yellow-500"><ShieldCheck className='w-4 h-4 mr-2' />Adiministrador</Button> :
+                    <Button className="bg-gray-500 :hover:bg-gray-400"><UserRound className='w-4 h-4 mr-2' />Usuário Padrão</Button>
+                  }
+                  <Button className="ml-4 bg-red-700 hover:bg-red-500"><KeyRound className='w-4 h-4 mr-2' /> Alterar senha</Button>
                   <Button type="submit" className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-4 h-4 mr-2' /> Salvar alterações</Button>
                 </div>
               </div>
@@ -170,7 +172,7 @@ const UserDetails = (props) => {
             <span className='text-gray-600 font-lg'>Movimentações de {user.name}</span>
             <div className='overflow-x-auto rounded-md shadow-md mt-2'>
               <table className="w-full text-xs xs:text-sm text-blue-900">
-                <caption className="caption-bottom mt-4 text-gray-400">
+                <caption className="caption-bottom my-1 text-gray-400">
                   Total de registros: {data.length}
                 </caption>
                 <thead>

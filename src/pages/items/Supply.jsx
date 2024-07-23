@@ -8,10 +8,10 @@ import { Input } from '@/components/ui/input'
 import ButtonAdd from '@/components/buttonAdd'
 import Loading from '@/components/loading';
 import { Check, CircleCheck } from 'lucide-react';
-import { CategoryAdd } from './CategoryAdd';
-import { BrandAdd } from './BrandAdd';
-import ErrorPage from "./ErrorPage"
-import { ComponentAdd } from './ComponentAdd';
+import { CategoryAdd } from '../categories/CategoryAdd';
+import { BrandAdd } from '../brands/BrandAdd';
+import ErrorPage from "../utils/ErrorPage"
+import { ComponentAdd } from '../components/ComponentAdd';
 import { useToast } from "@/components/ui/use-toast"
 
 const Supply = (props) => {

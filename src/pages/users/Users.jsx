@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "../utils/ErrorPage"
 import { Filter, ListFilter, X, RotateCcw } from 'lucide-react';
 
 const Users = () => {

@@ -4,7 +4,7 @@ import { Eye, Search, Boxes, ListFilter, X, RotateCcw, ArrowUpDown, EllipsisVert
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "../utils/ErrorPage"
 import FilterList from '@/components/filterList';
 import {
   DropdownMenu,

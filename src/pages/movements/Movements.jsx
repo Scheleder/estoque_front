@@ -10,7 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "../utils/ErrorPage"
 import ButtonExport from '@/components/buttonExport';
 
 const Movements = () => {

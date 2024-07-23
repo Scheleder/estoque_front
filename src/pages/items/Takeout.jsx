@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
 import { ArrowRightLeft, Milestone, Shuffle, SquarePlus, SquareMinus, PlaneLanding, PlaneTakeoff, CircleMinus, CirclePlus, Check, FileText, Warehouse, SlidersVertical, Replace, ReplaceAll } from 'lucide-react';
-import ErrorPage from "./ErrorPage";
+import ErrorPage from "../utils/ErrorPage";
 import { useToast } from "@/components/ui/use-toast";
 import Scanner from '@/components/scanner';
 
@@ -43,19 +43,19 @@ const Takeout = () => {
     }),
     control: (base) => ({
       ...base,
-      paddingLeft: '1rem' 
+      paddingLeft: '1rem'
     }),
     option: (base) => ({
       ...base,
-      paddingLeft: '1rem' 
+      paddingLeft: '1rem'
     }),
     singleValue: (base) => ({
       ...base,
-      paddingLeft: '1rem' 
+      paddingLeft: '1rem'
     }),
     placeholder: (base) => ({
       ...base,
-      paddingLeft: '1rem' 
+      paddingLeft: '1rem'
     }),
   };
 
@@ -99,7 +99,7 @@ const Takeout = () => {
   }, []);
 
   useEffect(() => {
-    setValue("userId", userId); 
+    setValue("userId", userId);
     setValue("localId", localId);
   }, [setValue]);
 
@@ -187,37 +187,37 @@ const Takeout = () => {
               </div>
               {unity && (
                 <>
-              <div className='relative col-span-3 mt-2'>
-                <label>Tipo de movimentação:</label>
-                <span className='absolute z-10 top-8 left-2 text-gray-400'>
-                {type && type.id === 1 && (<><SlidersVertical /></>)}
-                {type && type.id === 2 && (<><Shuffle /></>)}
-                {type && type.id === 3 && (<><FileText /></>)}
-                {type && type.id === 4 && (<><PlaneLanding /></>)}
-                {type && type.id === 5 && (<><PlaneTakeoff /></>)}
-                {type && type.id === 6 && (<><ArrowRightLeft /></>)}
-                </span>
-              </div>
-              <div className='flex col-span-3'>
-                <Controller
-                  name="type"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      value={types.find(option => option.value === field.value)}
-                      options={types}
-                      placeholder="Selecione o tipo de movimentação"
-                      className="w-full"
-                      styles={styles}
-                      onChange={(selected) => field.onChange(selected.value).then(changeType(selected))}
+                  <div className='relative col-span-3 mt-2'>
+                    <label>Tipo de movimentação:</label>
+                    <span className='absolute z-10 top-8 left-2 text-gray-400'>
+                      {type && type.id === 1 && (<><SlidersVertical /></>)}
+                      {type && type.id === 2 && (<><Shuffle /></>)}
+                      {type && type.id === 3 && (<><FileText /></>)}
+                      {type && type.id === 4 && (<><PlaneLanding /></>)}
+                      {type && type.id === 5 && (<><PlaneTakeoff /></>)}
+                      {type && type.id === 6 && (<><ArrowRightLeft /></>)}
+                    </span>
+                  </div>
+                  <div className='flex col-span-3'>
+                    <Controller
+                      name="type"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          value={types.find(option => option.value === field.value)}
+                          options={types}
+                          placeholder="Selecione o tipo de movimentação"
+                          className="w-full"
+                          styles={styles}
+                          onChange={(selected) => field.onChange(selected.value).then(changeType(selected))}
+                        />
+                      )}
                     />
-                  )}
-                />
-              </div>
-              </>
-            )}
+                  </div>
+                </>
+              )}
             </div>
             {type && (
               <form onSubmit={handleSubmit(mySubmit)}>

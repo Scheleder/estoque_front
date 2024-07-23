@@ -5,7 +5,7 @@ import Loading from '@/components/loading';
 import { PenBox, Eye, ArrowUpDown, EllipsisVertical, ListFilter, X, RotateCcw } from "lucide-react"
 import ButtonAdd from '@/components/buttonAdd';
 import { ComponentAdd } from './ComponentAdd';
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "../utils/ErrorPage"
 import FilterList from '@/components/filterList';
 import {
   DropdownMenu,

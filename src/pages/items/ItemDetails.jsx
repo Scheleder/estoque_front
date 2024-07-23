@@ -9,8 +9,8 @@ import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
 import Select from 'react-select'
 import ComponentInfo from '@/components/componentInfo';
-import ErrorPage from "./ErrorPage"
-import { Eye, Info, Save, ArrowUpDown } from "lucide-react"
+import ErrorPage from "../utils/ErrorPage"
+import { Eye, Info, Save, ArrowUpDown, ShoppingCart } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -119,10 +119,11 @@ const ItemDetails = (props) => {
             <div className='grid grid-cols-3 mb-2'>
               <div className='col-span-3 mt-2 relative'>
                 <label>Componente:</label>
-                <span onClick={getInfos} title="Informações sobre o componente" className='absolute text-green-500 hover:text-green-400 top-9 left-2 cursor-pointer'><Info className='w-4 h-4' /></span>
+                <span onClick={getInfos} title="Informações sobre o componente" className='absolute text-orange-700 hover:text-lime-500 top-9 left-2 cursor-pointer'><Info className='w-4 h-4' /></span>
               </div>
               <div className='flex col-span-3'>
-                <Input placeholder="Nome" className=" pl-8" value={item.Component.description + ' - ' + item.Component.Brand.name} readOnly />
+                <Input placeholder="Nome" className=" pl-8 mr-2" value={item.Component.description + ' - ' + item.Component.Brand.name} readOnly />
+                <Button className="p-2 hover:bg-gray-600" title="Movimentar"><ShoppingCart /></Button>
               </div>
               <div className='col-span-1 mt-2'>
                 <label>Endereço de estoque:</label>
@@ -151,7 +152,7 @@ const ItemDetails = (props) => {
             <span className='text-gray-600 font-lg'>Movimentações: </span>
             <div className='overflow-x-auto rounded-md shadow-md m-2'>
               <table className="w-full text-xs xs:text-sm text-blue-900">
-                <caption className="caption-bottom mt-4 text-gray-400">
+                <caption className="caption-bottom my-1 text-gray-400">
                   Total de registros: {item.Movements.length}
                 </caption>
                 <thead>

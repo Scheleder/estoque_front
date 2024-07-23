@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '@/services/config';
 import Loading from '@/components/loading';
 import ButtonAdd from '@/components/buttonAdd';
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "../utils/ErrorPage"
 import { LocalAdd } from './LocalAdd';
 import { Filter, ListFilter, X, RotateCcw } from 'lucide-react';
 
