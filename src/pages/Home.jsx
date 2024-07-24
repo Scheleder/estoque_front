@@ -78,7 +78,7 @@ let user = {
 }
 const Home = (props) => {
 
-  const { toast } = useToast();
+  //const { toast } = useToast();
   const navigate = useNavigate();
   const { control, register, handleSubmit, setValue } = useForm();
   const [items, setItems] = useState([]);
@@ -87,7 +87,7 @@ const Home = (props) => {
   const [error, setError] = useState(null);
 
   //localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzE2ODU4MjYyfQ.ZkFHaoiYCTX52O2OL9UYJNRX8M0-izD7OtULQEr6rx4')
-    localStorage.setItem('token', null);
+  //  localStorage.setItem('token', null);
 
   const getData = async () => {
     try {
@@ -121,10 +121,6 @@ const Home = (props) => {
       console.log(err);
     } finally {
       setIsProcessing(false);
-      toast({
-        title: "Bem vindo!",
-        description: user.name,
-    })
     }
   };
 

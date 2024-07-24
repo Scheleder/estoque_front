@@ -25,6 +25,7 @@ import { Login } from './pages/users/auth/Login.jsx'
 import { Register } from './pages/users/auth/Register.jsx'
 import { ResetPassWord } from './pages/users/auth/ResetPassWord.jsx'
 import { ConfirmEmail } from './pages/users/auth/ConfirmEmail.jsx'
+import { UpdatePassWord } from './pages/users/auth/UpdatePassWord.jsx'
 
 const routes = createBrowserRouter([
   {
@@ -45,7 +46,11 @@ const routes = createBrowserRouter([
         element: <ResetPassWord />
       },
       {
-        path: "/confirm-email",
+        path: "/update-password",
+        element: <UpdatePassWord />
+      },
+      {
+        path: "/confirm-email/:id",
         element: <ConfirmEmail />
       },
       {

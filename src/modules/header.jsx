@@ -90,6 +90,9 @@ const Header = () => {
     }
   }
 
+  let userName= localStorage.getItem('userName');
+  let userLink = "users/"+localStorage.getItem('userId');
+
   return (
     <>
       <div className="fixed z-10 w-full h-16 flex grid-cols-2 grid-rows-1 justify-between px-2 py-2 bg-blue-200">
@@ -130,10 +133,10 @@ const Header = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
+              <DropdownMenuLabel>{userName}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Link to="/users/1">
+                <Link to={userLink}>
                   Configurações
                 </Link>
               </DropdownMenuItem>

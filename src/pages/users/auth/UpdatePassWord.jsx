@@ -1,107 +1,121 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from 'react-router'
-import { api }  from '@/services/config';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+import { Link } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
-import ButtonAdd from '@/components/buttonAdd'
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { api } from '@/services/config'
 import { useToast } from "@/components/ui/use-toast"
+import { useNavigate } from 'react-router'
+import { LogIn, DoorOpen, Send, Wand } from "lucide-react";
 
-export function UpdatePassWord() {
-    const { id } = useParams();
-    const { toast } = useToast()
-    const navigate = useNavigate()
+let  response = {status:200,data:{msg:'Preencha o formulário'}};
 
-    const [isProcessing, setIsProcessing] = useState(true);
-    const [error, setError] = useState(null);
-    const { register, handleSubmit } = useForm();
-    const [data, setData] = useState("");
+export const UpdatePassWord = () => {
+  const { toast } = useToast()
+  const navigate = useNavigate()
 
-    const mySubmit = async (values) => {
-      if(values.password != user.password){
+  const [isProcessing, setIsProcessing] = useState(true);
+  const [error, setError] = useState(null);
+  const { register, handleSubmit } = useForm();
+
+  const mySubmit = async (values) => {
+
+    try {
+      setIsProcessing(true);
+      response = await api.post('/auth/update', values);
+      console.log(response);
+      if (response.status === 200) {
+        toast({
+          title: 'Sucesso!',
+          description: response.data.msg,
+        })
+        setTimeout(function () {
+          navigate('/login')
+        }, 1500);
+      } else {
         toast({
           title: "Falha!",
-          description: 'A senha atual não confere!',
+          description: response.data.msg,
         })
-        return
       }
-      if(values.password1 != values.password2){
-        toast({
-          title: "Falha!",
-          description: 'A senhas não coincidem!',
-        })
-        return
-      }
-      if(values.code != user.code){
-        toast({
-          title: "Falha!",
-          description: 'O código não confere!',
-        })
-        return
-      }
-      //Set Values
-      try {
-        setIsProcessing(true);
-        const response = await api.put('auth/update', values);
-        setUser(response.data.user);
-        console.log(response.data.user);
-        if (response.status === 200) {
-          toast({
-            title: "Atualizado!",
-            description: response.data.msg,
-          })
-        } else {
-          toast({
-            title: "Falha!",
-            description: response.data.msg,
-          })
-        }
-      } catch (err) {
-        setError(err);
-        console.log(err);
-        toast({
-          title: "Erro!",
-          description: err,
-        })
-      } finally {
-        setIsProcessing(false);
-      }
+    } catch (err) {
+      setError(err);
+      console.log(err);
+      toast({
+        title: "Erro!",
+        description: err,
+      })
+    } finally {
+      setIsProcessing(false);
     }
+  }
 
-    return (
-        <AlertDialog>
-            <AlertDialogTrigger>
-                <ButtonAdd />
-            </AlertDialogTrigger>
-            <AlertDialogContent className="bg-zinc-100">
-                <AlertDialogHeader>
-                    <AlertDialogTitle>Novo Fabricante</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        <form onSubmit={handleSubmit(mySubmit)}>
-                            <Input {...register("email", { required: true })} placeholder="Insira o seu e-mail" />
-                            <Input {...register("code", { required: true })} placeholder="Insira o código recebido por e-mail" />
-                            <Input {...register("password", { required: true })} placeholder="Insira a senha atual" className="mt-2"/>
-                            <Input {...register("password1", { required: true })} placeholder="Insira a nova senha" className="mt-2"/>
-                            <Input {...register("password2", { required: true })} placeholder="Repita a nova senha" className="mt-2"/>
-                            <AlertDialogFooter className="mt-4">
-                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                <AlertDialogAction type="submit" className="bg-blue-700 hover:bg-blue-500">Atualizar</AlertDialogAction>
-                            </AlertDialogFooter>
-                        </form>
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-            </AlertDialogContent>
-        </AlertDialog>
-    )
+  return (
+    <div className="w-full grid grid-cols-2 p-24">
+      <div className="flex items-center justify-center py-4 bg-gray-100 overflow-hide rounded-lg shadow-md m-2">
+        <div className="mx-auto grid w-[350px] gap-4">
+          <form onSubmit={handleSubmit(mySubmit)}>
+            <div className="grid gap-2 text-center mb-8">
+              <h1 className="text-3xl font-bold">Recuperar a senha</h1>
+              { response.status === 202 ? <p className="text-red-500">{response.data.msg}</p> : <p>{response.data.msg}</p>} 
+            </div>
+            <div className="grid gap-2">
+              <div className="grid gap-1">
+                <Label htmlFor="code">Código</Label>
+                <Input
+                  {...register("code", { required: true })}
+                  type="text"
+                  placeholder="Código recebido por e-mail"
+                  className="text-center"
+                  required
+                />
+              </div>
+              <div className="grid gap-1">
+                <Label htmlFor="email">E-mail</Label>
+                <Input
+                  {...register("email", { required: true })}
+                  type="email"
+                  placeholder="seunome@grupoboticario.com.br"
+                  required
+                />
+              </div>
+              <div className="grid gap-1">
+                <div className="flex items-center">
+                  <Label htmlFor="password">Senha</Label>
+                </div>
+                <Input
+                  {...register("password", { required: true })}
+                  type="password"
+                  required
+                />
+              </div>
+              <div className="grid gap-1">
+                <div className="flex items-center">
+                  <Label htmlFor="confirmpassword">Repita a senha</Label>
+                </div>
+                <Input
+                  {...register("confirmpassword", { required: true })}
+                  type="password"
+                  required
+                />
+              </div>
+              <Button type="submit" className="w-full mt-4">
+                <Wand className="w-4 h-4 mr-2"/> Enviar Dados
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div className="hidden bg-muted lg:block">
+        <img
+          src="/fundo2.jpg"
+          alt="Image"
+          width="1920"
+          height="1080"
+          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        />
+      </div>
+    </div>
+  )
 }
