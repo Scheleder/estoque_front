@@ -90,8 +90,14 @@ const Header = () => {
     }
   }
 
-  let userName= localStorage.getItem('userName');
-  let userLink = "users/"+localStorage.getItem('userId');
+  let userName = localStorage.getItem('userName');
+  let iniciais = ''
+  let userLink = "users/" + localStorage.getItem('userId');
+  if(userName){    
+    iniciais = userName.split(' ')
+    .map(palavra => palavra.charAt(0))
+    .join('');
+  }
 
   return (
     <>
@@ -127,8 +133,8 @@ const Header = () => {
                 className="rounded-full mt-2 mx-4"
               >
                 <Avatar>
-                  <AvatarImage src="https://github.com/scheleder.png" />
-                  <AvatarFallback>JS</AvatarFallback>
+                  <AvatarImage src="" />
+                  <AvatarFallback className="bg-[url('./assets/user.png')] bg-cover bg-center text-orange-800 font-bold text-xs pt-[26px]">{iniciais}</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>

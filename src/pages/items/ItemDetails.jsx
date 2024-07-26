@@ -123,7 +123,9 @@ const ItemDetails = (props) => {
               </div>
               <div className='flex col-span-3'>
                 <Input placeholder="Nome" className=" pl-8 mr-2" value={item.Component.description + ' - ' + item.Component.Brand.name} readOnly />
-                <Button className="p-2 hover:bg-gray-600" title="Movimentar"><ShoppingCart /></Button>
+                <Link to={`/takeout/${item.id}`}>
+                  <Button className="p-2 hover:bg-gray-600" title="Movimentar"><ShoppingCart /></Button>
+                </Link>
               </div>
               <div className='col-span-1 mt-2'>
                 <label>Endereço de estoque:</label>

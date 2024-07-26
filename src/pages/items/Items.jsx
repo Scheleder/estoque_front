@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api }  from '@/services/config';
-import { Eye, Search, Boxes, ListFilter, X, RotateCcw, ArrowUpDown, EllipsisVertical, AlignHorizontalDistributeCenter as Piece } from "lucide-react"
+import { Eye, Search, Boxes, ListFilter, X, RotateCcw, ArrowUpDown, EllipsisVertical, AlignHorizontalDistributeCenter as Piece, ShoppingCart } from "lucide-react"
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
@@ -161,6 +161,13 @@ const Items = () => {
                             <EllipsisVertical className='text-gray-500 cursor-pointer' />
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
+                          <DropdownMenuItem>
+                              <Link to={`/takeout/${dt.id}`}>
+                                <span className="flex"><ShoppingCart className='w-4 h-4 mt-0.5 mr-2 text-gray-400' />
+                                  Movimentar item
+                                </span>
+                              </Link>
+                            </DropdownMenuItem>
                             <DropdownMenuItem>
                               <Link to={`/items/${dt.id}`}>
                                 <span className="flex"><Boxes className='w-4 h-4 mt-0.5 mr-2 text-gray-400' />

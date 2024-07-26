@@ -103,7 +103,7 @@ const Movements = () => {
           <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 pb-0 bg-gray-200">
             <div className='overflow-x-auto rounded-md shadow-md'>
               <table className="w-full text-xs xs:text-sm text-blue-900">
-                <caption className="caption-bottom mt-4 text-gray-400">
+                <caption className="caption-bottom my-1 text-gray-400">
                   Total de registros: {data.length}
                 </caption>
                 <thead>

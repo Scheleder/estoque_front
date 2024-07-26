@@ -97,6 +97,8 @@ const Home = (props) => {
         api.get('items'),
         api.get('locals')
       ]);
+      console.log(response1.data)
+      console.log(response2.data)
 
       const sortedItems = response1.data
         .map(item => ({
@@ -132,7 +134,6 @@ const Home = (props) => {
     <div className="pl-16 pt-20 p-4">
       <div className="shadow-lg rounded-md bg-gray-200 p-4 mb-4">
         <div className='relative mt-2'>
-          <label className="text-gray-400"></label>
           <span className='absolute z-10 top-2 left-2' title="Scanner"><Scanner /></span>
         </div>
         <div className='col-span-3'>
@@ -154,7 +155,7 @@ const Home = (props) => {
           />
         </div>
       </div>
-
+{/* 
       <div className="grid grid-cols-3 shadow-lg rounded-md bg-gray-200 p-4 text-center">
         <div className="col-span-2">
           <Card className="w-full h-full" x-chunk="charts-01-chunk-0">
@@ -560,7 +561,7 @@ const Home = (props) => {
             </CardContent>
           </Card>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

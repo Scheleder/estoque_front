@@ -169,7 +169,7 @@ const BrandDetails = (props) => {
             <span className='text-gray-600 font-lg'>Componentes do Fabricante {brand.name}</span>
             <div className='overflow-x-auto rounded-md shadow-md mt-2'>
               <table className="w-full text-xs xs:text-sm text-blue-900">
-                <caption className="caption-bottom mt-4 text-gray-400">
+                <caption className="caption-bottom my-1 text-gray-400">
                   Total de registros: {data.length}
                 </caption>
                 <thead>

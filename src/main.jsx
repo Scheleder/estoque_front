@@ -70,6 +70,10 @@ const routes = createBrowserRouter([
         element: <Moves />
       },
       {
+        path: "/takeout/:id",
+        element: <Takeout />
+      },
+      {
         path: "/supply",
         element: <Supply />
       },
@@ -90,35 +94,35 @@ const routes = createBrowserRouter([
         element: <Logout />
       },
       {
-        path: "items/:id",
+        path: "/items/:id",
         element: <ItemDetails />
       },
       {
-        path: "moves/:id",
+        path: "/moves/:id",
         element: <MoveDetails />
       },
       {
-        path: "users/:id",
+        path: "/users/:id",
         element: <UserDetails />
       },
       {
-        path: "brands/:id",
+        path: "/brands/:id",
         element: <BrandDetails />
       },
       {
-        path: "components/:id",
+        path: "/components/:id",
         element: <ComponentDetails />
       },
       {
-        path: "locals/:id",
+        path: "/locals/:id",
         element: <LocalDetails />
       },
       {
-        path: "categories/:id",
+        path: "/categories/:id",
         element: <CategoryDetails />
       },
       {
-        path: "units/:id",
+        path: "/units/:id",
         element: <UnityDetails />
       },
       {

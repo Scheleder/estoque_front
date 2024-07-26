@@ -59,6 +59,13 @@ export const Login = () => {
 
   const togglePass = () =>{
     setPassVisible(!passVisible)
+    let inputPassword = document.getElementById('inputPassword');
+    if(passVisible){
+      inputPassword.type='text';
+    }
+    else{
+        inputPassword.type='password';
+      }
   }
 
   return (

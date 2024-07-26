@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from 'react-router-dom';
-import { api }  from '@/services/config';
+import { useParams, useNavigate } from 'react-router-dom';
+import { api } from '@/services/config';
 import Select from 'react-select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,6 +24,7 @@ const types = [
 ]
 
 const Takeout = () => {
+  const { id } = useParams();
   const { toast } = useToast();
   const navigate = useNavigate();
   const { control, register, handleSubmit, setValue } = useForm();
@@ -101,7 +102,17 @@ const Takeout = () => {
   useEffect(() => {
     setValue("userId", userId);
     setValue("localId", localId);
-  }, [setValue]);
+    if (id) {
+      const defaultValue = items.find(item => item.value == id); 
+      console.log(defaultValue)
+      if (defaultValue) {
+        setValue('itemId', defaultValue.value);
+        changeUnity(defaultValue)
+      }
+    }
+
+  }, [setValue, items]);
+
 
   const changeUnity = (option) => {
     console.log(option);
@@ -109,7 +120,7 @@ const Takeout = () => {
     setQtde(option.qtde);
     setAdress(option.adress);
     setValue("itemId", option.value);
-    if (type.id != 3) {
+    if (type?.id != 3) {
       setValue("destination", option.adress)
     }
     setValue("quantity", option.qtde)
