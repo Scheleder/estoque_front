@@ -1,16 +1,17 @@
-import React from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router';
+import Cookies from 'js-cookie';
 
-const Logout = (props) => {
-  const navigate = useNavigate()
-  localStorage.setItem('token', null)
-  localStorage.setItem('userName', null)
-  localStorage.setItem('userId', null)
-  localStorage.setItem('userMail', null)
-  localStorage.setItem('localId', null)
-  setTimeout(function () {
-    return navigate('/login')
-  }, 1000);
-}
+const useLogoff = () => {
+  
+  const navigate = useNavigate();
+  const logoff = () => {
+    Cookies.remove('token');
+    Cookies.remove('user')
+    //localStorage.removeItem('user');
+    navigate('/login');
+  };
 
-export default Logout
+  return logoff;
+};
+
+export default useLogoff;

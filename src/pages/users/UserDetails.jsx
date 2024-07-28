@@ -1,23 +1,24 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom';
 import { React, useEffect, useState } from 'react';
-import { api }  from '@/services/config';
-import { getDate } from '@/lib/utils';
+import { api } from '@/services/api';
+import { getDate, getLoggedUser } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
 import Pagetitle from '@/components/pagetitle';
-import { Input } from '@/components/ui/input'
+import { Input } from '@/components/ui/input';
 import FilterList from '@/components/filterList';
-import { Link as WWW, Send, Save, ArrowUpDown, ShieldCheck, UserRound, KeyRound } from "lucide-react"
+
+import { Link as WWW, Send, Save, ArrowUpDown, ShieldCheck, UserRound, KeyRound } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
-import ErrorPage from "../utils/ErrorPage"
+} from "@/components/ui/tooltip";
+import ErrorPage from "../utils/ErrorPage";
 import { SendMail } from '../utils/SendMail';
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
 
 const UserDetails = (props) => {
@@ -27,9 +28,11 @@ const UserDetails = (props) => {
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
   const { toast } = useToast();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const [data, setData] = useState([]);
   const [asc, setAsc] = useState(true);
+  const me = getLoggedUser();
+  console.log(me);
 
   const getData = async () => {
     try {
@@ -52,7 +55,7 @@ const UserDetails = (props) => {
   }, []);
 
   const mySubmit = async (values) => {
-    console.log(values)
+    console.log(values);
     try {
       setIsProcessing(true);
       const response = await api.put(`users/${id}`, values);
@@ -62,12 +65,12 @@ const UserDetails = (props) => {
         toast({
           title: "Atualizado!",
           description: response.data.msg,
-        })
+        });
       } else {
         toast({
           title: "Falha!",
           description: response.data.msg,
-        })
+        });
       }
     } catch (err) {
       setError(err);
@@ -75,11 +78,11 @@ const UserDetails = (props) => {
       toast({
         title: "Erro!",
         description: err,
-      })
+      });
     } finally {
       setIsProcessing(false);
     }
-  }
+  };
 
   const orderByDate = () => {
     const sortedData = [...data].sort((a, b) => {
@@ -126,6 +129,12 @@ const UserDetails = (props) => {
     return navigate("/");
   };
 
+  const toggleUserType = () => {
+    const updatedUser = { ...user, admin: !user.admin };
+    setUser(updatedUser);
+    setValue("admin", updatedUser.admin);
+  };
+
   return (
     <>
       {isProcessing ? (
@@ -157,12 +166,19 @@ const UserDetails = (props) => {
                 <div className='flex col-span-3 relative'>
                   <SendMail user={user.name} />
                   <Input {...register("email", { required: true })} className=" pl-8 mr-4" defaultValue={user.email} />
+                  <Input {...register("admin")} type="hidden" value={user.admin} />
                   {user.admin ?
-                    <Button className="bg-yellow-600 hover:bg-yellow-500"><ShieldCheck className='w-4 h-4 mr-2' />Adiministrador</Button> :
-                    <Button className="bg-gray-500 :hover:bg-gray-400"><UserRound className='w-4 h-4 mr-2' />Usuário Padrão</Button>
+                    <Button type="button" onClick={toggleUserType} className="bg-yellow-600 hover:bg-yellow-500"><ShieldCheck className='w-4 h-4 mr-2' />Administrador</Button> :
+                    <Button type="button" onClick={toggleUserType} className="bg-gray-500 :hover:bg-gray-400"><UserRound className='w-4 h-4 mr-2' />Usuário Padrão</Button>
                   }
-                  <Button className="ml-4 bg-red-700 hover:bg-red-500"><KeyRound className='w-4 h-4 mr-2' /> Alterar senha</Button>
-                  <Button type="submit" className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-4 h-4 mr-2' /> Salvar alterações</Button>
+                  {((me.id === user.id) || (me.admin)) &&
+                    <>
+                    <Link to="/forgot-password">                    
+                      <Button className="ml-4 bg-red-700 hover:bg-red-500"><KeyRound className='w-4 h-4 mr-2' /> Alterar senha</Button>
+                    </Link>
+                      <Button type="submit" className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-4 h-4 mr-2' /> Salvar alterações</Button>
+                    </>
+                  }
                 </div>
               </div>
             </form>
@@ -222,7 +238,7 @@ const UserDetails = (props) => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default UserDetails
+export default UserDetails;

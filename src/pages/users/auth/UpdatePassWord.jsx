@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { api } from '@/services/config'
+import { api } from '@/services/api'
 import { useToast } from "@/components/ui/use-toast"
 import { useNavigate } from 'react-router'
 import { LogIn, DoorOpen, Send, Wand } from "lucide-react";
@@ -52,9 +52,9 @@ export const UpdatePassWord = () => {
   }
 
   return (
-    <div className="w-full grid grid-cols-2 p-24">
-      <div className="flex items-center justify-center py-4 bg-gray-100 overflow-hide rounded-lg shadow-md m-2">
-        <div className="mx-auto grid w-[350px] gap-4">
+    <div className="flex items-center justify-center h-screen">
+      <div className="px-16 w-fit flex items-center justify-center py-4 bg-gray-100 overflow-x-auto rounded-lg shadow-md m-2">
+        <div className="w-[350px] gap-4">
           <form onSubmit={handleSubmit(mySubmit)}>
             <div className="grid gap-2 text-center mb-8">
               <h1 className="text-3xl font-bold">Recuperar a senha</h1>
@@ -106,15 +106,6 @@ export const UpdatePassWord = () => {
             </div>
           </form>
         </div>
-      </div>
-      <div className="hidden bg-muted lg:block">
-        <img
-          src="/fundo2.jpg"
-          alt="Image"
-          width="1920"
-          height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
       </div>
     </div>
   )

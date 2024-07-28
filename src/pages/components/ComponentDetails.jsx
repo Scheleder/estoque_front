@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { React, useEffect, useState } from 'react';
-import { api }  from '@/services/config';
+import { api }  from '@/services/api';
 import { getDate } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -52,7 +52,7 @@ const ComponentDetails = () => {
       ]);
 
       setComponent(response1.data.component);
-      console.log(response1.data.component);
+      console.log(response1.data.component.description);
 
       const sortedCategories = response2.data
         .map(item => ({ value: item.id, label: item.name }))

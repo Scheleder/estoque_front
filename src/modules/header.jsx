@@ -5,6 +5,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx"
 import { Search, ChevronLeft } from "lucide-react"
 import { Input } from "@/components/ui/input.jsx"
 import { Button } from "@/components/ui/button.jsx"
+import useLogoff from "@/pages/users/auth/Logout.jsx"
+import { getLoggedUser } from "@/lib/utils.js"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,6 +31,7 @@ import {
 
 const Header = () => {
   const location = useLocation();
+  const logoff = useLogoff();
   //console.log(location)
   var title = 'Gerenciamento de Estoque';
   if (location) {
@@ -90,80 +93,86 @@ const Header = () => {
     }
   }
 
-  let userName = localStorage.getItem('userName');
-  let iniciais = ''
-  let userLink = "users/" + localStorage.getItem('userId');
-  if(userName){    
-    iniciais = userName.split(' ')
-    .map(palavra => palavra.charAt(0))
-    .join('');
-  }
 
-  return (
-    <>
-      <div className="fixed z-10 w-full h-16 flex grid-cols-2 grid-rows-1 justify-between px-2 py-2 bg-blue-200">
+  let me = getLoggedUser();
+  console.log(me)
 
-        <div className="relative flex justify-end mt-2">
-          <div className="">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Link to="/">
-                    <img src="src/assets/warehouse_64.png" alt="WH" width={32} height={32} />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-lime-300">Página Inicial</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+  if (!me) {
+    return (
+      <div></div>
+    )
+  } else {
+    let iniciais = ''
+  
+      console.log(me.name)
+      iniciais = me.name.split(' ')
+        .map(palavra => palavra.charAt(0))
+        .join('');
+  
+    return (
+      <>
+        <div className="fixed z-10 w-full h-16 flex grid-cols-2 grid-rows-1 justify-between px-2 py-2 bg-blue-200">
+
+          <div className="relative flex justify-end mt-2">
+            <div className="">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Link to="/">
+                      <img src="src/assets/warehouse_64.png" alt="WH" width={32} height={32} />
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-lime-300">Página Inicial</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+
+            <Pagetitle title={title} />
           </div>
 
-          <Pagetitle title={title} />
+          <div className="relative flex justify-end">
+            <Logo className="mx-8" />
+
+            <DropdownMenu className="z-0">
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-full mt-2 mx-4"
+                >
+                  <Avatar>
+                    <AvatarImage src="" />
+                    <AvatarFallback className="bg-[url('./assets/user.png')] bg-cover bg-center text-white font-bold text-xs pt-[26px]">{iniciais}</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>{me.name}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Link to={'users/' + me.id}>
+                    Configurações
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/about">
+                    Ajuda
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <span className="hover:text-red-500 cursor-pointer" onClick={logoff}>Sair</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
         </div>
-
-        <div className="relative flex justify-end">
-          <Logo className="mx-8" />
-
-          <DropdownMenu className="z-0">
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full mt-2 mx-4"
-              >
-                <Avatar>
-                  <AvatarImage src="" />
-                  <AvatarFallback className="bg-[url('./assets/user.png')] bg-cover bg-center text-orange-800 font-bold text-xs pt-[26px]">{iniciais}</AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>{userName}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link to={userLink}>
-                  Configurações
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="/about">
-                  Ajuda
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link to="logout">
-                  Sair
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-
-      </div>
-    </>
-  )
+      </>
+    )
+  }
 }
 
 export default Header

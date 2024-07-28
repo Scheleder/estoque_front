@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router'
 import { useToast } from "@/components/ui/use-toast"
-import { api } from '@/services/config';
+import { api } from '@/services/api';
 import { Input } from "@/components/ui/input";
 import {
     AlertDialog,

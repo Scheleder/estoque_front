@@ -36,7 +36,7 @@ import { Separator } from "@/components//ui/separator"
 import { React, useEffect, useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { api }  from '@/services/config';
+import { api }  from '@/services/api';
 import Select from 'react-select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

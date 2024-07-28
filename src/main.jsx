@@ -15,7 +15,6 @@ import Takeout from './pages/items/Takeout.jsx'
 import ItemDetails from './pages/items/ItemDetails.jsx'
 import MoveDetails from './pages/movements/MoveDetails.jsx'
 import UserDetails from './pages/users/UserDetails.jsx'
-import Logout from './pages/users/auth/Logout.jsx'
 import ComponentDetails from './pages/components/ComponentDetails.jsx'
 import LocalDetails from './pages/locals/LocalDetails.jsx'
 import CategoryDetails from './pages/categories/CategoryDetails.jsx'
@@ -88,10 +87,6 @@ const routes = createBrowserRouter([
       {
         path: "/settings",
         element: <Settings />
-      },
-      {
-        path: "/logout",
-        element: <Logout />
       },
       {
         path: "/items/:id",

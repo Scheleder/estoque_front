@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from 'react-router'
-import { api } from '@/services/config';
+import { api } from '@/services/api';
 import { Button } from "@/components/ui/button"
 import ButtonAdd from '@/components/buttonAdd'
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 import { Label } from "@/components/ui/label"
 import { Link } from 'react-router-dom'
-import { Send } from "lucide-react";
+import { Send, X } from "lucide-react";
 
 let response = { status: 200, data: { msg: 'Digite o seu endereço de e-mail' } };
 
@@ -52,9 +52,12 @@ export const ResetPassWord = () => {
   }
 
   return (
-    <div className="w-full grid grid-cols-2 p-24">
-      <div className="flex items-center justify-center py-4 bg-gray-100 overflow-x-auto rounded-lg shadow-md m-2">
-        <div className="mx-auto grid w-[350px] gap-4">
+    <div className="flex items-center justify-center h-screen">
+      <div className="relative px-16 w-fit flex items-center justify-center py-4 bg-gray-100 overflow-x-auto rounded-lg shadow-md m-2">
+        <Link to="/">
+          <X className="absolute right-2 top-2 text-black hover:text-red-600 hover:font-bold cursor-pointer" />
+        </Link>
+        <div className="w-[350px] gap-4">
           <form onSubmit={handleSubmit(mySubmit)}>
             <div className="grid gap-2 text-center mb-8">
               <h1 className="text-3xl font-bold">Reiniciar a senha</h1>
@@ -71,21 +74,12 @@ export const ResetPassWord = () => {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full mt-4">
+              <Button type="submit" className="w-full my-8">
                 <Send className="w-4 h-4 mr-2" /> Enviar Código
               </Button>
             </div>
           </form>
         </div>
-      </div>
-      <div className="hidden bg-muted lg:block">
-        <img
-          src="/fundo2.jpg"
-          alt="Image"
-          width="1920"
-          height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
       </div>
     </div>
   )

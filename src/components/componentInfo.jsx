@@ -10,3 +10,33 @@ const ComponentInfo = ({ comp, fab }) => {
 }
 
 export default ComponentInfo
+
+/* 
+import React, { useState } from 'react';
+import { getChatGPTResponse } from './api'; // Supondo que você salvou a função acima em um arquivo api.js
+
+const ChatComponent = () => {
+  const [input, setInput] = useState('');
+  const [response, setResponse] = useState('');
+
+  const handleSubmit = async () => {
+    const gptResponse = await getChatGPTResponse(input);
+    setResponse(gptResponse);
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button onClick={handleSubmit}>Enviar</button>
+      <p>Resposta: {response}</p>
+    </div>
+  );
+};
+
+export default ChatComponent;
+
+ */

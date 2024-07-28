@@ -1,8 +1,18 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router';
-import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import Cookies from 'js-cookie';
 
-const token = localStorage.getItem('token') || null;
+const getToken = () => {
+  const token = Cookies.get('token') || null;
+  console.log('TOKEN: ' + token);
+
+  if (!token) {
+    return null;
+  }
+
+  return 'Bearer ' + token;
+};
 
 const api = axios.create({
   baseURL: 'http://100.29.104.33/'
@@ -10,14 +20,18 @@ const api = axios.create({
 
 api.interceptors.request.use(
   config => {    
-      config.headers.Authorization = `Bearer ${token}`;
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = token;
       config.headers.Accept = '*/*';
-      return config;
-    },
-    error => {
-      return Promise.reject(error);
     }
-  );
+    return config;
+  },
+  error => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
 
 // Hook customizado para adicionar o redirecionamento
 const useApiInterceptor = () => {
@@ -27,7 +41,7 @@ const useApiInterceptor = () => {
     const responseInterceptor = api.interceptors.response.use(
       response => response,
       error => {
-        if (error.response.status === 400 || error.response.status === 401) {
+        if (error.response && (error.response.status === 400 || error.response.status === 401)) {
           navigate('/login');
         }
         return Promise.reject(error);

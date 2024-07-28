@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { React, useEffect, useState } from 'react';
-import { api }  from '@/services/config';
+import { api }  from '@/services/api';
 import { getDate } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
