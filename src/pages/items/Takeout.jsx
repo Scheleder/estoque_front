@@ -10,9 +10,10 @@ import { ArrowRightLeft, Milestone, Shuffle, SquarePlus, SquareMinus, PlaneLandi
 import ErrorPage from "../utils/ErrorPage";
 import { useToast } from "@/components/ui/use-toast";
 import Scanner from '@/components/scanner';
+import { getLoggedUser } from '@/lib/utils';
 
 let me = getLoggedUser();
-const userId = me.id;
+const userId = me?.id;
 const localId = localStorage.localId ?? 1;
 
 const types = [
