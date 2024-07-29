@@ -11,7 +11,8 @@ import ErrorPage from "../utils/ErrorPage";
 import { useToast } from "@/components/ui/use-toast";
 import Scanner from '@/components/scanner';
 
-const userId = localStorage.userId ?? 1;
+let me = getLoggedUser();
+const userId = me.id;
 const localId = localStorage.localId ?? 1;
 
 const types = [
