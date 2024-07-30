@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { api }  from '@/services/api';
+"use client"
+import { useEffect, useState } from 'react';
+import { format } from "date-fns"
+import { ptBR, ru } from 'date-fns/locale';
+import { api } from '@/services/api';
 import Loading from '@/components/loading';
-import { Eye, CloudDownload, ArrowUpDown, Filter } from "lucide-react"
+import { Eye, CloudDownload, ArrowUpDown, Filter, FilterX, ChevronDown, ChevronUp, CalendarIcon } from "lucide-react"
 import { Link } from 'react-router-dom';
 import { getDate } from '@/lib/utils';
 import {
@@ -10,14 +13,28 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import ErrorPage from "../utils/ErrorPage"
 import ButtonExport from '@/components/buttonExport';
+import { Calendar } from '@/components/ui/calendar';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import Select from 'react-select';
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+
 
 const Movements = () => {
   const [data, setData] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
   const [asc, setAsc] = useState(true);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
 
   const getData = async () => {
     try {
@@ -88,6 +105,27 @@ const Movements = () => {
     setAsc(!asc);
   };
 
+  let colapse = false;
+
+  const filterCollapse = () => {
+    if (colapse) {
+      console.log('aqui')
+      document.getElementById("up").style.display = "none";
+      document.getElementById("down").style.display = "block";
+      document.getElementById("filters").style.display = "none";
+      document.getElementById("openFilters").style.display = "block";
+      document.getElementById("clearFilters").style.display = "none";
+      colapse = false;
+    } else {
+      document.getElementById("up").style.display = "block";
+      document.getElementById("down").style.display = "none";
+      document.getElementById("filters").style.display = "block";
+      document.getElementById("openFilters").style.display = "none";
+      document.getElementById("clearFilters").style.display = "block";
+      colapse = true;
+    }
+  }
+
   return (
     <div className="pl-16 pt-20">
       {isProcessing ? (
@@ -97,7 +135,94 @@ const Movements = () => {
       ) : (
         <>
           <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 pb-0 bg-gray-200">
-            FILTRAR
+            <div className='flex text-gray-600 mb-1'>
+              <div id="openFilters" className='text-left w-40'>
+                <span className='font-semibold flex items-center'>
+                  <Filter className='mr-2 h-4 w-4' />Filtrar
+                </span>
+              </div>
+              <div id="clearFilters" className='text-left w-40 hidden hover:text-orange-500 cursor-alias'>
+                <span className='font-semibold flex items-center' title='Clique para limpar todos os filtros'>
+                  <FilterX className='mr-2 h-4 w-4' />Limpar Filtros
+                </span>
+              </div>
+              <div className='flex items-center justify-end cursor-pointer w-full' onClick={filterCollapse}>
+                <ChevronDown id='down' className='cursor-pointer' />
+                <ChevronUp id='up' className='cursor-pointer hidden' />
+              </div>
+            </div>
+            <div id="filters" className='hidden'>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-4 p-2 mb-2">
+                <div className='grid'>
+                  <Label className="ml-2 uppercase text-gray-400 text-xs">Data inicial</Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "justify-start text-left font-normal",
+                          !startDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {startDate ? format(startDate, "PPP") : <span>Selecione...</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        locale={ptBR}
+                        mode="single"
+                        selected={startDate}
+                        onSelect={setStartDate}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div className='grid'>
+                  <Label className="ml-2 uppercase text-gray-400 text-xs">Data final</Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "justify-start text-left font-normal",
+                          !endDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {endDate ? format(endDate, "PPP") : <span>Selecione...</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        locale={ptBR}
+                        mode="single"
+                        selected={endDate}
+                        onSelect={setEndDate}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div className='grid'>
+                  <Label className="ml-2 uppercase text-gray-400 text-xs">Tipo</Label>
+                  <Select></Select>
+                </div>
+                <div className='grid'>
+                  <Label className="ml-2 uppercase text-gray-400 text-xs">Destino</Label>
+                  <Input></Input>
+                </div>
+                <div className='grid'>
+                  <Label className="ml-2 uppercase text-gray-400 text-xs">SKU</Label>
+                  <Input></Input>
+                </div>
+                <div className='grid'>
+                  <Label className="ml-2 uppercase text-gray-400 text-xs">Colaborador</Label>
+                  <Input></Input>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 pb-0 bg-gray-200">
