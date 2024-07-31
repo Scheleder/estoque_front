@@ -1,6 +1,6 @@
 import { clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { format } from 'date-fns';
+import { format, addMinutes, addHours } from 'date-fns';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
@@ -11,6 +11,12 @@ export function cn(...inputs) {
 
 export function getDate(dt) {
   return format(new Date(dt), 'dd/MM/yyyy - HH:mm');
+}
+
+export function getEndDate(dt) {
+  const date = new Date(dt);
+  const updatedDate = addMinutes(addHours(date, 23), 59);
+  return format(updatedDate, 'dd/MM/yyyy - HH:mm');
 }
 
 export const getLoggedUser = () => {

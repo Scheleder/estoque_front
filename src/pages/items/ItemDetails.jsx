@@ -17,7 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-const styles = { menu: base => ({ ...base, marginTop: 0 }) };
+const styles = { menu: base => ({ ...base, marginTop: '0.3rem' }) };
 
 const ItemDetails = (props) => {
   const { id } = useParams();

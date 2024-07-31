@@ -35,7 +35,7 @@ export function ComponentAdd() {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [selectedUnity, setSelectedUnity] = useState(null);
-    const styles = { menu: base => ({ ...base, marginTop: 0 }) };
+    const styles = { menu: base => ({ ...base, marginTop: '0.3rem' }) };
 
     const getData = async () => {
         try {

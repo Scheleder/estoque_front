@@ -48,7 +48,7 @@ import Scanner from '@/components/scanner';
 const styles = {
   menu: base => ({
     ...base,
-    marginTop: 0,
+    marginTop: '0.3rem',
     zIndex: 9999,
   }),
   control: (base) => ({

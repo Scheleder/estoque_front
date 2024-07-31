@@ -1,12 +1,13 @@
 "use client"
 import { useEffect, useState } from 'react';
 import { format } from "date-fns"
+import { useForm, Controller } from "react-hook-form";
 import { ptBR, ru } from 'date-fns/locale';
 import { api } from '@/services/api';
 import Loading from '@/components/loading';
-import { Eye, CloudDownload, ArrowUpDown, Filter, FilterX, ChevronDown, ChevronUp, CalendarIcon } from "lucide-react"
+import { Trash, RefreshCw, ArrowUpDown, Filter, FilterX, ChevronDown, ChevronUp, CalendarIcon } from "lucide-react"
 import { Link } from 'react-router-dom';
-import { getDate } from '@/lib/utils';
+import { getDate, getEndDate } from '@/lib/utils';
 import {
   Tooltip,
   TooltipContent,
@@ -27,19 +28,45 @@ import Select from 'react-select';
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
-
 const Movements = () => {
+  const { control, register, handleSubmit } = useForm();
   const [data, setData] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
   const [asc, setAsc] = useState(true);
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+
+  const [filter, setFilter] = useState({
+    dataIni: '',
+    dataFim: '',
+    type: '',
+    destination: '',
+    localId: '',
+    itemId: '',
+    userId: '',
+  })
+
+  const styles = {
+    menu: base => ({
+      ...base,
+      marginTop: '0.3rem',
+      zIndex: 999
+    }),
+  };
+
+  const types = [
+    { id: 1, value: 'Ajuste de estoque', label: 'Ajuste de estoque' },
+    { id: 2, value: 'Alterar endereço de estoque', label: 'Alterar endereço de estoque' },
+    { id: 3, value: 'Consumo na ordem', label: 'Consumo na ordem' },
+    { id: 4, value: 'Entrada de material', label: 'Entrada de material' },
+    { id: 5, value: 'Saída de material', label: 'Saída de material' },
+    { id: 6, value: 'Transferência para outro estoque', label: 'Transferência para outro estoque' },
+  ]
 
   const getData = async () => {
     try {
       setIsProcessing(true);
-      const response = await api.get('movements');
+      console.log(filter)
+      const response = await api.get('movements', { params: filter });
       var sorted = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setData(sorted);
       console.log(response.data);
@@ -53,7 +80,7 @@ const Movements = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [filter]);
 
   const orderByDate = () => {
     const sortedData = [...data].sort((a, b) => {
@@ -103,28 +130,52 @@ const Movements = () => {
     });
     setData(sortedData);
     setAsc(!asc);
-  };
+  };  
 
-  let colapse = false;
+  let colapse = true;
+  let filtered = false
 
   const filterCollapse = () => {
     if (colapse) {
-      console.log('aqui')
       document.getElementById("up").style.display = "none";
       document.getElementById("down").style.display = "block";
       document.getElementById("filters").style.display = "none";
-      document.getElementById("openFilters").style.display = "block";
-      document.getElementById("clearFilters").style.display = "none";
       colapse = false;
     } else {
       document.getElementById("up").style.display = "block";
       document.getElementById("down").style.display = "none";
       document.getElementById("filters").style.display = "block";
-      document.getElementById("openFilters").style.display = "none";
-      document.getElementById("clearFilters").style.display = "block";
       colapse = true;
     }
+    if(filtered){
+      document.getElementById("openFilters").style.display = "none";
+      document.getElementById("clearFilters").style.display = "block";
+    }else{
+      document.getElementById("openFilters").style.display = "block";
+      document.getElementById("clearFilters").style.display = "none";
+    }
   }
+
+  const clearFilters = () => {
+    setFilter({
+      dataIni: '',
+      dataFim: '',
+      type: '',
+      destination: '',
+      localId: '',
+      itemId: '',
+      userId: '',
+    });
+    filtered = false
+  }
+
+  const handleFilterChange = (field, value) => {
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      [field]: value,
+    }));
+    filtered= true
+  };
 
   return (
     <div className="pl-16 pt-20">
@@ -134,25 +185,25 @@ const Movements = () => {
         <ErrorPage error={error} />
       ) : (
         <>
-          <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 pb-0 bg-gray-200">
-            <div className='flex text-gray-600 mb-1'>
+          <div className="z-10 mt-2 relative shadow-lg rounded-md mr-2 p-2 pb-0.5 bg-gray-200">
+            <div className='flex text-gray-600 mb-2'>
               <div id="openFilters" className='text-left w-40'>
                 <span className='font-semibold flex items-center'>
                   <Filter className='mr-2 h-4 w-4' />Filtrar
                 </span>
               </div>
               <div id="clearFilters" className='text-left w-40 hidden hover:text-orange-500 cursor-alias'>
-                <span className='font-semibold flex items-center' title='Clique para limpar todos os filtros'>
+                <span className='font-semibold flex items-center' title='Clique para limpar todos os filtros' onClick={clearFilters}>
                   <FilterX className='mr-2 h-4 w-4' />Limpar Filtros
                 </span>
               </div>
               <div className='flex items-center justify-end cursor-pointer w-full' onClick={filterCollapse}>
-                <ChevronDown id='down' className='cursor-pointer' />
-                <ChevronUp id='up' className='cursor-pointer hidden' />
+                <ChevronDown id='down' className='cursor-pointer hidden'/>
+                <ChevronUp id='up' className='cursor-pointer' />
               </div>
             </div>
-            <div id="filters" className='hidden'>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-4 p-2 mb-2">
+            <div id="filters">
+              <div className="z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-4 p-2 mb-2">
                 <div className='grid'>
                   <Label className="ml-2 uppercase text-gray-400 text-xs">Data inicial</Label>
                   <Popover>
@@ -161,19 +212,19 @@ const Movements = () => {
                         variant={"outline"}
                         className={cn(
                           "justify-start text-left font-normal",
-                          !startDate && "text-muted-foreground"
+                          !filter.dataIni && "text-muted-foreground"
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {startDate ? format(startDate, "PPP") : <span>Selecione...</span>}
+                        {filter.dataIni ? getDate(filter.dataIni) : <span>Selecione...</span>}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
                       <Calendar
                         locale={ptBR}
                         mode="single"
-                        selected={startDate}
-                        onSelect={setStartDate}
+                        selected={filter.dataIni}
+                        onSelect={(date) => handleFilterChange('dataIni', date)}
                         initialFocus
                       />
                     </PopoverContent>
@@ -187,19 +238,19 @@ const Movements = () => {
                         variant={"outline"}
                         className={cn(
                           "justify-start text-left font-normal",
-                          !endDate && "text-muted-foreground"
+                          !filter.dataFim && "text-muted-foreground"
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {endDate ? format(endDate, "PPP") : <span>Selecione...</span>}
+                        {filter.dataFim ? getEndDate(filter.dataFim) : <span>Selecione...</span>}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
                       <Calendar
                         locale={ptBR}
                         mode="single"
-                        selected={endDate}
-                        onSelect={setEndDate}
+                        selected={filter.dataFim}
+                        onSelect={(date) => handleFilterChange('dataFim', date)}
                         initialFocus
                       />
                     </PopoverContent>
@@ -207,19 +258,41 @@ const Movements = () => {
                 </div>
                 <div className='grid'>
                   <Label className="ml-2 uppercase text-gray-400 text-xs">Tipo</Label>
-                  <Select></Select>
+                  <Controller
+                    name="type"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        value={types.find(option => option.value === field.value)}
+                        options={types}
+                        placeholder="Todas"
+                        className="w-full"
+                        styles={styles}
+                        onChange={(selected) => {
+                          field.onChange(selected.value);
+                          handleFilterChange('type', selected.value); // Atualize o filtro
+                        }}
+                      />
+                    )}
+                  />
                 </div>
                 <div className='grid'>
                   <Label className="ml-2 uppercase text-gray-400 text-xs">Destino</Label>
-                  <Input></Input>
+                  <Input
+                  type="text"
+                  value={filter.destination}
+                  onChange={(e) => handleFilterChange('destination', e.target.value)}
+                />
                 </div>
                 <div className='grid'>
                   <Label className="ml-2 uppercase text-gray-400 text-xs">SKU</Label>
-                  <Input></Input>
+                  <Input type="text" />
                 </div>
                 <div className='grid'>
                   <Label className="ml-2 uppercase text-gray-400 text-xs">Colaborador</Label>
-                  <Input></Input>
+                  <Input type="text" />
                 </div>
               </div>
             </div>

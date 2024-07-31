@@ -23,7 +23,7 @@ const Supply = (props) => {
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
   const [unity, setUnity] = useState('')
-  const styles = { menu: base => ({ ...base, marginTop: 0 }) };
+  const styles = { menu: base => ({ ...base, marginTop: '0.3rem' }) };
   const { toast } = useToast()
   const navigate = useNavigate()
 
