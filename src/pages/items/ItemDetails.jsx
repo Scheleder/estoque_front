@@ -5,18 +5,10 @@ import { getDate } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
-import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
-import Select from 'react-select'
 import ComponentInfo from '@/components/componentInfo';
 import ErrorPage from "../utils/ErrorPage"
-import { Eye, Info, Save, ArrowUpDown, ShoppingCart } from "lucide-react"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { Info, ArrowUpDown, ShoppingCart } from "lucide-react"
 const styles = { menu: base => ({ ...base, marginTop: '0.3rem' }) };
 
 const ItemDetails = (props) => {
@@ -38,10 +30,9 @@ const ItemDetails = (props) => {
       setItem(response.data.item);
       var sorted = response.data.item.Movements.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setData(sorted);
-      console.log(response.data.item);
     } catch (err) {
       setError(err);
-      console.log(err);
+      
     } finally {
       setIsProcessing(false);
     }

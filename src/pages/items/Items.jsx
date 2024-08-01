@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { api }  from '@/services/api';
-import { Eye, Search, Boxes, ListFilter, X, RotateCcw, ArrowUpDown, EllipsisVertical, AlignHorizontalDistributeCenter as Piece, ShoppingCart } from "lucide-react"
+import { Boxes, ListFilter, RotateCcw, ArrowUpDown, EllipsisVertical, AlignHorizontalDistributeCenter as Piece, ShoppingCart } from "lucide-react"
 import { Link } from 'react-router-dom';
-import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
 import ErrorPage from "../utils/ErrorPage"
-import FilterList from '@/components/filterList';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,10 +35,9 @@ const Items = () => {
       var sorted = response.data.sort((a, b) => a.Component.description.localeCompare(b.Component.description));
       setData(sorted);
       setFilteredData(sorted);
-      console.log(response.data);
     } catch (err) {
       setError(err);
-      console.log(err);
+      
     } finally {
       setIsProcessing(false);
     }

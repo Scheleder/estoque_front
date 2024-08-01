@@ -21,7 +21,7 @@ export function getEndDate(dt) {
 
 export const getLoggedUser = () => {
   const userString = Cookies.get('user') || null;
-  console.log(userString)
+
   if (!userString) {
      return null;
    }
@@ -30,7 +30,6 @@ export const getLoggedUser = () => {
 
 export const getToken = () => {
   const token = Cookies.get('token') || null;
-  console.log('TOKEN: '+token)
 
   if(!token){
     return null
@@ -43,7 +42,6 @@ export const useAuth = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get('token') || null;
-    console.log(token)
     if (!token) {
       navigate('/login');
     }

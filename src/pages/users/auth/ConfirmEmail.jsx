@@ -3,11 +3,9 @@ import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from 'react-router'
 import { api } from '@/services/api';
 import { Button } from "@/components/ui/button"
-import ButtonAdd from '@/components/buttonAdd'
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 import { Label } from "@/components/ui/label"
-import { Link } from 'react-router-dom'
 import { Send } from "lucide-react";
 
 let response = { status: 200, data: { msg: 'Digite o código recebido por e-mail' } };
@@ -41,7 +39,34 @@ export function ConfirmEmail() {
       }
     } catch (err) {
       setError(err);
-      console.log(err);
+      
+      toast({
+        title: "Erro!",
+        description: err,
+      })
+    } finally {
+      setIsProcessing(false);
+    }
+  }
+
+  const resendCode = async () => {
+    try {
+      setIsProcessing(true);
+      response = await api.get(`auth/send/${id}`);
+      if (response.status === 201) {
+        toast({
+          title: "Enviado!",
+          description: response.data.msg,
+        })
+      } else {
+        toast({
+          title: "Falha!",
+          description: response.data.msg,
+        })
+      }
+    } catch (err) {
+      setError(err);
+      
       toast({
         title: "Erro!",
         description: err,
@@ -75,6 +100,7 @@ export function ConfirmEmail() {
                   type="text"
                   required
                 />
+                <span onClick={resendCode} className="ml-auto inline-block text-sm underline cursor-pointer">Não recebeu o código?</span>
                 <input type="hidden" {...register("userId", { required: true })} />
               </div>
               <Button type="submit" className="w-full mt-4">

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useParams, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 import { api } from '@/services/api';
 import { Button } from "@/components/ui/button"
-import ButtonAdd from '@/components/buttonAdd'
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 import { Label } from "@/components/ui/label"
@@ -24,7 +23,7 @@ export const ResetPassWord = () => {
     try {
       setIsProcessing(true);
       response = await api.post('auth/reset', values);
-      console.log(response)
+
       if (response.status === 201) {
         toast({
           title: "Sucesso!",
@@ -41,7 +40,7 @@ export const ResetPassWord = () => {
       }
     } catch (err) {
       setError(err);
-      console.log(err);
+      
       toast({
         title: "Erro!",
         description: err,

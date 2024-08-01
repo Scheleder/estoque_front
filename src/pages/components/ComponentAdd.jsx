@@ -17,9 +17,7 @@ import {
 import ButtonAdd from '@/components/buttonAdd';
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { Button } from "@/components/ui/button";
 import Select from 'react-select';
-import { Loader } from 'lucide-react';
 
 export function ComponentAdd() {
     const { toast } = useToast();
@@ -51,24 +49,22 @@ export function ComponentAdd() {
                 .sort((a, b) => a.label.localeCompare(b.label));
 
             setUnits(sortedUnits);
-            console.log(units);
 
             const sortedCategories = response2.data
                 .map(item => ({ value: item.id, label: item.name }))
                 .sort((a, b) => a.label.localeCompare(b.label));
 
             setCategories(sortedCategories);
-            console.log(categories);
 
             const sortedBrands = response3.data
                 .map(item => ({ value: item.id, label: item.name }))
                 .sort((a, b) => a.label.localeCompare(b.label));
 
             setBrands(sortedBrands);
-            console.log(brands);
+
         } catch (err) {
             setError(err);
-            console.error(err);
+
         } finally {
             setIsProcessing(false);
         }
@@ -79,11 +75,11 @@ export function ComponentAdd() {
     }, []);
 
     const mySubmit = async (values) => {
-        console.log(values);
+
         try {
             setIsProcessing(true);
             const response = await api.post('/components', values);
-            console.log(response);
+
             if (response.status === 201) {
                 setData(response.data.component);
                 toast({
@@ -102,7 +98,7 @@ export function ComponentAdd() {
             }, 1500);
         } catch (err) {
             setError(err);
-            console.log(err);
+            
             toast({
                 title: "Erro!",
                 description: err,

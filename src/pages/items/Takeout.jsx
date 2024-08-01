@@ -6,7 +6,7 @@ import Select from 'react-select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
-import { ArrowRightLeft, Milestone, Shuffle, SquarePlus, SquareMinus, PlaneLanding, PlaneTakeoff, CircleMinus, CirclePlus, Check, FileText, Warehouse, SlidersVertical, Replace, ReplaceAll } from 'lucide-react';
+import { ArrowRightLeft, Shuffle, PlaneLanding, PlaneTakeoff, Check, FileText, Warehouse, SlidersVertical } from 'lucide-react';
 import ErrorPage from "../utils/ErrorPage";
 import { useToast } from "@/components/ui/use-toast";
 import Scanner from '@/components/scanner';
@@ -91,7 +91,7 @@ const Takeout = () => {
 
     } catch (err) {
       setError(err);
-      console.log(err);
+      
     } finally {
       setIsProcessing(false);
     }
@@ -106,7 +106,6 @@ const Takeout = () => {
     setValue("localId", localId);
     if (id) {
       const defaultValue = items.find(item => item.value == id); 
-      console.log(defaultValue)
       if (defaultValue) {
         setValue('itemId', defaultValue.value);
         changeUnity(defaultValue)
@@ -117,7 +116,6 @@ const Takeout = () => {
 
 
   const changeUnity = (option) => {
-    console.log(option);
     setUnity(option.unity);
     setQtde(option.qtde);
     setAdress(option.adress);
@@ -137,7 +135,6 @@ const Takeout = () => {
     try {
       setIsProcessing(true);
       const response = await api.post('/movements', values);
-      console.log('API response:', response);
       if (response.status === 201) {
         toast({
           title: "Sucesso!",
@@ -154,7 +151,7 @@ const Takeout = () => {
       }
     } catch (err) {
       setError(err);
-      console.log(err);
+      
       toast({
         title: "Erro!",
         description: err.message || "Ocorreu um erro",

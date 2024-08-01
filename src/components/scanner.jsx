@@ -35,10 +35,8 @@ const Scanner = () => {
             setIsProcessing(true);
             const response = await api.get('items');
             setData(response.data);
-            console.log(response.data);
         } catch (err) {
             setError(err);
-            console.log(err);
         } finally {
             setIsProcessing(false);
         }
@@ -49,18 +47,15 @@ const Scanner = () => {
     }, []);
 
     const handleKeyDown = (event) => {
-        console.log(event.key)
+
         if (event.key === 'Enter') {
             //event.preventDefault(); 
-            console.log('Enter pressionado!');
             searchData();
         }
     };
 
     const searchData = () => {
-        console.log(inputValue)
         let searched = (data.find(a => a.Component.barcode === inputValue.toString()))
-        console.log(location)
         if (!searched) {
             setMsg("Item não Encontrado!")
             toast({ title: 'Falha', description: msg })

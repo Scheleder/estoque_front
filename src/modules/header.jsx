@@ -2,8 +2,6 @@ import * as React from "react"
 import { Link, useLocation } from "react-router-dom"
 import Logo from '../components/logo.jsx'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx"
-import { Search, ChevronLeft } from "lucide-react"
-import { Input } from "@/components/ui/input.jsx"
 import { Button } from "@/components/ui/button.jsx"
 import useLogoff from "@/pages/users/auth/Logout.jsx"
 import { getLoggedUser } from "@/lib/utils.js"
@@ -32,7 +30,6 @@ import {
 const Header = () => {
   const location = useLocation();
   const logoff = useLogoff();
-  //console.log(location)
   var title = 'Gerenciamento de Estoque';
   if (location) {
     switch (true) {
@@ -95,7 +92,6 @@ const Header = () => {
 
 
   let me = getLoggedUser();
-  console.log(me)
 
   if (!me) {
     return (
@@ -103,8 +99,6 @@ const Header = () => {
     )
   } else {
     let iniciais = ''
-  
-      console.log(me.name)
       iniciais = me.name.split(' ')
         .map(palavra => palavra.charAt(0))
         .join('');

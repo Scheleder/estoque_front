@@ -13,7 +13,6 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
 import ButtonAdd from '@/components/buttonAdd'
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
@@ -33,7 +32,7 @@ export function UnityAdd() {
         try {
             setIsProcessing(true);
             const response = await api.post('/units', values);
-            console.log(response);
+
             if (response.status === 201) {
                 setData(response.data.local);
                 toast({
@@ -51,7 +50,7 @@ export function UnityAdd() {
             }, 1500);
         } catch (err) {
             setError(err);
-            console.log(err);
+            
             toast({
                 title: "Erro!",
                 description: err,

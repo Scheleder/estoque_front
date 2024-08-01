@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { api } from '@/services/api'
 import { useToast } from "@/components/ui/use-toast"
 import { useNavigate } from 'react-router'
-import { LogIn, DoorOpen  } from "lucide-react";
+import { DoorOpen  } from "lucide-react";
 
 let  response = {status:200,data:{msg:'Preencha o formulário'}};
 
@@ -24,7 +24,7 @@ export const Register = () => {
     try {
       setIsProcessing(true);
       response = await api.post('/auth/register', values);
-      console.log(response);
+
       if (response.status === 201) {
         toast({
           title: 'Cadastrado com sucesso!',
@@ -41,7 +41,7 @@ export const Register = () => {
       }
     } catch (err) {
       setError(err);
-      console.log(err);
+      
       toast({
         title: "Erro!",
         description: err,

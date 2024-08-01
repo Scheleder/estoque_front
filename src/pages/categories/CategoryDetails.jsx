@@ -1,19 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { React, useEffect, useState } from 'react';
 import { api }  from '@/services/api';
-import { getDate } from '@/lib/utils';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
-import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
-import { Eye, Send, Save, Earth } from "lucide-react"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { Save } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { useForm } from "react-hook-form";
 
@@ -31,10 +22,10 @@ const CategoryDetails = () => {
             setIsProcessing(true);
             const response = await api.get(`categories/${id}`);
             setCategory(response.data.category);
-            console.log(response.data.category);
+
         } catch (err) {
             setError(err);
-            console.log(err);
+            
         } finally {
             setIsProcessing(false);
         }
@@ -50,7 +41,7 @@ const CategoryDetails = () => {
             setIsProcessing(true);
             const response = await api.put(`categories/${id}`, values);
             setCategory(response.data.category);
-            console.log(response.data.category);
+
             if (response.status === 200) {
                 toast({
                     title: "Atualizado!",
@@ -64,7 +55,7 @@ const CategoryDetails = () => {
             }
         } catch (err) {
             setError(err);
-            console.log(err);
+            
             toast({
                 title: "Erro!",
                 description: err,

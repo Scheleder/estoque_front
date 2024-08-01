@@ -2,10 +2,9 @@ import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api }  from '@/services/api';
 import Loading from '@/components/loading';
-import ButtonAdd from '@/components/buttonAdd';
 import { BrandAdd } from './BrandAdd';
 import { useToast } from "@/components/ui/use-toast"
-import { Filter, ListFilter, X, RotateCcw } from 'lucide-react';
+import { ListFilter, X, RotateCcw } from 'lucide-react';
 
 const Brands = () => {
   const [data, setData] = useState([]);
@@ -22,10 +21,9 @@ const Brands = () => {
       var sorted = response.data.sort((a, b) => a.name.localeCompare(b.name));
       setData(sorted);
       setFilteredData(sorted)
-      console.log(response.data);
     } catch (err) {
       setError(err);
-      console.log(err);
+      
     } finally {
       setIsProcessing(false);
     }

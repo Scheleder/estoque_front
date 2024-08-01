@@ -5,11 +5,8 @@ import { api }  from '@/services/api';
 import Select from 'react-select'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import ButtonAdd from '@/components/buttonAdd'
 import Loading from '@/components/loading';
-import { Check, CircleCheck } from 'lucide-react';
-import { CategoryAdd } from '../categories/CategoryAdd';
-import { BrandAdd } from '../brands/BrandAdd';
+import { Check } from 'lucide-react';
 import ErrorPage from "../utils/ErrorPage"
 import { ComponentAdd } from '../components/ComponentAdd';
 import { useToast } from "@/components/ui/use-toast"
@@ -50,11 +47,10 @@ const Supply = (props) => {
   }, []);
 
   const mySubmit = async (values) => {
-    console.log(values);
+
     try {
       setIsProcessing(true);
       const response = await api.post('/items', values);
-      console.log(response);
       if (response.status === 201) {
         setData(response.data.item);
         toast({
@@ -72,7 +68,7 @@ const Supply = (props) => {
       }, 1500);
     } catch (err) {
       setError(err);
-      console.log(err);
+      
       toast({
         title: "Erro!",
         description: err,

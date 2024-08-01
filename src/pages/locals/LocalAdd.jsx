@@ -13,7 +13,6 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
 import ButtonAdd from '@/components/buttonAdd'
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
@@ -33,7 +32,6 @@ export function LocalAdd() {
         try {
             setIsProcessing(true);
             const response = await api.post('/locals', values);
-            console.log(response);
             if (response.status === 201) {
                 setData(response.data.local);
                 toast({
@@ -51,7 +49,7 @@ export function LocalAdd() {
             }, 1500);
         } catch (err) {
             setError(err);
-            console.log(err);
+            
             toast({
                 title: "Erro!",
                 description: err,

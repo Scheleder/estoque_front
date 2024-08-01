@@ -3,21 +3,11 @@ import { Link } from "react-router-dom"
 import { getLoggedUser } from "@/lib/utils.js"
 
 import {
-    Copyright,
     Boxes,
-    Package,
-    Package2,
-    Home,
-    LineChart,
-    Puzzle,
     Settings,
     AlignHorizontalDistributeCenter as Piece,
     PackagePlus,
-    PackageMinus,
-    ArrowRightLeft as Moves,
-    ShoppingBasket,
     BaggageClaim,
-    FileStack,
     ScrollText
 } from 'lucide-react'
 
@@ -27,7 +17,6 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import WareHouse from "@/assets/warehouse"
 
 const Sidebar = (props) => {
 

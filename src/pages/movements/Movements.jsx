@@ -1,10 +1,8 @@
 "use client"
 import { useEffect, useState, useMemo } from 'react';
-import { format } from "date-fns"
 import { useForm, Controller } from "react-hook-form";
 import { ptBR } from 'date-fns/locale';
 import { api } from '@/services/api';
-import Loading from '@/components/loading';
 import { Loader, RefreshCw, ArrowUpDown, Filter, FilterX, ChevronDown, ChevronUp, CalendarIcon } from "lucide-react"
 import { Link } from 'react-router-dom';
 import { getDate, getEndDate } from '@/lib/utils';
@@ -66,14 +64,14 @@ const Movements = () => {
   const getData = async () => {
     try {
       setIsProcessing(true);
-      console.log(filter)
+
       const response = await api.get('movements', { params: filter });
       var sorted = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setData(sorted);
-      console.log(response.data);
+
     } catch (err) {
       setError(err);
-      console.log(err);
+      
     } finally {
       setIsProcessing(false);
     }
@@ -290,7 +288,6 @@ const Movements = () => {
             orderByDestination={orderByDestination}
             orderBySku={orderBySku}
             orderByUser={orderByUser}
-
           />
         </>
       )}

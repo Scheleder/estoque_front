@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import { api }  from '@/services/api';
 import Loading from '@/components/loading';
 import { PenBox, Eye, ArrowUpDown, EllipsisVertical, ListFilter, X, RotateCcw } from "lucide-react"
-import ButtonAdd from '@/components/buttonAdd';
 import { ComponentAdd } from './ComponentAdd';
 import ErrorPage from "../utils/ErrorPage"
-import FilterList from '@/components/filterList';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,10 +38,9 @@ const Components = () => {
       var sorted = response.data.sort((a, b) => a.description.localeCompare(b.description));
       setData(sorted);
       setFilteredData(sorted);
-      console.log(response.data);
     } catch (err) {
       setError(err);
-      console.log(err);
+      
     } finally {
       setIsProcessing(false);
     }

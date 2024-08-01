@@ -1,4 +1,3 @@
-import WareHouse from '@/assets/warehouse'
 import React from 'react'
 
 const About = (props) => {

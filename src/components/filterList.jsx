@@ -1,5 +1,5 @@
 import React from 'react'
-import { Eye, Search, ListFilter, Filter, BaggageClaim, ArrowUpDown } from "lucide-react"
+import { ListFilter } from "lucide-react"
 
 function FilterList() {
     return (

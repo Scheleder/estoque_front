@@ -5,7 +5,6 @@ import Cookies from 'js-cookie';
 
 const getToken = () => {
   const token = Cookies.get('token') || null;
-  console.log('TOKEN: ' + token);
 
   if (!token) {
     return null;
@@ -28,7 +27,6 @@ api.interceptors.request.use(
     return config;
   },
   error => {
-    console.log(error);
     return Promise.reject(error);
   }
 );

@@ -5,16 +5,9 @@ import { getDate } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
-import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
 import FilterList from '@/components/filterList';
-import { EllipsisVertical, Link as WWW, Save, ArrowUpDown, PenBox, Eye } from "lucide-react"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { EllipsisVertical, Link as WWW, Save, ArrowUpDown, Eye } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -48,12 +41,11 @@ const BrandDetails = (props) => {
       setIsProcessing(true);
       const response = await api.get(`brands/${id}`);
       setBrand(response.data.brand);
-      console.log(response.data.brand);
       var sorted = response.data.brand.Components.sort((a, b) => a.description.localeCompare(b.description));
       setData(sorted);
     } catch (err) {
       setError(err);
-      console.log(err);
+      
     } finally {
       setIsProcessing(false);
     }
@@ -69,7 +61,6 @@ const BrandDetails = (props) => {
       setIsProcessing(true);
       const response = await api.put(`brands/${id}`, values);
       setBrand(response.data.brand);
-      console.log(response.data.brand);
       if (response.status === 200) {
         toast({
           title: "Atualizado!",
@@ -83,7 +74,7 @@ const BrandDetails = (props) => {
       }
     } catch (err) {
       setError(err);
-      console.log(err);
+      
       toast({
         title: "Erro!",
 
@@ -94,7 +85,6 @@ const BrandDetails = (props) => {
     }
   }
   const handleContact = (web) => {
-    console.log("Contato enviado!");
     return navigate(web);
   };
 

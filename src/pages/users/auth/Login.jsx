@@ -26,7 +26,7 @@ export const Login = () => {
     try {
       setIsProcessing(true);
       response = await api.post('/auth/login', values);
-      console.log(response);
+
       if(response.data.msg == "code"){
         return navigate(`/confirm-email/${response.data.id}`)
       }
@@ -51,7 +51,7 @@ export const Login = () => {
       }
     } catch (err) {
       setError(err);
-      console.log(err);
+      
       toast({
         title: "Erro!",
         description: err,

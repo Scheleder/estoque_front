@@ -9,10 +9,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
-import ButtonAdd from '@/components/buttonAdd'
-import { Input } from "@/components/ui/input"
-import { Link as WWW, Send, Save } from "lucide-react"
+import { Send } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 
 export function SendMail({ user }) {

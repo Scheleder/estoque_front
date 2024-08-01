@@ -5,11 +5,9 @@ import { getDate, getLoggedUser } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
-import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input';
-import FilterList from '@/components/filterList';
 
-import { Link as WWW, Send, Save, ArrowUpDown, ShieldCheck, UserRound, KeyRound } from "lucide-react";
+import { Save, ArrowUpDown, ShieldCheck, UserRound, KeyRound } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -32,19 +30,17 @@ const UserDetails = (props) => {
   const [data, setData] = useState([]);
   const [asc, setAsc] = useState(true);
   const me = getLoggedUser();
-  console.log(me);
 
   const getData = async () => {
     try {
       setIsProcessing(true);
       const response = await api.get(`users/${id}`);
       setUser(response.data.user);
-      console.log(response.data.user);
       var sorted = response.data.user.Movements.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setData(sorted);
     } catch (err) {
       setError(err);
-      console.log(err);
+      
     } finally {
       setIsProcessing(false);
     }
@@ -55,12 +51,12 @@ const UserDetails = (props) => {
   }, []);
 
   const mySubmit = async (values) => {
-    console.log(values);
+
     try {
       setIsProcessing(true);
       const response = await api.put(`users/${id}`, values);
       setUser(response.data.user);
-      console.log(response.data.user);
+
       if (response.status === 200) {
         toast({
           title: "Atualizado!",
@@ -74,7 +70,7 @@ const UserDetails = (props) => {
       }
     } catch (err) {
       setError(err);
-      console.log(err);
+      
       toast({
         title: "Erro!",
         description: err,
@@ -125,7 +121,7 @@ const UserDetails = (props) => {
   };
 
   const handleContact = () => {
-    console.log("Contato enviado!");
+
     return navigate("/");
   };
 

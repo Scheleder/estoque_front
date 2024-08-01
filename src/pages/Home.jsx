@@ -38,13 +38,8 @@ import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { api }  from '@/services/api';
 import Select from 'react-select';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import Loading from '@/components/loading';
-import { ArrowRightLeft, Milestone, Shuffle, SquarePlus, SquareMinus, PlaneLanding, PlaneTakeoff, CircleMinus, CirclePlus, Check, FileText, Warehouse, SlidersVertical, Replace, ReplaceAll } from 'lucide-react';
-import ErrorPage from "./utils/ErrorPage";
-import { useToast } from "@/components/ui/use-toast";
 import Scanner from '@/components/scanner';
+
 const styles = {
   menu: base => ({
     ...base,
@@ -73,21 +68,14 @@ const styles = {
   }),
 };
 
-let user = {
-  name: 'Visitante'
-}
 const Home = (props) => {
 
-  //const { toast } = useToast();
   const navigate = useNavigate();
   const { control, register, handleSubmit, setValue } = useForm();
   const [items, setItems] = useState([]);
   const [locals, setLocals] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
-
-  //localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzE2ODU4MjYyfQ.ZkFHaoiYCTX52O2OL9UYJNRX8M0-izD7OtULQEr6rx4')
-  //  localStorage.setItem('token', null);
 
   const getData = async () => {
     try {
@@ -97,8 +85,6 @@ const Home = (props) => {
         api.get('items'),
         api.get('locals')
       ]);
-      console.log(response1.data)
-      console.log(response2.data)
 
       const sortedItems = response1.data
         .map(item => ({
@@ -120,7 +106,6 @@ const Home = (props) => {
 
     } catch (err) {
       setError(err);
-      console.log(err);
     } finally {
       setIsProcessing(false);
     }
@@ -155,7 +140,7 @@ const Home = (props) => {
           />
         </div>
       </div>
-{/* 
+
       <div className="grid grid-cols-3 shadow-lg rounded-md bg-gray-200 p-4 text-center">
         <div className="col-span-2">
           <Card className="w-full h-full" x-chunk="charts-01-chunk-0">
@@ -561,7 +546,7 @@ const Home = (props) => {
             </CardContent>
           </Card>
         </div>
-      </div> */}
+      </div>
     </div>
   )
 }

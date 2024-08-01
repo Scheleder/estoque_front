@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { api } from '@/services/api'
 import { useToast } from "@/components/ui/use-toast"
 import { useNavigate } from 'react-router'
-import { LogIn, DoorOpen, Send, Wand } from "lucide-react";
+import { Wand } from "lucide-react";
 
 let  response = {status:200,data:{msg:'Preencha o formulário'}};
 
@@ -24,7 +23,7 @@ export const UpdatePassWord = () => {
     try {
       setIsProcessing(true);
       response = await api.post('/auth/update', values);
-      console.log(response);
+
       if (response.status === 200) {
         toast({
           title: 'Sucesso!',
@@ -41,7 +40,7 @@ export const UpdatePassWord = () => {
       }
     } catch (err) {
       setError(err);
-      console.log(err);
+      
       toast({
         title: "Erro!",
         description: err,

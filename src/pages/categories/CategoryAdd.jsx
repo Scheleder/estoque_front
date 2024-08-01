@@ -32,7 +32,7 @@ export function CategoryAdd() {
         try {
             setIsProcessing(true);
             const response = await api.post('/categories', values);
-            console.log(response);
+
             if (response.status === 201) {
                 toast({
                     title: "Sucesso!",
@@ -49,7 +49,7 @@ export function CategoryAdd() {
             }, 1500);
         } catch (err) {
             setError(err);
-            console.log(err);
+            
             toast({
                 title: "Erro!",
                 description: err,

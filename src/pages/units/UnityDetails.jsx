@@ -1,19 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { React, useEffect, useState } from 'react';
 import { api }  from '@/services/api';
-import { getDate } from '@/lib/utils';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
-import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
-import { Eye, Send, Save, Earth } from "lucide-react"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { Save} from "lucide-react"
 import ErrorPage from "../utils/ErrorPage"
 import { useToast } from "@/components/ui/use-toast"
 import { useForm } from "react-hook-form";
@@ -32,10 +23,10 @@ const UnityDetails = (props) => {
             setIsProcessing(true);
             const response = await api.get(`units/${id}`);
             setUnity(response.data.unity);
-            console.log(response.data.unity);
+
         } catch (err) {
             setError(err);
-            console.log(err);
+            
         } finally {
             setIsProcessing(false);
         }
@@ -51,7 +42,7 @@ const UnityDetails = (props) => {
             setIsProcessing(true);
             const response = await api.put(`units/${id}`, values);
             setUnity(response.data.unity);
-            console.log(response.data.unity);
+
             if (response.status === 200) {
                 toast({
                     title: "Atualizado!",
@@ -65,7 +56,7 @@ const UnityDetails = (props) => {
             }
         } catch (err) {
             setError(err);
-            console.log(err);
+            
             toast({
                 title: "Erro!",
                 description: err,
