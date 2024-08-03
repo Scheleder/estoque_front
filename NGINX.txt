@@ -1,0 +1,92 @@
+NGINX PROXY REDIRECTION
+sudo nano /etc/nginx/sites-available/default
+
+#HTTP:
+
+server {
+    listen 80;
+    server_name estoque-facil.com;
+
+    # Configuração para o frontend React
+    location / {
+        root /var/www/estoque-facil.com;
+        try_files $uri /index.html;
+    }
+
+    # Configuração para a API Node.js
+    location /api/ {
+        proxy_pass http://localhost:3000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+adicionar cetificado ssl:
+
+sudo /opt/bitnami/bncert-tool
+
+2024/08/03 19:58:57 [INFO] [estoque-facil.com] acme: Obtaining bundled SAN certificate
+2024/08/03 19:58:57 [INFO] [estoque-facil.com] AuthURL: https://acme-v02.api.letsencrypt.org/acme/authz-v3/385654590187
+2024/08/03 19:58:57 [INFO] [estoque-facil.com] acme: authorization already valid; skipping challenge
+2024/08/03 19:58:57 [INFO] [estoque-facil.com] acme: Validations succeeded; requesting certificates
+2024/08/03 19:58:58 [INFO] [estoque-facil.com] Server responded with a certificate.
+
+sudo su
+mkdir /opt/bitnami/nginx/conf/bitnami/certs/
+sudo ln -sf /opt/bitnami/letsencrypt/certificates/estoque-facil.com.key /opt/bitnami/nginx/conf/bitnami/certs/server.key
+sudo ln -sf /opt/bitnami/letsencrypt/certificates/estoque-facil.com.crt /opt/bitnami/nginx/conf/bitnami/certs/server.crt
+sudo chown root:root /opt/bitnami/nginx/conf/bitnami/certs/server*
+sudo chmod 600 /opt/bitnami/nginx/conf/bitnami/certs/server*
+
+estoque-facil.com.crt  estoque-facil.com.issuer.crt  estoque-facil.com.json  estoque-facil.com.key
+
+HTTPS:
+
+server {
+    listen 80;
+    server_name estoque-facil.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name estoque-facil.com;
+
+    ssl_certificate /opt/bitnami/nginx/conf/bitnami/certs/server.crt;
+    ssl_certificate_key /opt/bitnami/nginx/conf/bitnami/certs/server.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    # Configuração para o frontend React
+    location / {
+        root /path/to/your/react/build;
+        try_files $uri /index.html;
+    }
+
+    # Configuração para a API Node.js
+    location /api/ {
+        proxy_pass http://localhost:3000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+
+
+sudo service nginx restart
+ou
+sudo systemctl restart nginx
+
+
+PASTA:
+var/www/html
+
+rimeiro, você pode usar a ferramenta Certbot para obter um certificado SSL do Let's Encrypt. Se o Certbot não estiver instalado, instale-o seguindo as instruções no site oficial do Certbot.
+
+Depois de instalado, execute o comando para obter o certificado:
+
+sudo certbot certonly --nginx -d estoque-facil.com

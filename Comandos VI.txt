@@ -1,0 +1,44 @@
+Ação	Comando
+Abrir Arquivo	:e arquivo
+Salvar Arquivo	:w
+Salvar Arquivo Como	:w arquivo
+Salvar e Sair	:wq
+Sair sem salvar	:q!
+Gravar conteúdo se alterado	:ZZ
+Para marcar um texto para cópia ou corte	v, setas de direção
+Para copiar texto marcado	y
+Para cortar texto marcado	c
+Para colar texto marcado	p
+Copiar uma linha	yy
+Copiar até o final do arquivo	yG
+Apagar texto à frente (DEL)	x
+Apagar texto para trás (BACKSPACE)	X
+Apagar uma linha	dd
+Apagar até o final do arquivo	dG
+Apagar até o final da linha	D
+Localizar texto à frente	/texto
+Localizar novamente	/
+Localizar texto para trás	?texto
+Localizar novamente	?
+Desfazer alterações	u
+Refazer alterações	CTRL+r
+Formatar Alinhamento Centralizado	:ce
+Alinhamento à direta	:ri
+Alinhamento à esquerda	:le
+Abrir nova janela	:new
+Dividir a janela atual em duas	:split
+Abrir arquivo em nova janela	:split arquivo
+Ir para janela de cima	CTRL+w, k
+Ir para janela de baixo	CTRL+w, j
+Ir para o início da linha	0
+Ir para o final da linha	$
+Ir para o final do arquivo	G
+Ir para a linha de baixo	j
+Ir para a linha de cima	k
+Ir para a esquerda	h
+Ir para a direita	l
+Ir para o final da tela	L
+Ajuda	:help
+Insere texto antes do cursor	i
+Insere texto depois do cursor	a
+Insere texto em uma nova linha	o
