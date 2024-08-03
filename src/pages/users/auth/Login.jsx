@@ -32,6 +32,7 @@ export const Login = () => {
       }
       if (response.status === 200) {
         const { token, user } = response.data;
+        console.log(token)
         var in30Minutes = 1/48;
         Cookies.set('token', token, { expires: in30Minutes, sameSite: 'strict', secure: true });
         Cookies.set('user', JSON.stringify(user)), {expires: in30Minutes, sameSite: 'strict'};

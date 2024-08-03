@@ -113,7 +113,7 @@ const Header = () => {
                 <Tooltip>
                   <TooltipTrigger>
                     <Link to="/">
-                      <img src="src/assets/warehouse_64.png" alt="WH" width={32} height={32} />
+                      <img src="./warehouse_64.png" alt="WH" width={32} height={32} />
                     </Link>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -138,7 +138,7 @@ const Header = () => {
                 >
                   <Avatar>
                     <AvatarImage src="" />
-                    <AvatarFallback className="bg-[url('./assets/user.png')] bg-cover bg-center text-white font-bold text-xs pt-[26px]">{iniciais}</AvatarFallback>
+                    <AvatarFallback className="bg-[url('./user.png')] bg-cover bg-center text-white font-bold text-xs pt-[26px]">{iniciais}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>

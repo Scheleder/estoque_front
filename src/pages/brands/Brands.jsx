@@ -82,7 +82,7 @@ const clearSearchItem = () => {
               <li key={index} className='w-80 grid grid-cols-3 shadow-lg rounded-md bg-indigo-100 p-2'>
                 <div className=''>
                   <Link to={`/brands/${dt.id}`}>
-                    <img src="src/assets/brand.png" alt="user" width={80} height={80} className='rounded-full border-2 border-white hover:border-blue-300 origin-center hover:rotate-45' />
+                    <img src="./brand.png" alt="user" width={80} height={80} className='rounded-full border-2 border-white hover:border-blue-300 origin-center hover:rotate-45' />
                   </Link>
                 </div>
                 <div className='col-span-2'>
