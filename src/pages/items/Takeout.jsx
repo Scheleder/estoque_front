@@ -174,8 +174,7 @@ const Takeout = () => {
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <div className='grid grid-cols-3'>
               <div className='relative col-span-3 mt-2'>
-                <label>Item:</label>
-                <span className='absolute z-10 top-8 left-2' title="Scanner"><Scanner /></span>
+                <span className='absolute z-10 top-2 left-2' title="Scanner"><Scanner /></span>
               </div>
               <div className='col-span-3'>
                 <Controller

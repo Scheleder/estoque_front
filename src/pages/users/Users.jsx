@@ -59,8 +59,8 @@ const Users = () => {
         <div className="zeroItems">Não há items.</div>
       ) : (
         <div>
-          <div className='grid grid-cols-2'>
-            <div className='text-left items-center'>
+          <div className='grid grid-cols-3'>
+            <div className='col-span-1 text-left items-center'>
               <span className='relative'>
                 <input
                   type="text"
@@ -75,7 +75,7 @@ const Users = () => {
                 }
               </span>
             </div>
-            <div className='text-right items-center p-4'>
+            <div className='col-span-2 text-right items-center p-4'>
               <span className='text-gray-400 text-sm'>
                 Total de {data.length} usuários cadastrados no sistema.
               </span>

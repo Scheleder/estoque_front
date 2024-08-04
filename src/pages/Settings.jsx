@@ -22,8 +22,8 @@ const Settings = (props) => {
     return (
         <div className="pl-16 pt-20">
             <div className="mr-2">
-                <ul className="sm:flex sm:flex-wrap mb-0 uppercase text-xs font-semibold text-center">
-                    <li className="ml-0.5 sm:ml-2 cursor-pointer">
+                <ul className="md:flex md:flex-wrap mb-0 uppercase text-xs font-semibold text-center hidden">
+                    <li className="ml-0.5 md:ml-1 cursor-pointer">
                         <a onClick={() => changePage('brands')} className={`${(page === 'brands' ? 'border-blue-400 bg-gray-300 text-gray-600' : 'border-transparent bg-gray-200')} inline-flex p-2 text-gray-400 border-b-4 sm:rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full sm:w-32`}>
                             <Factory className={`${(page === 'brands' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
                             <span>Fabricantes</span>
@@ -59,6 +59,14 @@ const Settings = (props) => {
                             <span>Usuários</span>
                         </a>
                     </li>
+                </ul>
+                <ul className='uppercase md:hidden bg-gray-200 p-2'>
+                    <li className='hover:bg-gray-300'><span>Fabricantes</span></li>
+                    <li className='hover:bg-gray-300'><span>Categorias</span></li>
+                    <li className='hover:bg-gray-300'><span>Componentes</span></li>
+                    <li className='hover:bg-gray-300'><span>Unidades</span></li>
+                    <li className='hover:bg-gray-300'><span>Estoques</span></li>
+                    <li className='hover:bg-gray-300'><span>Usuários</span></li>
                 </ul>
             </div>
             <div className='shadow-xl rounded-md mr-2 bg-gray-200'>

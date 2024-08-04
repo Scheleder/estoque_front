@@ -40,7 +40,7 @@ const UserDetails = (props) => {
       setData(sorted);
     } catch (err) {
       setError(err);
-      
+
     } finally {
       setIsProcessing(false);
     }
@@ -70,7 +70,7 @@ const UserDetails = (props) => {
       }
     } catch (err) {
       setError(err);
-      
+
       toast({
         title: "Erro!",
         description: err,
@@ -126,6 +126,9 @@ const UserDetails = (props) => {
   };
 
   const toggleUserType = () => {
+    if(!me.admin){
+      return
+    }
     const updatedUser = { ...user, admin: !user.admin };
     setUser(updatedUser);
     setValue("admin", updatedUser.admin);
@@ -161,21 +164,29 @@ const UserDetails = (props) => {
                 </div>
                 <div className='flex col-span-3 relative'>
                   <SendMail user={user.name} />
-                  <Input {...register("email", { required: true })} className=" pl-8 mr-4" defaultValue={user.email} />
+                  <Input {...register("email", { required: true })} className=" pl-8" defaultValue={user.email} />
                   <Input {...register("admin")} type="hidden" value={user.admin} />
-                  {user.admin ?
-                    <Button type="button" onClick={toggleUserType} className="bg-yellow-600 hover:bg-yellow-500"><ShieldCheck className='w-4 h-4 mr-2' />Administrador</Button> :
-                    <Button type="button" onClick={toggleUserType} className="bg-gray-500 :hover:bg-gray-400"><UserRound className='w-4 h-4 mr-2' />Usuário Padrão</Button>
-                  }
-                  {((me.id === user.id) || (me.admin)) &&
+                  {me.admin || (me.id === user.id) ? <></> :
                     <>
-                    <Link to="/forgot-password">                    
-                      <Button className="ml-4 bg-red-700 hover:bg-red-500"><KeyRound className='w-4 h-4 mr-2' /> Alterar senha</Button>
-                    </Link>
-                      <Button type="submit" className="ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-4 h-4 mr-2' /> Salvar alterações</Button>
+                      {user.admin ?
+                        <Button type="button" onClick={toggleUserType} className="ml-4 bg-yellow-600 hover:bg-yellow-500"><ShieldCheck className='w-4 h-4 mr-2' />Administrador</Button> :
+                        <Button type="button" onClick={toggleUserType} className="ml-4 bg-gray-500 :hover:bg-gray-400"><UserRound className='w-4 h-4 mr-2' />Usuário Padrão</Button>
+                      }
                     </>
                   }
                 </div>
+                {((me.id === user.id) || (me.admin)) &&
+                  <div className='flex col-span-3 pt-8'>
+                    {user.admin ?
+                      <Button type="button" onClick={toggleUserType} className="bg-yellow-600 hover:bg-yellow-500 w-full"><ShieldCheck className='w-4 h-4 mx-2' />Administrador</Button> :
+                      <Button type="button" onClick={toggleUserType} className="bg-gray-500 :hover:bg-gray-400 w-full"><UserRound className='w-4 h-4 mx-2' />Usuário Padrão</Button>
+                    }
+ 
+                      <Button onClick={null} className="ml-4 bg-red-700 hover:bg-red-500 w-full"><KeyRound className='w-4 h-4 mx-2' /> Alterar senha</Button>
+                    
+                    <Button type="submit" className="ml-4 bg-blue-700 hover:bg-blue-500 w-full"><Save className='w-4 h-4 mx-2' /> Salvar alterações</Button>
+                  </div>
+                }
               </div>
             </form>
           </div>
