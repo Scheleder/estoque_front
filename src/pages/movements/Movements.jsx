@@ -27,21 +27,27 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
 const Movements = () => {
-  const { control, register, handleSubmit } = useForm();
+  const { control, setValue } = useForm({
+    defaultValues: {
+      type: null,
+      userId: null,
+    }
+  });
   const [data, setData] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
   const [asc, setAsc] = useState(true);
   const [showFilters, setShowFilters] = useState(true);
+  const [users, setUsers] = useState([]);
 
   const [filter, setFilter] = useState({
     dataIni: '',
     dataFim: '',
-    type: '',
+    type: null,
     destination: '',
     localId: '',
     itemId: '',
-    userId: '',
+    userId: null,
   })
 
   const styles = {
@@ -69,6 +75,15 @@ const Movements = () => {
       var sorted = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setData(sorted);
 
+      const userMap = new Map();
+      response.data.forEach(a => {
+        if (!userMap.has(a.User.id)) {
+          userMap.set(a.User.id, { value: a.User.id, label: a.User.name });
+        }
+      });
+      
+      setUsers(Array.from(userMap.values()))
+
     } catch (err) {
       setError(err);
       
@@ -80,6 +95,11 @@ const Movements = () => {
   useEffect(() => {
     getData();
   }, [filter]);
+
+  useEffect(() => {
+    setValue('type', null);
+    setValue('userId', null);
+  }, [setValue]);
 
   const orderByDate = () => {
     const sortedData = [...data].sort((a, b) => {
@@ -139,11 +159,11 @@ const Movements = () => {
     setFilter({
       dataIni: '',
       dataFim: '',
-      type: '',
+      type: null,
       destination: '',
       localId: '',
       itemId: '',
-      userId: '',
+      userId: null,
     });
   }
 
@@ -248,7 +268,7 @@ const Movements = () => {
                       render={({ field }) => (
                         <Select
                           {...field}
-                          value={types.find(option => option.value === field.value)}
+                          value={types.find(option => option.value === field.value) || null}
                           options={types}
                           placeholder="Todas"
                           className="w-full"
@@ -275,7 +295,24 @@ const Movements = () => {
                   </div>
                   <div className='grid'>
                     <Label className="ml-2 uppercase text-gray-400 text-xs">Colaborador</Label>
-                    <Input type="text" />
+                    <Controller
+                      name="userId"
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          value={users.find(option => option.value === field.value) || null}
+                          options={users}
+                          placeholder="Todos"
+                          className="w-full"
+                          styles={styles}
+                          onChange={(selected) => {
+                            field.onChange(selected.value);
+                            handleFilterChange('userId', selected.value);
+                          }}
+                        />
+                      )}
+                    />
                   </div>
                 </div>
               </div>
