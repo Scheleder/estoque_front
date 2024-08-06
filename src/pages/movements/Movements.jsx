@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { ptBR } from 'date-fns/locale';
 import { api } from '@/services/api';
-import { Loader, RefreshCw, ArrowUpDown, Filter, FilterX, ChevronDown, ChevronUp, CalendarIcon } from "lucide-react"
+import { Loader, RefreshCw, ArrowUpDown, Filter, ChevronDown, ChevronUp, CalendarIcon } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { getDate, getEndDate } from '@/lib/utils';
 import {
@@ -11,23 +11,22 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import ErrorPage from "../utils/ErrorPage"
-import ButtonExport from '@/components/buttonExport';
+} from "@/components/ui/popover";
+import ErrorPage from "../utils/ErrorPage";
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Select from 'react-select';
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 const Movements = () => {
-  const { control, setValue } = useForm({
+  const { control, setValue, reset } = useForm({
     defaultValues: {
       type: null,
       userId: null,
@@ -48,13 +47,13 @@ const Movements = () => {
     localId: '',
     itemId: '',
     userId: null,
-  })
+  });
 
   const styles = {
     menu: base => ({
       ...base,
       marginTop: '0.3rem',
-      zIndex: 999
+      zIndex: 999,
     }),
   };
 
@@ -65,14 +64,14 @@ const Movements = () => {
     { id: 4, value: 'Entrada de material', label: 'Entrada de material' },
     { id: 5, value: 'Saída de material', label: 'Saída de material' },
     { id: 6, value: 'Transferência para outro estoque', label: 'Transferência para outro estoque' },
-  ]
+  ];
 
   const getData = async () => {
     try {
       setIsProcessing(true);
 
       const response = await api.get('movements', { params: filter });
-      var sorted = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const sorted = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setData(sorted);
 
       const userMap = new Map();
@@ -81,12 +80,10 @@ const Movements = () => {
           userMap.set(a.User.id, { value: a.User.id, label: a.User.name });
         }
       });
-      
-      setUsers(Array.from(userMap.values()))
 
+      setUsers(Array.from(userMap.values()));
     } catch (err) {
       setError(err);
-      
     } finally {
       setIsProcessing(false);
     }
@@ -149,11 +146,11 @@ const Movements = () => {
     });
     setData(sortedData);
     setAsc(!asc);
-  };  
+  };
 
   const filterCollapse = () => {
     setShowFilters(!showFilters);
-  }
+  };
 
   const clearFilters = () => {
     setFilter({
@@ -165,7 +162,13 @@ const Movements = () => {
       itemId: '',
       userId: null,
     });
-  }
+    reset({
+      type: null,
+      userId: null,
+    });
+    setValue('type', null);  // Explicitly set to null
+    setValue('userId', null); // Explicitly set to null
+  };
 
   const handleFilterChange = (field, value) => {
     setFilter((prevFilter) => ({
@@ -186,15 +189,15 @@ const Movements = () => {
         <>
           <div className="z-10 mt-2 relative shadow-lg rounded-md mr-2 p-2 pb-0.5 bg-gray-200">
             <div className='flex text-gray-600 mb-2'>
-            {isProcessing &&  (<span className='text-lime-600 flex items-center'><Loader className='animate-spin mr-2 h-4 w-4 font-bold' />Carregando...</span>)}
-            {!isFilterApplied && !isProcessing &&(
-              <div id="openFilters" className='text-left w-40'>
-                <span className='font-semibold flex items-center'>
-                  <Filter className='mr-2 h-4 w-4' />Filtrar
-                </span>
-              </div>
+              {isProcessing && (<span className='text-lime-600 flex items-center'><Loader className='animate-spin mr-2 h-4 w-4 font-bold' />Carregando...</span>)}
+              {!isFilterApplied && !isProcessing && (
+                <div id="openFilters" className='text-left w-40'>
+                  <span className='font-semibold flex items-center'>
+                    <Filter className='mr-2 h-4 w-4' />Filtrar
+                  </span>
+                </div>
               )}
-              {isFilterApplied && !isProcessing &&(
+              {isFilterApplied && !isProcessing && (
                 <div id="clearFilters" className='text-left w-80 hover:text-red-800 cursor-pointer'>
                   <span className='font-semibold flex items-center hover:animate-pulse' title='Clique para limpar todos os filtros' onClick={clearFilters}>
                     <RefreshCw className='mr-2 h-4 w-4 hover:animate-spin' />Limpar Filtros
@@ -274,8 +277,8 @@ const Movements = () => {
                           className="w-full"
                           styles={styles}
                           onChange={(selected) => {
-                            field.onChange(selected.value);
-                            handleFilterChange('type', selected.value);
+                            field.onChange(selected ? selected.value : null);
+                            handleFilterChange('type', selected ? selected.value : null);
                           }}
                         />
                       )}
@@ -307,8 +310,8 @@ const Movements = () => {
                           className="w-full"
                           styles={styles}
                           onChange={(selected) => {
-                            field.onChange(selected.value);
-                            handleFilterChange('userId', selected.value);
+                            field.onChange(selected ? selected.value : null);
+                            handleFilterChange('userId', selected ? selected.value : null);
                           }}
                         />
                       )}
@@ -331,7 +334,6 @@ const Movements = () => {
     </div>
   );
 };
-
 
 const DataTable = ({ data, orderByDate, orderByType, orderByDestination, orderBySku, orderByUser }) => {
   return (
