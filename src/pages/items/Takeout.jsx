@@ -42,7 +42,7 @@ const Takeout = () => {
     menu: base => ({
       ...base,
       marginTop: '0.3rem',
-      zIndex: 9999
+      zIndex: 9999,
     }),
     control: (base) => ({
       ...base,
@@ -57,6 +57,10 @@ const Takeout = () => {
       paddingLeft: '1rem'
     }),
     placeholder: (base) => ({
+      ...base,
+      paddingLeft: '1rem'
+    }),
+    input: (base) => ({
       ...base,
       paddingLeft: '1rem'
     }),
@@ -91,7 +95,7 @@ const Takeout = () => {
 
     } catch (err) {
       setError(err);
-      
+
     } finally {
       setIsProcessing(false);
     }
@@ -105,7 +109,7 @@ const Takeout = () => {
     setValue("userId", userId);
     setValue("localId", localId);
     if (id) {
-      const defaultValue = items.find(item => item.value == id); 
+      const defaultValue = items.find(item => item.value == id);
       if (defaultValue) {
         setValue('itemId', defaultValue.value);
         changeUnity(defaultValue)
@@ -151,7 +155,7 @@ const Takeout = () => {
       }
     } catch (err) {
       setError(err);
-      
+
       toast({
         title: "Erro!",
         description: err.message || "Ocorreu um erro",
@@ -199,12 +203,12 @@ const Takeout = () => {
                   <div className='relative col-span-3 mt-2'>
                     <label>Tipo de movimentação:</label>
                     <span className='absolute z-10 top-8 left-2 text-gray-400'>
-                      {type && type.id === 1 && (<><SlidersVertical /></>)}
-                      {type && type.id === 2 && (<><Shuffle /></>)}
-                      {type && type.id === 3 && (<><FileText /></>)}
-                      {type && type.id === 4 && (<><PlaneLanding /></>)}
-                      {type && type.id === 5 && (<><PlaneTakeoff /></>)}
-                      {type && type.id === 6 && (<><ArrowRightLeft /></>)}
+                      {type && type.id === 1 && (<><SlidersVertical className='text-orange-700'/></>)}
+                      {type && type.id === 2 && (<><Shuffle className='text-orange-700'/></>)}
+                      {type && type.id === 3 && (<><FileText className='text-orange-700'/></>)}
+                      {type && type.id === 4 && (<><PlaneLanding className='text-orange-700'/></>)}
+                      {type && type.id === 5 && (<><PlaneTakeoff className='text-orange-700'/></>)}
+                      {type && type.id === 6 && (<><ArrowRightLeft className='text-orange-700'/></>)}
                     </span>
                   </div>
                   <div className='flex col-span-3'>
@@ -244,7 +248,7 @@ const Takeout = () => {
                     <div></div>
                     <div className='mr-4'><Input value={qtde} readOnly /></div>
                     <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0}></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
+                    <div className=''><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
                   </div>
                 )}
                 {type.id === 2 && (
@@ -258,11 +262,11 @@ const Takeout = () => {
                     <div></div>
                     <div className='mr-4'><Input className=" text-center" value={adress} readOnly /></div>
                     <div className='mr-4'><Input {...register("destination", { required: true })} placeholder="Novo endereço" type="text" defaultValue="" className="text-center" /></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
+                    <div className=''><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
                   </div>
                 )}
                 {type.id === 3 && (
-                  <div className='grid grid-cols-4 mb-2'>
+                  <div className='grid grid-cols-2 mb-2'>
                     <div className='relative mt-2'>
                       <label>Quantidade em estoque:</label>
                       <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
@@ -271,14 +275,14 @@ const Takeout = () => {
                       <label>Quantidade utilizada:</label>
                       <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
                     </div>
+                    <div className='mr-4'><Input value={qtde} readOnly /></div>
+                    <div className=''><Input {...register("quantity", { required: true })} type="number" min="0" max="999999"></Input></div>
                     <div className='relative mt-2'>
                       <label>Número da ordem:</label>
                     </div>
                     <div></div>
-                    <div className='mr-4'><Input value={qtde} readOnly /></div>
-                    <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999"></Input></div>
                     <div className='mr-4'><Input {...register("destination", { required: true })} type="text" className="text-center"></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className="mr-2" />Confirmar</Button></div>
+                    <div className=''><Button type="submit" className="w-full hover:bg-gray-500"><Check className="mr-2" />Confirmar</Button></div>
                   </div>
                 )}
                 {type.id === 4 && (
@@ -294,7 +298,7 @@ const Takeout = () => {
                     <div></div>
                     <div className='mr-4'><Input value={qtde} readOnly /></div>
                     <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0}></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
+                    <div className=''><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
                   </div>
                 )}
                 {type.id === 5 && (
@@ -310,14 +314,14 @@ const Takeout = () => {
                     <div></div>
                     <div className='mr-4'><Input value={qtde} readOnly /></div>
                     <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0}></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
+                    <div className=''><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
                   </div>
                 )}
                 {type.id === 6 && (
                   <div className='grid grid-cols-3 mb-2'>
                     <div className='relative col-span-3 mt-2'>
                       <label>Estoque destino:</label>
-                      <span className='absolute z-10 top-8 left-2 text-gray-400' title="Scanner"><Warehouse /></span>
+                      <span className='absolute z-10 top-8 left-2 text-orange-700' title="Scanner"><Warehouse /></span>
                     </div>
                     <div className='col-span-3'>
                       <Controller
@@ -348,7 +352,7 @@ const Takeout = () => {
                     <div></div>
                     <div className='mr-4'><Input value={qtde} readOnly /></div>
                     <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0}></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
+                    <div className=''><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
                   </div>
                 )}
               </form>

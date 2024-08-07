@@ -6,7 +6,7 @@ import Select from 'react-select'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import Loading from '@/components/loading';
-import { Check } from 'lucide-react';
+import { Check, PackageOpen } from 'lucide-react';
 import ErrorPage from "../utils/ErrorPage"
 import { ComponentAdd } from '../components/ComponentAdd';
 import { useToast } from "@/components/ui/use-toast"
@@ -20,9 +20,36 @@ const Supply = (props) => {
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
   const [unity, setUnity] = useState('')
-  const styles = { menu: base => ({ ...base, marginTop: '0.3rem' }) };
+  //const styles = { menu: base => ({ ...base, marginTop: '0.3rem' }) };
   const { toast } = useToast()
   const navigate = useNavigate()
+  const styles = {
+    menu: base => ({
+      ...base,
+      marginTop: '0.3rem',
+      zIndex: 9999,
+    }),
+    control: (base) => ({
+      ...base,
+      paddingLeft: '1rem'
+    }),
+    option: (base) => ({
+      ...base,
+      paddingLeft: '1rem'
+    }),
+    singleValue: (base) => ({
+      ...base,
+      paddingLeft: '1rem'
+    }),
+    placeholder: (base) => ({
+      ...base,
+      paddingLeft: '1rem'
+    }),
+    input: (base) => ({
+      ...base,
+      paddingLeft: '1rem'
+    }),
+  };
 
   const getData = async () => {
     try {
@@ -93,7 +120,8 @@ const Supply = (props) => {
               <div className='grid grid-cols-4 mb-2'>
                 <div className='relative col-span-4 mt-2'>
                   <label>Componente:</label>
-                  <div className='absolute top-4 right-0'><ComponentAdd /></div>
+                  <span className='absolute z-10 top-4 right-0'><ComponentAdd /></span>
+                  <span className='absolute z-10 top-8 left-2 text-orange-700' title="Scanner"><PackageOpen /></span>
                 </div>
                 <div className='flex col-span-4'>
                   <Controller
@@ -118,16 +146,16 @@ const Supply = (props) => {
                   <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
                 </div>
                 <div className='col-span-1 mt-2 relative'>
-                  <label>Quantidade mínima:</label>
+                  <label>Mínimo:</label>
                   <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
                 </div>
                 <div className='col-span-1 mt-2'>
                   <label>Endereço:</label>
                 </div>
                 <div></div>
-                <div className='mr-4'><Input {...register("quantity", { required: true })} placeholder="0" type="number" min="0" max="999999999" ></Input></div>
-                <div className='mr-4'><Input {...register("minimum", { required: true })} placeholder="0" type="number" min="0" max="999999999" ></Input></div>
-                <div className='mr-4'><Input {...register("adress", { required: true })} placeholder="Endereço de estoque" className=" text-center"></Input></div>
+                <div className='mr-4'><Input {...register("quantity", { required: true })} placeholder="0" type="number" min="0" max="999999999" title="Quantidade atual em estoque"></Input></div>
+                <div className='mr-4'><Input {...register("minimum", { required: true })} placeholder="0" type="number" min="0" max="999999999" title="Quantidade mínima em estoque"></Input></div>
+                <div className='mr-4'><Input {...register("adress", { required: true })} placeholder="Endereço de estoque" className=" text-center" title="Endereço de Estoque"></Input></div>
                 <div className='mr-2'><Button className="w-full hover:bg-gray-500"> <Check className='w-5 h-5 mr-2' /> Confirmar</Button></div>
               </div>
             </form>

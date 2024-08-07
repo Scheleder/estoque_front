@@ -13,6 +13,10 @@ export function getDate(dt) {
   return format(new Date(dt), 'dd/MM/yyyy - HH:mm');
 }
 
+export function getShortDate(dt) {
+  return format(new Date(dt), 'dd/MM/yy');
+}
+
 export function getEndDate(dt) {
   const date = new Date(dt);
   const updatedDate = addMinutes(addHours(date, 23), 59);

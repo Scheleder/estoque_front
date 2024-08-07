@@ -5,7 +5,7 @@ import { ptBR } from 'date-fns/locale';
 import { api } from '@/services/api';
 import { Loader, RefreshCw, ArrowUpDown, Filter, ChevronDown, ChevronUp, CalendarIcon } from "lucide-react";
 import { Link } from 'react-router-dom';
-import { getDate, getEndDate } from '@/lib/utils';
+import { getDate, getEndDate, getShortDate } from '@/lib/utils';
 import {
   Tooltip,
   TooltipContent,
@@ -388,9 +388,9 @@ const DataTable = ({ data, orderByDate, orderByType, orderByDestination, orderBy
                 <span className='ml-4'>Tipo</span></th>
               <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByDestination} />
                 <span className='ml-4'>Destino</span></th>
-              <th>Quantidade</th>
+              <th>Qtde</th>
               <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderBySku} />
-                <span className='ml-4'>Item SKU</span></th>
+                <span className='ml-4'>SKU</span></th>
               <th><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByUser} />
                 <span className='ml-4'>Colaborador</span></th>
             </tr>
@@ -399,7 +399,8 @@ const DataTable = ({ data, orderByDate, orderByType, orderByDestination, orderBy
             {
               data.map((dt, index) => (
                 <tr key={index} className='odd:bg-stone-200 even:bg-stone-300 hover:bg-blue-100 font-semibold'>
-                  <td className='px-2 py-1'>{getDate(dt.createdAt)}</td>
+                  <td className='px-2 py-1 max-md:hidden'>{getDate(dt.createdAt)}</td>
+                  <td className='px-2 py-1 md:hidden'>{getShortDate(dt.createdAt)}</td>
                   <td className='p-1'>{dt.type}</td>
                   <td className='p-1'>{dt.destination}</td>
                   <td className='p-1'>{dt.quantity} {dt.Item.Component.Unity.abrev}</td>
