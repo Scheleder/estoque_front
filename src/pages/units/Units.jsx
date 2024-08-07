@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { api }  from '@/services/api';
+import { api } from '@/services/api';
 import Loading from '@/components/loading';
 import { PenBox, Plus, ArrowUpDown, EllipsisVertical, ListFilter, X, RotateCcw } from "lucide-react"
 import ErrorPage from "../utils/ErrorPage"
@@ -38,7 +38,7 @@ const Units = () => {
 
         } catch (err) {
             setError(err);
-            
+
         } finally {
             setIsProcessing(false);
         }
@@ -82,8 +82,25 @@ const Units = () => {
                 <ErrorPage error={error} />
             ) : (
                 <div className="relative overflow-x-auto shadow-lg rounded-md">
-                    <div className='text-right'>
-                        <UnityAdd />
+                    <div className='grid grid-cols-2'>
+                        <div className='text-left items-center'>
+                            <span className='relative md:hidden'>
+                                <input
+                                    type="text"
+                                    value={searchItem}
+                                    onChange={(e) => setSearchItem(e.target.value)}
+                                    className='w-40 h-6 pl-2 m-4 rounded-sm text-xs bg-gray-100 text-orange-600 border border-gray-300'
+                                    placeholder='Filtrar...'
+                                />
+                                {searchItem ?
+                                    <RotateCcw size={16} className='absolute left-36 top-1 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchItem} /> :
+                                    <ListFilter size={16} className='absolute left-36 top-1 text-gray-600' />
+                                }
+                            </span>
+                        </div>
+                        <div className='text-right'>
+                            <UnityAdd />
+                        </div>
                     </div>
                     <div className='overflow-x-auto rounded-md shadow-md m-2'>
                         <table className="w-full text-xs xs:text-sm text-blue-800">
@@ -97,7 +114,7 @@ const Units = () => {
                                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
                                     <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByName} />
                                         <span className='ml-6'>Unidades de Medida</span>
-                                        <span className='relative'>
+                                        <span className='relative max-md:hidden'>
                                             <input
                                                 type="text"
                                                 value={searchItem}

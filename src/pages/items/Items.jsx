@@ -98,8 +98,6 @@ const Items = () => {
     clearSearchItem();
   }
 
-
-
   return (
     <div className="pl-16 pt-20">
       {isProcessing ? (
@@ -108,54 +106,48 @@ const Items = () => {
         <ErrorPage error={error} />
       ) : (
         <>
-
-
-
-
           <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 bg-gray-200 md:hidden">
-              <div className='flex text-gray-600 mb-4'>
-                {isProcessing && (<span className='text-lime-600 flex items-center'><Loader className='animate-spin mr-2 h-4 w-4 font-bold' />Carregando...</span>)}
-                {!searchAdress && !searchItem && !isProcessing && (
-                  <div id="openFilters" className='text-left w-40'>
-                    <span className='font-semibold flex items-center'>
-                      <Filter className='mr-2 h-4 w-4' />Filtrar
-                    </span>
-                  </div>
-                )}
-                {(searchAdress || searchItem) && !isProcessing && (
-                  <div id="clearFilters" className='text-left w-80 hover:text-red-800 cursor-pointer'>
-                    <span className='font-semibold flex items-center hover:animate-pulse' title='Clique para limpar todos os filtros' onClick={clearFilters}>
-                      <RefreshCw className='mr-2 h-4 w-4 hover:animate-spin' />Limpar Filtros
-                    </span>
-                  </div>
-                )}
-              </div>
+            <div className='flex text-gray-600 mb-4'>
+              {isProcessing && (<span className='text-lime-600 flex items-center'><Loader className='animate-spin mr-2 h-4 w-4 font-bold' />Carregando...</span>)}
+              {!searchAdress && !searchItem && !isProcessing && (
+                <div id="openFilters" className='text-left w-40'>
+                  <span className='font-semibold flex items-center'>
+                    <Filter className='mr-2 h-4 w-4' />Filtrar
+                  </span>
+                </div>
+              )}
+              {(searchAdress || searchItem) && !isProcessing && (
+                <div id="clearFilters" className='text-left w-80 hover:text-red-800 cursor-pointer'>
+                  <span className='font-semibold flex items-center hover:animate-pulse' title='Clique para limpar todos os filtros' onClick={clearFilters}>
+                    <RefreshCw className='mr-2 h-4 w-4 hover:animate-spin' />Limpar Filtros
+                  </span>
+                </div>
+              )}
+            </div>
             <div className='grid grid-cols-2 pb-2'>
 
-            <div className='grid px-2'>
-              <Label className="ml-2 uppercase text-gray-400 text-xs">Endereço</Label>
-              <Input
-                type="text"
-                value={searchAdress}
-                onChange={(e) => setSearchAdress(e.target.value)}
-                className='w-full text-md'
-                placeholder='Filtrar...'
+              <div className='grid px-2'>
+                <Label className="ml-2 uppercase text-gray-400 text-xs">Endereço</Label>
+                <Input
+                  type="text"
+                  value={searchAdress}
+                  onChange={(e) => setSearchAdress(e.target.value)}
+                  className='w-full text-md'
+                  placeholder='Filtrar...'
                 />
-            </div>
-            <div className='grid px-2'>
-              <Label className="ml-2 uppercase text-gray-400 text-xs">Item</Label>
-              <Input
-                type="text"
-                value={searchItem}
-                onChange={(e) => setSearchItem(e.target.value)}
-                className='w-full text-md'
-                placeholder='Filtrar...'
+              </div>
+              <div className='grid px-2'>
+                <Label className="ml-2 uppercase text-gray-400 text-xs">Item</Label>
+                <Input
+                  type="text"
+                  value={searchItem}
+                  onChange={(e) => setSearchItem(e.target.value)}
+                  className='w-full text-md'
+                  placeholder='Filtrar...'
                 />
+              </div>
             </div>
-                </div>
           </div>
-
-
 
           <div className="mt-2 relative overflow-x-auto shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <div className='overflow-x-auto rounded-md shadow-md'>
