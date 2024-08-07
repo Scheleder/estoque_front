@@ -7,28 +7,13 @@ import Units from './units/Units';
 import Loading from '@/components/loading';
 import Users from './users/Users';
 import Locals from './locals/Locals';
-import { Link } from 'react-router-dom';
-import { Ruler, Factory, ListCollapse, UsersRound, Warehouse, Menu, EllipsisVertical,AlignHorizontalDistributeCenter as Piece } from 'lucide-react';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuPortal,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu.jsx"
+import { Ruler, Factory, ListCollapse, UsersRound, Warehouse, Menu, EllipsisVertical, AlignHorizontalDistributeCenter as Piece } from 'lucide-react';
 
 const Settings = (props) => {
 
     const savedPage = localStorage.getItem('settingsPage');
     const [page, setPage] = useState(savedPage);
-    const [collapse, setCollapse] = useState(false);
+    const [collapse, setCollapse] = useState(true);
 
     const changePage = (pg) => {
         setPage(pg);
@@ -40,95 +25,57 @@ const Settings = (props) => {
         setCollapse(!collapse)
     }
 
-    const classActive = 'bg-gray-200 text-gray-600'
-    const classInactive = 'md:flex bg-gray-200'
-    const xsMenu = 'inline-flex p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-300 hover:border-blue-400  border-b-4 group w-full'
+    function renderMenuItem(pageName, label, IconComponent, isMd = false) {
+        const isActive = page === pageName;
+        const classActive = 'bg-gray-300 text-gray-600'
+        const classInactive = 'md:flex bg-gray-200'
+        const xsMenu = 'inline-flex p-2 text-gray-400 hover:text-gray-500 hover:border-blue-400 bg-gray-300 border-gray-300 hover:bg-gray-400 border-b-4 group w-full'
+
+        const commonClasses = `${isActive ? classActive : classInactive}`;
+        const collapseClasses = collapse && page !== pageName ? 'hidden' : xsMenu;
+        const roundedClasses = collapse && page === pageName ? 'rounded-t-lg' : '';
+        const iconClasses = `${isActive ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1'}`;
+        const mdClasses = isMd ? 'inline-flex p-2 text-gray-400 border-b-4 rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full md:w-32' : '';
+
+        return (
+            <li className="mx-0.5 cursor-pointer">
+                <a onClick={() => changePage(pageName)} className={`${commonClasses} ${collapseClasses} ${roundedClasses} ${mdClasses}`}>
+                    <IconComponent className={iconClasses} />
+                    <span>{label}</span>
+                </a>
+            </li>
+        );
+    }
+
+
 
     return (
         <div className="pl-16 pt-20">
+
             <div className="mr-2 relative">
                 <span className='absolute top-1 right-4 md:hidden'>
-                    <Menu className='text-gray-500 cursor-pointer' onClick={toggleMenu}/>
+                    <Menu className='text-gray-500 cursor-pointer hover:text-lime-500' onClick={toggleMenu} />
                 </span>
+
                 <ul className="md:hidden mb-0 uppercase text-xs font-semibold text-center mx-1">
-                    <li className="mx-0.5 md:ml-1 cursor-pointer">
-                        <a onClick={() => changePage('brands')} className={`${(page === 'brands' ? classActive : classInactive)} ${(collapse && page != 'brands' ? 'hidden' : xsMenu)} rounded-t-lg`}>
-                            <Factory className={`${(page === 'brands' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Fabricantes</span>
-                        </a>
-                    </li>
-                    <li className="mx-0.5 cursor-pointer">
-                        <a onClick={() => changePage('categories')} className={`${(page === 'categories' ? classActive : classInactive)} ${(collapse && page != 'categories' ? 'hidden' : xsMenu)} ${(collapse && page === 'categories' ? ' rounded-t-lg' : '')}`}>
-                            <ListCollapse className={`${(page === 'categories' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Categorias</span>
-                        </a>
-                    </li>
-                    <li className="mx-0.5 cursor-pointer">
-                        <a onClick={() => changePage('components')} className={`${(page === 'components' ? classActive : classInactive)} ${(collapse && page != 'components' ? 'hidden' : xsMenu)} ${(collapse && page === 'components' ? ' rounded-t-lg' : '')}`}>
-                            <Piece className={`${(page === 'components' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Componentes</span>
-                        </a>
-                    </li>
-                    <li className="mx-0.5 cursor-pointer">
-                        <a onClick={() => changePage('units')} className={`${(page === 'units' ? classActive : classInactive)} ${(collapse && page != 'units' ? 'hidden' : xsMenu)} ${(collapse && page === 'units' ? ' rounded-t-lg' : '')}`}>
-                            <Ruler className={`${(page === 'units' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Unidades</span>
-                        </a>
-                    </li>
-                    <li className="mx-0.5 cursor-pointer">
-                        <a onClick={() => changePage('locals')} className={`${(page === 'locals' ? classActive : classInactive)} ${(collapse && page != 'locals' ? 'hidden' : xsMenu)} ${(collapse && page === 'locals' ? ' rounded-t-lg' : '')}`}>
-                            <Warehouse className={`${(page === 'locals' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Estoques</span>
-                        </a>
-                    </li>
-                    <li className="mx-0.5 cursor-pointer">
-                        <a onClick={() => changePage('users')} className={`${(page === 'users' ? classActive : classInactive)} ${(collapse && page != 'users' ? 'hidden' : xsMenu)} ${(collapse && page === 'users' ? ' rounded-t-lg' : '')}`}>
-                            <UsersRound className={`${(page === 'users' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Usuários</span>
-                        </a>
-                    </li>
+                    {renderMenuItem('brands', 'Fabricantes', Factory)}
+                    {renderMenuItem('categories', 'Categorias', ListCollapse)}
+                    {renderMenuItem('components', 'Componentes', Piece)}
+                    {renderMenuItem('units', 'Unidades', Ruler)}
+                    {renderMenuItem('locals', 'Estoques', Warehouse)}
+                    {renderMenuItem('users', 'Usuários', UsersRound)}
                 </ul>
 
                 <ul className="hidden md:flex md:flex-wrap mb-0 uppercase text-xs font-semibold text-center">
-                    <li className="mx-0.5 md:ml-1 cursor-pointer">
-                        <a onClick={() => changePage('brands')} className={`${(page === 'brands' ? classActive : classInactive)} inline-flex p-2 text-gray-400 border-b-4 rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full md:w-32`}>
-                            <Factory className={`${(page === 'brands' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Fabricantes</span>
-                        </a>
-                    </li>
-                    <li className="mx-0.5 cursor-pointer">
-                        <a onClick={() => changePage('categories')} className={`${(page === 'categories' ? classActive : classInactive)} inline-flex p-2 text-gray-400 border-b-4 rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full md:w-32`}>
-                            <ListCollapse className={`${(page === 'categories' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Categorias</span>
-                        </a>
-                    </li>
-                    <li className="mx-0.5 cursor-pointer">
-                        <a onClick={() => changePage('components')} className={`${(page === 'components' ? classActive : classInactive)} inline-flex p-2 text-gray-400 border-b-4 rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full md:w-32`}>
-                            <Piece className={`${(page === 'components' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Componentes</span>
-                        </a>
-                    </li>
-                    <li className="mx-0.5 cursor-pointer">
-                        <a onClick={() => changePage('units')} className={`${(page === 'units' ? classActive : classInactive)} inline-flex p-2 text-gray-400 border-b-4 rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full md:w-32`}>
-                            <Ruler className={`${(page === 'units' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Unidades</span>
-                        </a>
-                    </li>
-                    <li className="mx-0.5 cursor-pointer">
-                        <a onClick={() => changePage('locals')} className={`${(page === 'locals' ? classActive : classInactive)} inline-flex p-2 text-gray-400 border-b-4 rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full md:w-32`}>
-                            <Warehouse className={`${(page === 'locals' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Estoques</span>
-                        </a>
-                    </li>
-                    <li className="mx-0.5 cursor-pointer">
-                        <a onClick={() => changePage('users')} className={`${(page === 'users' ? classActive : classInactive)} inline-flex p-2 text-gray-400 border-b-4 rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full md:w-32`}>
-                            <UsersRound className={`${(page === 'users' ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1')}`} />
-                            <span>Usuários</span>
-                        </a>
-                    </li>
+                    {renderMenuItem('brands', 'Fabricantes', Factory, true)}
+                    {renderMenuItem('categories', 'Categorias', ListCollapse, true)}
+                    {renderMenuItem('components', 'Componentes', Piece, true)}
+                    {renderMenuItem('units', 'Unidades', Ruler, true)}
+                    {renderMenuItem('locals', 'Estoques', Warehouse, true)}
+                    {renderMenuItem('users', 'Usuários', UsersRound, true)}
                 </ul>
-
             </div>
+
             <div className='shadow-xl rounded-md mr-2 bg-gray-200'>
                 {page === 'brands' ? (
                     <Brands />
