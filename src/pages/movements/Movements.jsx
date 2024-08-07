@@ -30,6 +30,7 @@ const Movements = () => {
     defaultValues: {
       type: null,
       userId: null,
+      itemId: null,
     }
   });
   const [data, setData] = useState([]);
@@ -38,14 +39,16 @@ const Movements = () => {
   const [asc, setAsc] = useState(true);
   const [showFilters, setShowFilters] = useState(true);
   const [users, setUsers] = useState([]);
+  const [destination, setDestination] = useState([]);
+  const [skus, setSkus] = useState([]);
 
   const [filter, setFilter] = useState({
     dataIni: '',
     dataFim: '',
     type: null,
-    destination: '',
+    destination: null,
     localId: '',
-    itemId: '',
+    itemId: null,
     userId: null,
   });
 
@@ -73,15 +76,23 @@ const Movements = () => {
       const response = await api.get('movements', { params: filter });
       const sorted = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setData(sorted);
-
+      console.log(sorted)
       const userMap = new Map();
       response.data.forEach(a => {
         if (!userMap.has(a.User.id)) {
           userMap.set(a.User.id, { value: a.User.id, label: a.User.name });
         }
       });
-
       setUsers(Array.from(userMap.values()));
+
+      const skuMap = new Map();
+      response.data.forEach(a => {
+        if (!skuMap.has(a.Item.Component.id)) {
+          skuMap.set(a.Item.Component.id, { value: a.Item.Component.id, label: a.Item.Component.sku });
+        }
+      });
+      setSkus(Array.from(skuMap.values()));
+
     } catch (err) {
       setError(err);
     } finally {
@@ -96,6 +107,7 @@ const Movements = () => {
   useEffect(() => {
     setValue('type', null);
     setValue('userId', null);
+    setValue('itemId', null);
   }, [setValue]);
 
   const orderByDate = () => {
@@ -165,9 +177,13 @@ const Movements = () => {
     reset({
       type: null,
       userId: null,
+      itemId: null,
+      destination: '',
     });
     setValue('type', null);  // Explicitly set to null
     setValue('userId', null); // Explicitly set to null
+    setValue('itemId', null); // Explicitly set to null]
+    setDestination('');
   };
 
   const handleFilterChange = (field, value) => {
@@ -287,14 +303,33 @@ const Movements = () => {
                   <div className='grid'>
                     <Label className="ml-2 uppercase text-gray-400 text-xs">Destino</Label>
                     <Input
-                      type="text"
-                      value={filter.destination}
-                      onChange={(e) => handleFilterChange('destination', e.target.value)}
-                    />
+                        type="text"
+                        value={destination}
+                        onChange={(e) => { setDestination(e.target.value); handleFilterChange('destination', e ? e.target.value : null);}}
+                        className='w-full text-md'
+                        placeholder='Todos'
+                      />
                   </div>
                   <div className='grid'>
                     <Label className="ml-2 uppercase text-gray-400 text-xs">SKU</Label>
-                    <Input type="text" />
+                    <Controller
+                      name="itemId"
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          value={skus.find(option => option.value === field.value) || null}
+                          options={skus}
+                          placeholder="Todos"
+                          className="w-full"
+                          styles={styles}
+                          onChange={(selected) => {
+                            field.onChange(selected ? selected.value : null);
+                            handleFilterChange('itemId', selected ? selected.value : null);
+                          }}
+                        />
+                      )}
+                    />
                   </div>
                   <div className='grid'>
                     <Label className="ml-2 uppercase text-gray-400 text-xs">Colaborador</Label>
