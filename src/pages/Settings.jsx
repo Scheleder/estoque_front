@@ -27,15 +27,15 @@ const Settings = (props) => {
 
     function renderMenuItem(pageName, label, IconComponent, isMd = false) {
         const isActive = page === pageName;
-        const classActive = 'bg-gray-300 text-gray-600'
-        const classInactive = 'md:flex bg-gray-200'
-        const xsMenu = 'inline-flex p-2 text-gray-400 hover:text-gray-500 hover:border-blue-400 bg-gray-300 border-gray-300 hover:bg-gray-400 border-b-4 group w-full'
+        const classActive = 'text-gray-600 border-blue-400'
+        const classInactive = 'md:flex border-gray-300'
+        const xsMenu = 'inline-flex p-2 text-gray-400 hover:text-gray-500 hover:border-gray-400 bg-gray-300 hover:bg-gray-400 border-b-4 group w-full'
 
         const commonClasses = `${isActive ? classActive : classInactive}`;
         const collapseClasses = collapse && page !== pageName ? 'hidden' : xsMenu;
         const roundedClasses = collapse && page === pageName ? 'rounded-t-lg' : '';
         const iconClasses = `${isActive ? 'text-blue-500 w-4 h-4 mr-1' : 'w-4 h-4 mr-1'}`;
-        const mdClasses = isMd ? 'inline-flex p-2 text-gray-400 border-b-4 rounded-t-lg hover:text-gray-500 hover:border-gray-400 group w-full md:w-32' : '';
+        const mdClasses = isMd ? 'inline-flex p-2 text-gray-400 border-b-4 rounded-t-lg hover:text-gray-500 bg-gray-300 hover:bg-gray-200 hover:border-gray-400 group w-full md:w-32' : '';
 
         return (
             <li className="mx-0.5 cursor-pointer">
@@ -66,7 +66,7 @@ const Settings = (props) => {
                     {renderMenuItem('users', 'Usuários', UsersRound)}
                 </ul>
 
-                <ul className="hidden md:flex md:flex-wrap mb-0 uppercase text-xs font-semibold text-center">
+                <ul className="hidden md:flex md:flex-wrap mb-0 uppercase text-xs font-semibold text-center mx-1">
                     {renderMenuItem('brands', 'Fabricantes', Factory, true)}
                     {renderMenuItem('categories', 'Categorias', ListCollapse, true)}
                     {renderMenuItem('components', 'Componentes', Piece, true)}
