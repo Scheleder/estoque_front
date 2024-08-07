@@ -76,8 +76,11 @@ const Users = () => {
               </span>
             </div>
             <div className='col-span-2 text-right items-center p-4'>
-              <span className='text-gray-400 text-sm'>
+              <span className='text-gray-400 text-sm  max-md:hidden'>
                 Total de {data.length} usuários cadastrados no sistema.
+              </span>
+              <span className='text-gray-400 text-sm md:hidden'>
+                Total de {data.length} usuários.
               </span>
             </div>
           </div>
