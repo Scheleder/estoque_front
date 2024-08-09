@@ -10,11 +10,11 @@ import { ArrowRightLeft, Shuffle, PlaneLanding, PlaneTakeoff, Check, FileText, W
 import ErrorPage from "../utils/ErrorPage";
 import { useToast } from "@/components/ui/use-toast";
 import Scanner from '@/components/scanner';
-import { getLoggedUser } from '@/lib/utils';
+import { getLoggedUser, getDefaultLocal } from '@/lib/utils';
 
 let me = getLoggedUser();
 const userId = me?.id;
-const localId = localStorage.localId ?? 1;
+let local = getDefaultLocal();
 
 const types = [
   { id: 1, value: 'Ajuste de estoque', label: 'Ajuste de estoque' },
@@ -71,7 +71,7 @@ const Takeout = () => {
       setIsProcessing(true);
 
       const [response1, response2] = await Promise.all([
-        api.get('items'),
+        api.get('items', { params: { localId: local?.value } }),
         api.get('locals')
       ]);
 
@@ -107,7 +107,7 @@ const Takeout = () => {
 
   useEffect(() => {
     setValue("userId", userId);
-    setValue("localId", localId);
+    setValue("localId", local?.value);
     if (id) {
       const defaultValue = items.find(item => item.value == id);
       if (defaultValue) {

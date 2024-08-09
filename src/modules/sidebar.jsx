@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { getLoggedUser } from "@/lib/utils.js"
+import { getLoggedUser, getDefaultLocal } from "@/lib/utils.js"
 
 import {
     Boxes,
@@ -21,7 +21,9 @@ import {
 const Sidebar = (props) => {
 
     let user = getLoggedUser()
-    if (!user) {
+    let local = getDefaultLocal()
+
+    if (!user || !local) {
         <div></div>
     } else {
 

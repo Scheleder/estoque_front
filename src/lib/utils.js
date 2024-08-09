@@ -32,6 +32,15 @@ export const getLoggedUser = () => {
   return JSON.parse(userString);
 };
 
+export const getDefaultLocal = () => {
+  const localString = Cookies.get('local') || null;
+
+  if (!localString) {
+     return null;
+   }
+  return JSON.parse(localString);
+};
+
 export const getToken = () => {
   const token = Cookies.get('token') || null;
 

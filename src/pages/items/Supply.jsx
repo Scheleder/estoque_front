@@ -10,9 +10,10 @@ import { Check, PackageOpen } from 'lucide-react';
 import ErrorPage from "../utils/ErrorPage"
 import { ComponentAdd } from '../components/ComponentAdd';
 import { useToast } from "@/components/ui/use-toast"
+import { getDefaultLocal } from '@/lib/utils';
 
 const Supply = (props) => {
-  const { control, register, handleSubmit } = useForm();
+  const { control, register, handleSubmit, setValue } = useForm();
   const [data, setData] = useState("");
   const [components, setComponents] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -51,6 +52,8 @@ const Supply = (props) => {
     }),
   };
 
+  const local = getDefaultLocal();
+
   const getData = async () => {
     try {
       setIsProcessing(true);
@@ -74,7 +77,7 @@ const Supply = (props) => {
   }, []);
 
   const mySubmit = async (values) => {
-
+    console.log(values)
     try {
       setIsProcessing(true);
       const response = await api.post('/items', values);
@@ -117,6 +120,7 @@ const Supply = (props) => {
         <div className="pl-16 pt-20">
           <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
             <form onSubmit={handleSubmit(mySubmit)}>
+            <input type="hidden" defaultValue={local?.value} {...register("localId", { required: true })} />
               <div className='grid grid-cols-4 mb-2'>
                 <div className='relative col-span-4 mt-2'>
                   <label>Componente:</label>

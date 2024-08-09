@@ -36,9 +36,12 @@ import { Separator } from "@/components//ui/separator"
 import { React, useEffect, useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { api }  from '@/services/api';
+import { api } from '@/services/api';
 import Select from 'react-select';
 import Scanner from '@/components/scanner';
+import { Factory, Warehouse } from "lucide-react"
+import { getDefaultLocal } from "@/lib/utils"
+import Cookies from 'js-cookie';
 
 const styles = {
   menu: base => ({
@@ -76,6 +79,7 @@ const Home = (props) => {
   const [locals, setLocals] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
+  const [local, setLocal] = useState(null);
 
   const getData = async () => {
     try {
@@ -115,30 +119,69 @@ const Home = (props) => {
     getData();
   }, []);
 
+  const changeLocal = (local) => {
+    var in30Minutes = 1 / 48;
+    Cookies.set('local', JSON.stringify(local)), { expires: in30Minutes, sameSite: 'strict' };
+    setLocal(local);
+    navigate('/')
+  }
+
+  useEffect(() => {
+    setLocal(getDefaultLocal());
+    setValue('localId', local?.value)
+    console.log(local)
+  }, [ locals ]);
+
   return (
     <div className="pl-16 pt-20 p-4">
       <div className="shadow-lg rounded-md bg-gray-200 p-4 mb-4">
+
         <div className='relative mt-2'>
-          <span className='absolute z-10 top-2 left-2' title="Scanner"><Scanner /></span>
+          <span className='absolute z-10 top-2 left-2 text-orange-700' title="Scanner"><Warehouse /></span>
         </div>
         <div className='col-span-3'>
           <Controller
-            name="itemId"
+            name="localId"
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
               <Select
                 {...field}
-                value={items.find(option => option.value === field.value)}
-                options={items}
-                placeholder="Selecione o item"
+                value={locals.find(option => option.value === field.value)}
+                options={locals}
+                placeholder="Selecione o estoque"
                 className="w-full"
                 styles={styles}
-                onChange={(selected) => field.onChange(selected.value).then(changeUnity(selected))}
+                onChange={(selected) => field.onChange(selected.value).then(changeLocal(selected))}
               />
             )}
           />
         </div>
+        {local && (
+          <>
+            <div className='relative mt-2'>
+              <span className='absolute z-10 top-2 left-2' title="Scanner"><Scanner /></span>
+            </div>
+            <div className='col-span-3'>
+              <Controller
+                name="itemId"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    value={items.find(option => option.value === field.value)}
+                    options={items}
+                    placeholder="Selecione o item"
+                    className="w-full"
+                    styles={styles}
+                    onChange={(selected) => field.onChange(selected.value)}
+                  />
+                )}
+              />
+            </div>
+          </>
+        )}
       </div>
 
       <div className="grid grid-cols-3 shadow-lg rounded-md bg-gray-200 p-4 text-center">

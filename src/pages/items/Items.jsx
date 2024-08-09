@@ -6,6 +6,7 @@ import Loading from '@/components/loading';
 import ErrorPage from "../utils/ErrorPage"
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { getDefaultLocal } from '@/lib/utils';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,10 +32,12 @@ const Items = () => {
   const [searchItem, setSearchItem] = useState('');
   let isFilterApplied = false;
 
+  const local = getDefaultLocal();
+  
   const getData = async () => {
     try {
       setIsProcessing(true);
-      const response = await api.get('items');
+      const response = await api.get('items', { params: { localId: local?.value } });
       var sorted = response.data.sort((a, b) => a.Component.description.localeCompare(b.Component.description));
       setData(sorted);
       setFilteredData(sorted);

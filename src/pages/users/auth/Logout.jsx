@@ -7,6 +7,7 @@ const useLogoff = () => {
   const logoff = () => {
     Cookies.remove('token');
     Cookies.remove('user')
+    Cookies.remove('local')
     //localStorage.removeItem('user');
     navigate('/login');
   };

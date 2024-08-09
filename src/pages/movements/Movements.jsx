@@ -5,7 +5,7 @@ import { ptBR } from 'date-fns/locale';
 import { api } from '@/services/api';
 import { Loader, RefreshCw, ArrowUpDown, Filter, ChevronDown, ChevronUp, CalendarIcon } from "lucide-react";
 import { Link } from 'react-router-dom';
-import { getDate, getEndDate, getShortDate } from '@/lib/utils';
+import { getDate, getDefaultLocal, getEndDate, getShortDate, cn } from '@/lib/utils';
 import {
   Tooltip,
   TooltipContent,
@@ -22,7 +22,6 @@ import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Select from 'react-select';
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const Movements = () => {
@@ -37,17 +36,20 @@ const Movements = () => {
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
   const [asc, setAsc] = useState(true);
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
   const [users, setUsers] = useState([]);
   const [destination, setDestination] = useState([]);
   const [skus, setSkus] = useState([]);
+
+  const local = getDefaultLocal();
+  console.log(local)
 
   const [filter, setFilter] = useState({
     dataIni: '',
     dataFim: '',
     type: null,
     destination: null,
-    localId: '',
+    localId: local?.value,
     itemId: null,
     userId: null,
   });
@@ -170,7 +172,7 @@ const Movements = () => {
       dataFim: '',
       type: null,
       destination: '',
-      localId: '',
+      localId: local?.value,
       itemId: '',
       userId: null,
     });
